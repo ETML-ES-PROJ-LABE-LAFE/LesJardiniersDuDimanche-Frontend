@@ -1,51 +1,55 @@
 <template>
-  <div class="lot-list">
-    <div v-if="loading">Chargement en cours...</div>
-    <div v-else>
-      <h2>Lots</h2>
-      <div v-if="lots.length > 0">
-        <div v-for="lot in lots" :key="lot.id">
-          <p><strong>Nom:</strong> {{ lot.nom }}</p>
-          <p><strong>Description:</strong> {{ lot.description }}</p>
-          <p><strong>Prix de départ:</strong> {{ lot.prixDepart }}</p>
-        </div>
-      </div>
-      <div v-else>
-        <p>Aucun lot trouvé.</p>
-      </div>
-    </div>
-  </div>
+  <table class="lot-table">
+    <thead>
+    <tr>
+      <th>Numéro de Lot</th>
+      <th>Nom</th>
+      <th>Description</th>
+      <th>Prix de Départ</th>
+      <th>Catégorie</th>
+    </tr>
+    </thead>
+    <tbody>
+    <LotItem v-for="lot in lots" :key="lot.id" :lot="lot" />
+    </tbody>
+  </table>
 </template>
 
 <script>
-import lotServices from "@/services/LotService";
+import LotItem from "@/components/LotItem.vue";
 
 export default {
-  name: 'LotList',
-  data() {
-    return {
-      lots: [],
-      loading: true
-    }
+  components: {
+    LotItem
   },
-  async created() {
-    try {
-      this.lots = await lotServices.get();
-    } catch (error) {
-      console.error("Erreur lors du chargement des lots: " + error);
-    } finally {
-      this.loading = false;
-    }
-  }
-}
+  props: ['lots']
+};
 </script>
 
 <style scoped>
-h2 {
-  margin-top: 20px;
+.lot-table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 20px auto; /* Modifie les marges pour centrer le tableau */
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
 }
-
-div.lot-list > div {
-  margin: 10px 0;
+.lot-table th, .lot-table td {
+  text-align: left;
+  padding: 15px; /* Assurez-vous que le padding est le même pour th et td */
+  vertical-align: top; /* Assure l'alignement vertical si nécessaire */
+  border-bottom: 3px solid #ddd;
+  background-color: #f4f4f4;
+  font-size: 16px; /* Utilisez la même taille de police pour les th et td */
+  width: 5%;
+}
+.lot-table th {
+  background-color: #666;
+  color: white;
+}
+.lot-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.lot-table tr:hover {
+  background-color: #e8f0fe;
 }
 </style>
