@@ -17,23 +17,23 @@ export default {
 <style>
 
 .home {
-  height: 300px;
+  height: 90vh; /* Utilise 100% de la hauteur de la fenêtre du navigateur */
   background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
-  margin-top: 20px;
+  font-size: 60px;
   color: white;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
+
 
 .home h1 {
   transition: transform 0.3s ease;
 }
 
 .home h1:hover {
-  transform: scale(1.05);
+  transform: scale(1.2);
 }
 
 </style>
