@@ -10,7 +10,7 @@ class LotService {
         try {
             console.log("GET")
             // Envoi de la requête
-            const response = await axios.get("http://localhost:8080/employees")
+            const response = await axios.get("http://localhost:8080/lots")
 
             console.log("lot recu " + response.data)
             console.log(response.status)
