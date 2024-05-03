@@ -1,3 +1,5 @@
+//Dossier routeur Fichier index.js
+
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
