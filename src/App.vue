@@ -8,13 +8,10 @@
         <li><router-link to="/lots">Lots</router-link></li>
         <li><router-link to="/about">À Propos</router-link></li>
         <li><router-link to="/contact">Login</router-link></li>
-
       </ul>
     </nav>
-    <header class="hero">
-      <h1>Venez claquer votre tune !</h1>
-    </header>
   </div>
+  <router-view/>
 </template>
 
 <style>
@@ -68,26 +65,6 @@ body {
 .nav-links a:hover, .nav-links a:focus {
   color: #1e90ff;
   text-decoration: underline;
-}
-
-.hero {
-  height: 300px;
-  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin-top: 20px;
-  color: white;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-}
-
-.hero h1 {
-  transition: transform 0.3s ease;
-}
-
-.hero h1:hover {
-  transform: scale(1.05);
 }
 
 .nav-links a, .nav-links router-link {
