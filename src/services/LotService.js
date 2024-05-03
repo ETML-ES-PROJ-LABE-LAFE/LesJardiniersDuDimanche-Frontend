@@ -1,3 +1,5 @@
+//Dossier services Fichier LotService.js
+
 import axios from "axios"
 
 class LotService {
