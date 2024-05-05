@@ -1,6 +1,6 @@
 <template>
   <div class="no-results">
-    <img src="@/assets/pingouin_erro.png" alt="Pingouin dort" class="pingouin-dort">
+    <img src="../assets/pinguin_erro.png" alt="Pinguin dort" class="pinguin-dort">
     Aucun lot correspondant à votre recherche.
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   color: #fff;
 }
 
-.pingouin-dort {
+.pinguin-dort {
   width: 300px;
   height: 200px;
   margin-bottom: 10px;
