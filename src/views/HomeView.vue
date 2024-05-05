@@ -16,17 +16,24 @@ export default {
 
 <style>
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prévenir le débordement horizontal */
+}
+
 .home {
-  height: 90vh; /* Utilise 100% de la hauteur de la fenêtre du navigateur */
+  min-height: calc(100vh - 80px); /* Ajustez '50px' à la hauteur de votre navbar */
+  width: 100%;
   background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 60px;
+  font-size: 250%;
   color: white;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
-
 
 .home h1 {
   transition: transform 0.3s ease;
@@ -35,5 +42,6 @@ export default {
 .home h1:hover {
   transform: scale(1.2);
 }
+
 
 </style>

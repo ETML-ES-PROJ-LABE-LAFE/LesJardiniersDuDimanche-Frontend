@@ -23,6 +23,7 @@ body {
 
 .navbar {
   display: flex;
+  height : 60px;
   justify-content: space-between;
   align-items: center;
   background-color: #333;
