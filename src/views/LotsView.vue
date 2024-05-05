@@ -2,28 +2,29 @@
 
 <template>
   <div class="lots-background">
-    <input type="text" v-model="searchQuery" placeholder="Rechercher..." class="search-input"/>
+    <SearchBar v-model="searchQuery" />
     <LotList :lots="filteredLots" />
-    <div v-if="filteredLots.length === 0" class="no-results">
-      <img src="@/assets/pingouin_erro.png" alt="Pingouin dort" class="pingouin-dort">
-      Aucun lot correspondant à votre recherche.
-    </div>
+    <SearchBarNoResults v-if="filteredLots.length === 0" /> <!-- Utilisez SearchBarNoResults si aucun résultat n'est trouvé -->
   </div>
 </template>
 
 <script>
 import LotList from "@/components/LotList.vue";
 import lotServices from "@/services/LotService";
+import SearchBarNoResults from "@/components/SearchBarNoResults.vue"; // Importez le composant SearchBarNoResults
+import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   name: 'LotsView',
   components: {
-    LotList
+    SearchBarNoResults,
+    LotList,
+    SearchBar
   },
   data() {
     return {
-      lots: [],  // Ajout d'un état pour stocker les lots
-      loading: true,  // État pour la gestion du chargement
+      lots: [],
+      loading: true,
       searchQuery:''
     };
   },
@@ -47,6 +48,7 @@ export default {
   }
 };
 </script>
+
 
 <style>
 .lots-background {
