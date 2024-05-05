@@ -1,4 +1,5 @@
 <!-- Dossier views / Fichier App.vue -->
+
 <template>
   <div>
     <nav class="navbar">
@@ -13,9 +14,11 @@
         <li><router-link to="/contact">Login</router-link></li>
       </ul>
     </nav>
+    <router-view/>
   </div>
-  <router-view/>
 </template>
+
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 

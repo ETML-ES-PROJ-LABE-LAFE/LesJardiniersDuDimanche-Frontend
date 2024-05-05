@@ -1,3 +1,5 @@
+<!-- Dossier components / Fichier LotItem.vue-->
+
 <template>
   <tr class="lot">
     <td>{{ lot.id }}</td>
