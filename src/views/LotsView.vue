@@ -32,8 +32,7 @@ export default {
     filteredLots() {
       return this.lots.filter(lot =>
           lot.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          lot.description.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          lot.categorie.toLowerCase().includes(this.searchQuery.toLowerCase())
+          lot.description.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
   },

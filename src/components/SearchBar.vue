@@ -1,5 +1,5 @@
 <template>
-  <input type="text" v-model="searchQuery" placeholder="Rechercher nom, une description ou une catégorie..." class="search-input"/>
+  <input type="text" v-model="searchQuery" placeholder="Rechercher nom, une description ..." class="search-input"/>
 </template>
 
 <script>
