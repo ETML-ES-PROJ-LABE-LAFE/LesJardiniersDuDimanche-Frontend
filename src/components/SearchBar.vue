@@ -1,5 +1,5 @@
 <template>
-  <input type="text" v-model="searchQuery" placeholder="Rechercher..." class="search-input"/>
+  <input type="text" v-model="searchQuery" placeholder="Rechercher nom, une description ou une catégorie..." class="search-input"/>
 </template>
 
 <script>
@@ -14,12 +14,12 @@ export default {
 
 <style>
 .search-input {
-  margin-bottom: 2px;
   margin-right: 1%;
   padding: 10px;
-  width: 30%;
-  max-width: 300px;
+  width: 50%;
+  max-width: 310px;
   border-radius: 10px;
   border: 1px solid #ccc;
 }
+
 </style>

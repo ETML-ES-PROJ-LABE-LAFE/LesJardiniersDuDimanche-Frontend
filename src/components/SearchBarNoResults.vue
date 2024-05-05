@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  // Pas de données spécifiques à ce composant pour le moment
+  // Pas de données spécifiques à ce composant
 };
 </script>
 

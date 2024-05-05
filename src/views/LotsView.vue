@@ -62,32 +62,5 @@ export default {
   padding-right: 10%; /* Ajustez en fonction de la marge droite de votre tableau */
 }
 
-.search-input {
-  margin-bottom: 2px;
-  margin-right: 1%; /* Ajustez cette marge pour aligner avec les colonnes du tableau */
-  padding: 10px;
-  width: 30%; /* Ajustez la largeur selon vos besoins */
-  max-width: 300px; /* Garde une largeur maximale pour éviter une barre trop grande */
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-.no-results {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Nunito', sans-serif; /* Assurez-vous que la police est appliquée au tableau */
-  font-weight: bold;
-  width: 100%; /* Utilisez toute la largeur disponible */
-  margin-top: 20px;
-  padding: 20px;
-  color: #fff; /* Couleur de texte blanc pour le contraste */
-}
-
-.pingouin-dort{
-  width: 300px; /* Taille de l'image */
-  height: 200px; /* Maintien du ratio */
-  margin-bottom: 10px;
-}
 </style>
 
