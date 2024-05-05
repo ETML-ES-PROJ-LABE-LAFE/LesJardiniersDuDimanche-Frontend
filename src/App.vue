@@ -5,7 +5,7 @@
     <nav class="navbar">
       <div class="logo-and-name">
         <img class="nav-logo" src="./assets/logo_enchere.jpg" alt="Logo">
-        <span class="site-name">Enchère</span>
+        <span class="site-name">RizCardeau</span>
       </div>
       <ul class="nav-links">
         <li><router-link to="/">Accueil</router-link></li>

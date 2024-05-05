@@ -2,7 +2,7 @@
 
 <template>
   <header class="home">
-    <h1>Venez claquer votre tune !</h1>
+    <h1>Venez claquer vos thunes !</h1>
   </header>
 </template>
 
