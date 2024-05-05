@@ -52,7 +52,7 @@ export default {
 }
 
 .lot-table th {
-  background-color: #5a5a5a;
+  background-color: #333;
   color: white; /* Couleur de texte pour les en-têtes pour le contraste */
 }
 
