@@ -1,5 +1,5 @@
 <!-- Fichier HomeView.vue-->
-
+<!-- Page d'acceuil -->
 <template>
   <header class="home">
     <h1>Venez claquer vos thunes !</h1>
