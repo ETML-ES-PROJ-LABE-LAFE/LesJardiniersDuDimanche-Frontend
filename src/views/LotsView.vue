@@ -1,5 +1,7 @@
+<!-- Dossier views/ Fichier LostView.vue-->
+
 <template>
-  <div>
+  <div class="lots-background">
     <LotList :lots="lots" />
   </div>
 </template>
@@ -30,3 +32,15 @@ export default {
   }
 };
 </script>
+
+<style>
+.lots-background {
+  min-height: calc(100vh - 80px);
+  width: 100%;
+  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px; /* Ajout d'un peu d'espace en haut */
+}
+</style>

@@ -1,3 +1,5 @@
+<!-- Fichier HomeView.vue-->
+
 <template>
   <header class="home">
     <h1>Venez claquer votre tune !</h1>

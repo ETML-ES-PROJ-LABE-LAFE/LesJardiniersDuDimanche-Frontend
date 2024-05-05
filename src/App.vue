@@ -2,7 +2,10 @@
 <template>
   <div>
     <nav class="navbar">
-      <img class="nav-logo" src="./assets/logo_enchere.jpg" alt="Logo">
+      <div class="logo-and-name">
+        <img class="nav-logo" src="./assets/logo_enchere.jpg" alt="Logo">
+        <span class="site-name">Enchère</span>
+      </div>
       <ul class="nav-links">
         <li><router-link to="/">Accueil</router-link></li>
         <li><router-link to="/lots">Lots</router-link></li>
@@ -13,7 +16,6 @@
   </div>
   <router-view/>
 </template>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
@@ -23,7 +25,7 @@ body {
 
 .navbar {
   display: flex;
-  height : 60px;
+  height: 60px;
   justify-content: space-between;
   align-items: center;
   background-color: #333;
@@ -32,19 +34,27 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nav-logo {
-  width: auto; /* cela maintient le ratio de l'image */
-  height: 50px; /* hauteur fixe qui s'adapte bien dans la barre */
-  transition: transform 0.3s ease;
-  object-fit: cover; /* assure que l'image couvre la zone sans être déformée */
+.logo-and-name {
+  display: flex;
+  align-items: center; /* Align vertical des éléments */
 }
 
-.nav-logo:hover {
-  transform: scale(1.1); /* un léger agrandissement au survol */
+.nav-logo {
+  width: auto;
+  height: 50px;
+  transition: transform 0.3s ease;
+  object-fit: cover;
+  border-radius : 30%;
 }
 
 .nav-logo:hover {
   transform: scale(1.1);
+}
+
+.site-name {
+  margin-left: 10px;
+  font-size: 20px;
+  color: #FFF;
 }
 
 .nav-links {
@@ -67,13 +77,5 @@ body {
   color: #1e90ff;
   text-decoration: underline;
 }
-
-.nav-links a, .nav-links router-link {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s;
-}
 </style>
-<script setup>
-</script>
+
