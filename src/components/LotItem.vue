@@ -2,11 +2,11 @@
 
 <template>
   <tr class="lot">
+    <td>{{ lot.categorie }}</td>
     <td>{{ lot.id }}</td>
     <td>{{ lot.nom }}</td>
     <td>{{ lot.description }}</td>
     <td>{{ lot.prixDepart }} CHF</td>
-    <td>{{ lot.categorie }}</td>
   </tr>
 </template>
 

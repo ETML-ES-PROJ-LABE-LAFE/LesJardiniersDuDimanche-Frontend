@@ -4,11 +4,11 @@
   <table class="lot-table">
     <thead>
     <tr>
+      <th>Catégorie</th>
       <th>Numéro de Lot</th>
       <th>Nom</th>
       <th>Description</th>
       <th>Prix de Départ</th>
-      <th>Catégorie</th>
     </tr>
     </thead>
     <tbody>
