@@ -7,6 +7,11 @@
     <td>{{ lot.nom }}</td>
     <td>{{ lot.description }}</td>
     <td>{{ lot.prixDepart }} CHF</td>
+    <td>
+      <router-link :to="{ name: 'LotDetails', params: { id: lot.id }}">
+        Voir les détails
+      </router-link>
+    </td>
   </tr>
 </template>
 

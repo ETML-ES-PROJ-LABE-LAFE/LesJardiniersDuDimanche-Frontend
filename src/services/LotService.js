@@ -23,6 +23,15 @@ class LotService {
         } catch (error) {
             throw new Error(`Erreur HTTP ${error.response.status}: ${error.response.data}`)
         }
+
+    }
+    async getById(lotId) {
+        try {
+            const response = await axios.get(`http://localhost:8080/lots/${lotId}`)
+            return response.data
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération des détails du lot: ${error.message}`)
+        }
     }
 
 

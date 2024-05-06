@@ -9,6 +9,7 @@
       <th>Nom</th>
       <th>Description</th>
       <th>Prix de Départ</th>
+      <th>Details</th>
     </tr>
     </thead>
     <tbody>
