@@ -5,6 +5,7 @@
     <thead>
     <tr>
       <th>Catégorie</th>
+      <th>Sous-Catégorie</th>
       <th>Numéro de Lot</th>
       <th>Nom</th>
       <th>Description</th>

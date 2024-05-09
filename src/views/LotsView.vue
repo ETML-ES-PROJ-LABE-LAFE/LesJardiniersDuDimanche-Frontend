@@ -1,58 +1,83 @@
-<!-- Dossier views/ Fichier LostView.vue-->
 <template>
   <div class="lots-background">
     <SearchBar v-model="searchQuery" />
-    <FilterCategorie :categories="categories" v-model="selectedCategory" />
+    <FilterCategories :categories="mainCategories" v-model="selectedMainCategory" />
+    <FilterCategories :categories="subCategories" v-model="selectedSubCategory" />
     <LotList :lots="filteredLots" />
     <SearchBarNoResults v-if="filteredLots.length === 0" />
   </div>
 </template>
 
 <script>
-import LotList from "@/components/LotList.vue";
 import LotService from "@/services/LotService";
-import SearchBarNoResults from "@/components/SearchBarNoResults.vue";
+import CategoryService from "@/services/CategoryService";
+import LotList from "@/components/LotList.vue";
 import SearchBar from "@/components/SearchBar.vue";
-import FilterCategorie from "@/components/FilterCategorie.vue";
+import FilterCategories from "@/components/FilterCategorie.vue";
+import SearchBarNoResults from "@/components/SearchBarNoResults.vue";
 
 export default {
   name: 'LotsView',
   components: {
-    SearchBarNoResults,
     LotList,
     SearchBar,
-    FilterCategorie
+    FilterCategories,
+    SearchBarNoResults
   },
   data() {
     return {
       lots: [],
-      loading: true,
+      mainCategories: [],
+      subCategories: [],
+      selectedMainCategory: '',
+      selectedSubCategory: '',
       searchQuery: '',
-      selectedCategory: '', // Initialiser la catégorie sélectionnée à vide
-      categories: []
+      loading: true,
     };
   },
   computed: {
     filteredLots() {
       return this.lots.filter(lot => {
-        // Filtrer par catégorie et par recherche
-        return (this.selectedCategory === '' || lot.categorie === this.selectedCategory) &&
-               (this.searchQuery === '' || lot.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                lot.description.toLowerCase().includes(this.searchQuery.toLowerCase()));
+        const matchesMainCategory = this.selectedMainCategory === '' || (lot.category && lot.category.name === this.selectedMainCategory);
+        const matchesSubCategory = this.selectedSubCategory === '' || (lot.sousCategory && lot.sousCategory.name === this.selectedSubCategory);
+        const matchesSearch = this.searchQuery === '' || lot.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) || lot.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+        return matchesMainCategory && matchesSubCategory && matchesSearch;
       });
     }
   },
+  watch: {
+    selectedMainCategory(newVal) {
+      console.log("Nouvelle catégorie principale sélectionnée :", newVal);
+      // Mettre à jour les sous-catégories en fonction de la nouvelle catégorie principale
+      this.subCategories = this.mainCategories.find(cat => cat.name === newVal)?.subCategories || [];
+      console.log("Sous-catégories mises à jour :", this.subCategories);
+    },
+    selectedSubCategory(newVal) {
+      console.log("Nouvelle sous-catégorie sélectionnée :", newVal);
+    }
+  },
   methods: {
-    handleCategoryChange(newCategory) {
-      this.selectedCategory = newCategory; // Mettre à jour la catégorie sélectionnée
+    async loadCategories() {
+      try {
+        const categories = await CategoryService.getAllCategories();
+        this.mainCategories = categories.filter(cat => !cat.parentCategory);
+        this.subCategories = categories.filter(cat => cat.parentCategory);
+        console.log("Catégories principales chargées :", this.mainCategories);
+        console.log("Sous-catégories chargées :", this.subCategories);
+      } catch (error) {
+        console.error("Erreur lors du chargement des catégories: " + error);
+      }
     }
   },
   async created() {
+    this.loading = true;
     try {
+      console.log("Création du composant LotsView");
+      await this.loadCategories();
       this.lots = await LotService.get();
-      this.categories = [...new Set(this.lots.map(lot => lot.categorie))];
+      console.log("Lots chargés :", this.lots);
     } catch (error) {
-      console.error("Erreur lors du chargement des lots: " + error);
+      console.error("Erreur lors du chargement: " + error);
     } finally {
       this.loading = false;
     }
@@ -80,5 +105,3 @@ select {
   border: 1px solid #ccc;
 }
 </style>
-
-

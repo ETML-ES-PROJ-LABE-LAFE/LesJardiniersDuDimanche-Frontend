@@ -2,7 +2,8 @@
 
 <template>
   <tr class="lot">
-    <td>{{ lot.categorie }}</td>
+    <td>{{ lot.category.name }}</td>
+    <td>{{ lot.sousCategory.name }}</td>
     <td>{{ lot.id }}</td>
     <td>{{ lot.nom }}</td>
     <td>{{ lot.description }}</td>

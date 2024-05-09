@@ -5,7 +5,10 @@
     <h2>{{ lot.nom }}</h2>
     <div class="lot-info">
       <div class="lot-info-item">
-        <strong>Catégorie:</strong> {{ lot.categorie }}
+        <strong>Catégorie:</strong> {{ lot.category.name }}
+      </div>
+      <div class="lot-info-item">
+        <strong>Sous-catégorie:</strong> {{ lot.sousCategory.name }}
       </div>
       <div class="lot-info-item">
         <strong>ID:</strong> {{ lot.id }}
