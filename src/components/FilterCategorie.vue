@@ -2,9 +2,10 @@
 <template>
   <div class="filter-categorie">
     <select :value="value" @change="onCategoryChange($event.target.value)">
-      <option value="">Toutes</option>
+      <option value="">Sélectionnez une catégorie</option>
       <template v-if="categories && categories.length">
-        <option v-for="category in categories" :value="category.name" :key="category.id">
+        <!-- Render a list of categories dynamically using category ID -->
+        <option v-for="category in categories" :value="category.id" :key="category.id">
           {{ category.name }}
         </option>
       </template>
@@ -17,12 +18,18 @@ export default {
   name: 'FilterCategories',
   props: {
     categories: Array,
-    value: String // Assurez-vous d'utiliser 'value' ici pour correspondre à v-model dans le parent
+    value: String
   },
   methods: {
     onCategoryChange(value) {
-      console.log("Changement de catégorie :", value);
-      this.$emit('input', value);
+      // Trouver le nom de la catégorie à partir de l'ID
+      const category = this.categories.find(cat => cat.id === parseInt(value));
+      const categoryName = category ? category.name : 'Inconnue';
+
+      // Log avec l'ID de la catégorie et le nom
+      console.log("Changement de catégorie : ID :", value, "Nom:", categoryName);
+      this.$emit('input', value);  // Émet l'ID de catégorie au parent
+      this.$emit('category-changed', value);  // Nouvel événement pour le chargement des lots
     }
   }
 };
@@ -50,5 +57,6 @@ select:focus {
   box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
 }
 </style>
+
 
 

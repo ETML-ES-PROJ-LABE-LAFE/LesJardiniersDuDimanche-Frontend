@@ -1,3 +1,5 @@
+//Dossier Services / Fichier CategoryService.js
+
 import axios from "axios";
 
 class CategoryService {
