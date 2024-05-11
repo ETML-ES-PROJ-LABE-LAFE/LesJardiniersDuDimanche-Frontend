@@ -78,21 +78,23 @@ export default {
   width: 100%; /* Définir une largeur maximale pour le contrôle de la taille */
   max-width: 800px; /* Largeur maximale pour garder le contenu lisible */
   align-items: center; /* Assure que tous les éléments intérieurs sont centrés */
+  border: 1.5px solid #cccccc; /* Bordure grise claire ajoutée ici */
   opacity: 0; /* Démarre avec l'image invisible */
   animation: fadeInAnimation 1.5s ease-out forwards; /* Animation pour faire apparaître l'image */
 }
 
 .lot-image img {
   width: 100%; /* Adaptation de la largeur de l'image à son conteneur */
-  max-width: 260px; /* Largeur maximale pour l'image */
-  height: auto; /* Hauteur auto pour garder le ratio */
+  max-width: 250px; /* Largeur maximale pour l'image */
+  max-height: 300px;
+  /** height: auto; /* Hauteur auto pour garder le ratio */
   border-radius: 8px;
   object-fit: cover;
-  border: 2px solid #cccccc; /* Bordure grise claire ajoutée ici */
+  border: 1.5px solid #cccccc; /* Bordure grise claire ajoutée ici */
   margin-right: 20px; /* Espace entre l'image et les détails du lot */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); /* Ombre portée stylée pour un effet dynamique */
   opacity: 1; /* Démarre avec l'image invisible */
-  animation: slideInFromLeft 1s ease-out forwards; /* Animation personnalisée pour l'effet de glissement */
+  animation: slideInFromLeft 1.5s ease-out forwards; /* Animation personnalisée pour l'effet de glissement */
 }
 
 @keyframes slideInFromLeft {
