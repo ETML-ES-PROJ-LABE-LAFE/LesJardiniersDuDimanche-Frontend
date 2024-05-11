@@ -43,9 +43,13 @@ export default {
 </script>
 
 <style scoped>
+.filter-categorie {
+  display: inline-block; /* Pour que l'élément se comporte comme un bloc mais s'aligne en ligne */
+  vertical-align: top; /* Alignement vertical pour correspondre à la hauteur de la barre de recherche */
+  margin: 0px 20px 0px;
+}
+
 select {
-  margin: 10px;
-  padding: 12px 20px;
   border-radius: 8px;
   background-color: white;
   border: 1px solid #ccc;
@@ -53,6 +57,8 @@ select {
   color: #333;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s;
+  width: 100%; /* Assure que le select prend toute la largeur disponible de son conteneur */
+  margin-top: 0; /* Réduit ou supprime la marge supérieure si elle est présente */
 }
 
 select:hover {
@@ -63,6 +69,7 @@ select:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
 }
+
 </style>
 
 

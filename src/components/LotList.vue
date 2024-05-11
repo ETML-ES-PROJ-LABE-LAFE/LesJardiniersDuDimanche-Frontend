@@ -37,7 +37,7 @@ export default {
 .lot-table {
   width: 98%;
   border-collapse: collapse;
-  margin: 20px auto;
+  margin: 5px auto;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   font-family: 'Nunito', sans-serif; /* Assurez-vous que la police est appliquée au tableau */
   font-weight : bold;

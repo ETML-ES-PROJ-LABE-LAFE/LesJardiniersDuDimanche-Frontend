@@ -14,7 +14,7 @@ export default {
 
 <style>
 .search-input {
-  margin-right: 1%;
+  margin-right: 10px;
   padding: 10px;
   width: 30%;
   max-width: 230px;
