@@ -72,10 +72,15 @@ export default {
       }
     },
     async loadLotsByCategory(categoryId) {
-      try {
-        this.lots = await LotService.getLotsByCategory(categoryId);
-      } catch (error) {
-        console.error(`Erreur lors du chargement des lots pour la catégorie ${categoryId}: ${error}`);
+      if (categoryId === null) {
+        this.resetFilters();
+      } else {
+        try {
+          this.lots = await LotService.getLotsByCategory(categoryId);
+          console.log("Lots chargés pour la catégorie :", categoryId, this.lots);
+        } catch (error) {
+          console.error(`Erreur lors du chargement des lots pour la catégorie ${categoryId}: ${error}`);
+        }
       }
     },
     async loadCategories() {
@@ -88,7 +93,7 @@ export default {
       }
     },
 
-    async resetFilters() {
+    resetFilters() {
       this.selectedMainCategory = '';
       this.selectedSubCategory = '';
       this.loadLots();  // Reload all lots when filters are cleared
