@@ -1,10 +1,12 @@
 <!-- Dossier components/ Fichier FilterCategories-->
+
 <template>
   <div class="filter-categorie">
 
     <!-- Sélection de la catégorie avec gestion dynamique de la valeur et du changement -->
     <select :value="value" @change="onCategoryChange($event.target.value)">
       <option value="">Sélectionnez une catégorie</option>
+
       <!-- Bloc conditionnel qui vérifie si des catégories sont disponibles pour l'affichage -->
       <template v-if="categories && categories.length">
         <option v-for="category in categories" :value="category.id" :key="category.id">
