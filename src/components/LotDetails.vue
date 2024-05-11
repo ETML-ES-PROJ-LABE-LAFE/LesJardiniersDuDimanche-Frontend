@@ -11,32 +11,32 @@
         <h2 class="lot-title">{{ lot.nom }}</h2>
         <div class="lot-info">
           <div class="lot-info-card">
-            <strong>Catégorie:</strong>
+            <strong>Catégorie : </strong>
             <span>{{ lot.category.name }}</span>
           </div>
           <div class="lot-info-card">
-            <strong>Sous-catégorie: </strong>
+            <strong>Sous-catégorie : </strong>
             <span>{{ lot.sousCategory.name }}</span>
           </div>
           <div class="lot-info-card">
-            <strong>ID:</strong>
+            <strong>ID : </strong>
             <span>{{ lot.id }}</span>
           </div>
           <div class="lot-info-card">
-            <strong>Description:</strong>
+            <strong>Description : </strong>
             <span>{{ lot.description }}</span>
           </div>
           <div class="lot-info-card">
-            <strong>Prix de départ:</strong>
+            <strong>Prix de départ : </strong>
             <span>{{ lot.prixDepart }} CHF</span>
           </div>
           <div class="lot-info-card">
-            <strong>Date et heure de début:</strong>
-            <span>{{ lot.dateHeureDebut }}</span>
+            <strong>Date et heure de début : </strong>
+            <span>{{ formatDate(lot.dateHeureDebut) }}</span>
           </div>
           <div class="lot-info-card">
-            <strong>Date et heure de fin:</strong>
-            <span>{{ lot.dateHeureFin }}</span>
+            <strong>Date et heure de fin : </strong>
+            <span>{{ formatDate(lot.dateHeureFin) }}</span>
           </div>
         </div>
       </div>
@@ -46,6 +46,15 @@
 <script>
 export default {
   props: ['lot'],
+
+  methods: {
+    formatDate(date) {
+      if (!date) return ''; // Retourner une chaîne vide si la date est nulle ou indéfinie
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+      return new Date(date).toLocaleDateString('fr-CH', options).replace(/,/g, ' ');
+    }
+  }
+
 };
 </script>
 
