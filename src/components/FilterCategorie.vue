@@ -22,14 +22,16 @@ export default {
   },
   methods: {
     onCategoryChange(value) {
-      // Trouver le nom de la catégorie à partir de l'ID
       const category = this.categories.find(cat => cat.id === parseInt(value));
       const categoryName = category ? category.name : 'Inconnue';
-
-      // Log avec l'ID de la catégorie et le nom
       console.log("Changement de catégorie : ID :", value, "Nom:", categoryName);
-      this.$emit('input', value);  // Émet l'ID de catégorie au parent
-      this.$emit('category-changed', value);  // Nouvel événement pour le chargement des lots
+      this.$emit('input', value);  // Émet l'ID de catégorie au parent pour la liaison v-model
+      if (!value) {
+        // Émettre un événement spécifique pour réinitialiser les lots quand "Sélectionnez une catégorie" est sélectionné
+        this.$emit('category-reset');
+      } else {
+        this.$emit('category-changed', value);  // Nouvel événement pour le chargement des lots
+      }
     }
   }
 };

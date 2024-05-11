@@ -1,7 +1,7 @@
 <!-- Dossier components/Fichier FilterSubCategories.vue -->
 <template>
   <div class="filter-subcategorie">
-    <select :value="selectedSubCategory" @change="handleSubCategoryChange($event.target.value)">
+    <select :value="subValue" @change="onSubCategorieChange($event.target.value)">
       <option value="">Sélectionnez une sous-catégorie</option>
       <option v-for="subCategory in subCategories" :value="subCategory.id" :key="subCategory.id">
         {{ subCategory.name }}
@@ -15,11 +15,15 @@ export default {
   name: 'FilterSubCategories',
   props: {
     subCategories: Array,
-    selectedSubCategory: String
+    subValue: String
   },
   methods: {
-    handleSubCategoryChange(value) {
-      this.$emit('update:selectedSubCategory', value);
+    onSubCategorieChange(subValue) {
+      // Trouver la sous-catégorie
+      const subCategory = this.subCategories.find(cat => cat.id === parseInt(subValue));
+      console.log("Changement de sous-catégorie : ID :", subValue, "Nom:", subCategory ? subCategory.name : 'Inconnue');
+      this.$emit('input', subValue);  // Émet l'ID de catégorie au parent pour la liaison v-model
+      this.$emit('subCategory-changed', subValue);  // Nouvel événement pour le chargement des lots spécifiques
     }
   }
 };

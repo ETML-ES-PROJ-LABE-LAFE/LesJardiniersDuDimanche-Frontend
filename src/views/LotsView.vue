@@ -2,8 +2,8 @@
 <template>
   <div class="lots-background">
     <SearchBar v-model="searchQuery" />
-    <FilterCategories :categories="mainCategories" v-model="selectedMainCategory" @category-changed="loadLotsByCategory" />
-    <FilterSubCategories :subCategories="subCategories" v-model="selectedSubCategory" />
+    <FilterCategorie :categories="mainCategories" v-model="selectedMainCategory" @category-changed="loadLotsByCategory" />
+    <FilterSubCategorie :subCategories="subCategories" v-model="selectedSubCategory" @subCategory-changed="loadLotsBySubCategory" />
     <LotList :lots="filteredLotsCategories"/>
     <SearchBarNoResults v-if="filteredLotsSearchBar.length === 0" />
   </div>
@@ -14,8 +14,8 @@ import LotService from "@/services/LotService";
 import CategoryService from "@/services/CategoryService";
 import LotList from "@/components/LotList.vue";
 import SearchBar from "@/components/SearchBar.vue";
-import FilterCategories from "@/components/FilterCategorie.vue";
-import FilterSubCategories from "@/components/FilterSubCategorie.vue";
+import FilterCategorie from "@/components/FilterCategorie.vue";
+import FilterSubCategorie from "@/components/FilterSubCategorie.vue";
 import SearchBarNoResults from "@/components/SearchBarNoResults.vue";
 
 export default {
@@ -23,14 +23,15 @@ export default {
   components: {
     LotList,
     SearchBar,
-    FilterCategories,
-    FilterSubCategories,
+    FilterCategorie,
+    FilterSubCategorie,
     SearchBarNoResults
   },
   data() {
     return {
       lots: [],
       mainCategories: [],
+      subCategories: [],
       selectedMainCategory: '',
       selectedSubCategory: '',
       searchQuery: '',
@@ -45,10 +46,21 @@ export default {
       );
     },
     filteredLotsCategories() {
-      return this.selectedMainCategory ?
-        this.filteredLotsSearchBar.filter(lot =>
+      let filtered = this.filteredLotsSearchBar;
+
+      if (this.selectedMainCategory) {
+        filtered = filtered.filter(lot =>
           lot.category && lot.category.id === parseInt(this.selectedMainCategory)
-        ) : this.filteredLotsSearchBar;
+        );
+      }
+
+      if (this.selectedSubCategory) {
+        filtered = filtered.filter(lot =>
+          lot.sousCategory.name && lot.sousCategory.id === parseInt(this.selectedSubCategory)
+        );
+      }
+
+      return filtered;
     },
   },
   methods: {
@@ -62,23 +74,35 @@ export default {
     async loadLotsByCategory(categoryId) {
       try {
         this.lots = await LotService.getLotsByCategory(categoryId);
-        console.log("Lots chargés pour la catégorie :", categoryId, this.lots);
       } catch (error) {
         console.error(`Erreur lors du chargement des lots pour la catégorie ${categoryId}: ${error}`);
       }
     },
     async loadCategories() {
       try {
-        const categories = await CategoryService.getAllCategories();
-        this.mainCategories = categories.filter(cat => !cat.parentCategory);
+        const allCategories = await CategoryService.getAllCategories();
+        this.mainCategories = allCategories.filter(cat => !cat.parentCategory);
+        this.subCategories = allCategories.filter(cat => cat.parentCategory);
       } catch (error) {
         console.error("Erreur lors du chargement des catégories: " + error);
       }
+    },
+    async loadLotsBySubCategory(subCategoryId) {
+      try {
+        this.lots = await LotService.getLotsBySubCategory(subCategoryId);
+      } catch (error) {
+        console.error(`Erreur lors du chargement des lots pour la sous-catégorie ${subCategoryId}: ${error}`);
+      }
+    },
+    async resetFilters() {
+      this.selectedMainCategory = '';
+      this.selectedSubCategory = '';
+      this.loadLots();  // Reload all lots when filters are cleared
     }
   },
   async created() {
-    await this.loadCategories();
     await this.loadLots(); // Charge tous les lots initialement
+    await this.loadCategories();
   }
 };
 </script>
@@ -93,13 +117,14 @@ export default {
   align-items: flex-end;
   padding-top: 20px;
   padding-right: 10%;
-}
 
-select {
-  margin: 10px;
-  padding: 8px 16px;
-  border-radius: 4px;
-  background-color: white;
-  border: 1px solid #ccc;
+  select {
+    margin: 10px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #ccc;
+  }
 }
 </style>
+
