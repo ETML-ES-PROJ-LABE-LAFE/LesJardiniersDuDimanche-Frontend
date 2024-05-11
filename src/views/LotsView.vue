@@ -3,7 +3,7 @@
   <div class="lots-background">
     <SearchBar v-model="searchQuery" />
     <FilterCategorie :categories="mainCategories" v-model="selectedMainCategory" @category-changed="loadLotsByCategory" />
-    <FilterSubCategorie :subCategories="subCategories" v-model="selectedSubCategory" @subCategory-changed="loadLotsBySubCategory" />
+    <FilterSubCategorie :subCategories="subCategories" v-model="selectedSubCategory" @subCategory-changed="loadLotsByCategory" />
     <LotList :lots="filteredLotsCategories"/>
     <SearchBarNoResults v-if="filteredLotsSearchBar.length === 0" />
   </div>
@@ -30,11 +30,11 @@ export default {
   data() {
     return {
       lots: [],
-      mainCategories: [],
-      subCategories: [],
-      selectedMainCategory: '',
-      selectedSubCategory: '',
-      searchQuery: '',
+      mainCategories: [], //Récupère dans le filtre les catégories parents
+      subCategories: [], //Récupère dans le filtre les sous-catégories (catégories sans parents)
+      selectedMainCategory: '', //Récupère la valeur sélectionnée de la catégorie sélectionnée.
+      selectedSubCategory: '', //Récupère la valeur sélectionnée de la sous-catégorie sélectionnée.
+      searchQuery: '', //Récupère la valeur saisie dans la barre de recherche
       loading: true,
     };
   },
@@ -87,13 +87,7 @@ export default {
         console.error("Erreur lors du chargement des catégories: " + error);
       }
     },
-    async loadLotsBySubCategory(subCategoryId) {
-      try {
-        this.lots = await LotService.getLotsBySubCategory(subCategoryId);
-      } catch (error) {
-        console.error(`Erreur lors du chargement des lots pour la sous-catégorie ${subCategoryId}: ${error}`);
-      }
-    },
+
     async resetFilters() {
       this.selectedMainCategory = '';
       this.selectedSubCategory = '';
@@ -101,8 +95,8 @@ export default {
     }
   },
   async created() {
-    await this.loadLots(); // Charge tous les lots initialement
-    await this.loadCategories();
+    await this.loadLots(); // Charge tous les lots initialement sans distinction de catégories/sous-catégories
+    await this.loadCategories(); //Charge les lots en fonction des catégories et sous-catégories sélectionnées.
   }
 };
 </script>
