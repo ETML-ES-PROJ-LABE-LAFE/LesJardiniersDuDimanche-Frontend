@@ -92,7 +92,6 @@ export default {
         console.error("Erreur lors du chargement des catégories: " + error);
       }
     },
-
     resetFilters() {
       this.selectedMainCategory = '';
       this.selectedSubCategory = '';
