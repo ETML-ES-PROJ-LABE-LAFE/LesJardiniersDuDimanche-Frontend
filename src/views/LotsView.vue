@@ -3,7 +3,7 @@
   <div class="lots-background">
     <SearchBar v-model="searchQuery" />
     <FilterCategorie :categories="mainCategories" v-model="selectedMainCategory" @category-changed="loadLotsByCategory" />
-    <FilterSubCategorie :subCategories="subCategories" v-model="selectedSubCategory" @subCategory-changed="loadLotsByCategory" />
+    <FilterSubCategorie :subCategories="subCategories" v-model="selectedSubCategory" @subCategory-changed="loadLotsBySubCategory" />
     <LotList :lots="filteredLotsCategories"/>
     <SearchBarNoResults v-if="filteredLotsSearchBar.length === 0" />
   </div>
@@ -48,20 +48,26 @@ export default {
     filteredLotsCategories() {
       let filtered = this.filteredLotsSearchBar;
 
-      if (this.selectedMainCategory) {
+      if (this.selectedMainCategory && this.selectedSubCategory) {
+        // Filtrer les lots qui correspondent à la fois à la catégorie et à la sous-catégorie
         filtered = filtered.filter(lot =>
-          lot.category && lot.category.id === parseInt(this.selectedMainCategory)
+            lot.category && lot.category.id === parseInt(this.selectedMainCategory) &&
+            lot.sousCategory && lot.sousCategory.id === parseInt(this.selectedSubCategory)
         );
-      }
-
-      if (this.selectedSubCategory) {
+      } else if (this.selectedMainCategory) {
+        // Filtrer par catégorie principale si aucune sous-catégorie n'est sélectionnée
         filtered = filtered.filter(lot =>
-          lot.sousCategory.name && lot.sousCategory.id === parseInt(this.selectedSubCategory)
+            lot.category && lot.category.id === parseInt(this.selectedMainCategory)
+        );
+      } else if (this.selectedSubCategory) {
+        // Filtrer par sous-catégorie si aucune catégorie principale n'est sélectionnée
+        filtered = filtered.filter(lot =>
+            lot.sousCategory && lot.sousCategory.id === parseInt(this.selectedSubCategory)
         );
       }
 
       return filtered;
-    },
+    }
   },
   methods: {
     async loadLots() {
@@ -80,6 +86,18 @@ export default {
           console.log("Lots chargés pour la catégorie :", categoryId, this.lots);
         } catch (error) {
           console.error(`Erreur lors du chargement des lots pour la catégorie ${categoryId}: ${error}`);
+        }
+      }
+    },
+    async loadLotsBySubCategory(subCategoryId) {
+      if (subCategoryId === null) {
+        this.resetFilters();
+      } else {
+        try {
+          this.lots = await LotService.getLotsBySubCategory(subCategoryId);
+          console.log("Lots chargés pour la sous-catégorie :", subCategoryId, this.lots);
+        } catch (error) {
+          console.error(`Erreur lors du chargement des lots pour la sous-catégorie ${subCategoryId}: ${error}`);
         }
       }
     },
