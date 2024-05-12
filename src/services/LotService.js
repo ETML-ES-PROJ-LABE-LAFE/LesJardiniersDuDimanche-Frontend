@@ -47,6 +47,16 @@ class LotService {
             throw new Error(`Erreur lors de la récupération des lots par catégorie: ${error.message}`);
         }
     }
+    async getLotsBySubCategory(subCategoryId) {
+        try {
+            const response = await axios.get(`http://localhost:8080/lots/subcategory/${subCategoryId}`);
+            console.log("Lots par sous-catégorie reçus: ", response.data);
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération des lots par sous-catégorie: ${error.message}`);
+        }
+    }
+
 }
 
 export default new LotService()
