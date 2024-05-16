@@ -1,0 +1,89 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur as U
+actor "Utilisateur identifié" as UI
+actor "Utilisateur non identifié" as UNI
+actor "Système de gestion des ventes" as SystVente
+actor "Système de gestion financière" as SystFin
+actor Administrateur
+
+rectangle "Projet LABE / LAFE Enchère" {
+    rectangle "Affichage des lots par catégorie"{
+    (Navigation initiale simplifiée) as (NavInitSimp)
+    (Navigation détaillée) as (NavDet)
+    (Visualisation détaillée des lots) as (VisuDetLots)
+    (Pagination des résultats) as (Pagination)
+    }
+    rectangle "Identifications"{
+    (Accès à l'authentification) as (AccesAuth)
+    (Session persistante) as (SessionPersist)
+    (Gestion des erreurs d'identification) as (GestErrId)
+    }
+    rectangle "Enchère sur un lot"{
+    (Accès dédié à un lot) as (AccesLot)
+    (Enchérir sur des lots) as (EnchLots)
+    (Dynamique des enchères) as (DynEnch)
+    (Vérification des enchères) as (VerifEnch)
+    }
+    rectangle "Soumission d’un lot aux enchères "{
+    (Soumission d'un lot) as (SubLot)
+    (Identification unique du lot) as (IdentUniqLot)
+    (Clôture des enchères) as (CloseEnch)
+    }
+    rectangle "Gestion des enchères et des ventes "{
+    (Conservation des transactions en attente) as (ConserveTrans)
+    (Gestion financière post-vente) as (GestFinPostVente)
+    }
+    rectangle "Visualisation des lots suivis"{
+    (Suivi des enchères actives) as (SuiviEnchAct)
+    (Suivi pour les vendeurs) as (SuiviVend)
+    (Préparation à la finalisation de la vente) as (PrepFinVente)
+    (Gestion des lots invendus ou vendus) as (GestLotsInvVend)
+    (Actions selon l'état du lot) as (ActSelonEtat)
+    }
+    rectangle "Administration"{
+    (Gérer comptes utilisateurs) as (ManageUsers)
+    }
+}
+
+
+
+U <|-- UNI
+U <|-- UI
+
+UNI --> (NavInitSimp)
+UI --> (NavInitSimp)
+UNI --> (NavDet)
+UI --> (NavDet)
+UNI --> (VisuDetLots)
+UI --> (VisuDetLots)
+UI --> (Pagination)
+
+UNI --> (AccesAuth)
+UI --> (SessionPersist)
+UNI --> (GestErrId)
+
+UI --> (AccesLot)
+UI --> (EnchLots)
+UI --> (DynEnch)
+UI --> (VerifEnch)
+
+UI --> (SubLot)
+UI --> (IdentUniqLot)
+UI --> (CloseEnch)
+
+SystVente --> (ConserveTrans)
+SystFin --> (GestFinPostVente)
+
+UI --> (SuiviEnchAct)
+UI --> (SuiviVend)
+UI --> (PrepFinVente)
+UI --> (GestLotsInvVend)
+UI --> (ActSelonEtat)
+
+Administrateur --> (ManageUsers)
+
+@enduml
