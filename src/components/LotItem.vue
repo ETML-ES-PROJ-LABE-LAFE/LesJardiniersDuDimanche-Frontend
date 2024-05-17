@@ -3,11 +3,11 @@
 <template>
   <tr class="lot">
     <td>{{ lot.category.name }}</td>
-    <td>{{ lot.sousCategory.name }}</td>
+    <td>{{ lot.subCategory.name }}</td>
     <td>{{ lot.id }}</td>
-    <td>{{ lot.nom }}</td>
+    <td>{{ lot.name }}</td>
     <td>{{ lot.description }}</td>
-    <td>{{ lot.prixDepart }} CHF</td>
+    <td>{{ lot.startingPrice }} CHF</td>
     <td>
       <router-link :to="{ name: 'LotDetails', params: { id: lot.id }}">
         Voir les détails

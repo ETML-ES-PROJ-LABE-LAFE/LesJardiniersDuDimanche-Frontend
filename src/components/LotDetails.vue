@@ -8,7 +8,7 @@
         <img :src="require('@/assets/article_test.png')" alt="Image de l'article" />
       </div>
       <div class="lot-content">
-        <h2 class="lot-title">{{ lot.nom }}</h2>
+        <h2 class="lot-title">{{ lot.name }}</h2>
         <div class="lot-info">
           <div class="lot-info-card">
             <strong>Catégorie : </strong>
@@ -16,7 +16,7 @@
           </div>
           <div class="lot-info-card">
             <strong>Sous-catégorie : </strong>
-            <span>{{ lot.sousCategory.name }}</span>
+            <span>{{ lot.subCategory.name }}</span>
           </div>
           <div class="lot-info-card">
             <strong>Description : </strong>
@@ -24,15 +24,15 @@
           </div>
           <div class="lot-info-card">
             <strong>Prix de départ : </strong>
-            <span>{{ lot.prixDepart }} CHF</span>
+            <span>{{ lot.startingPrice }} CHF</span>
           </div>
           <div class="lot-info-card">
             <strong>Date et heure de début : </strong>
-            <span>{{ formatDate(lot.dateHeureDebut) }}</span>
+            <span>{{ formatDate(lot.startingDateHours) }}</span>
           </div>
           <div class="lot-info-card">
             <strong>Date et heure de fin : </strong>
-            <span>{{ formatDate(lot.dateHeureFin) }}</span>
+            <span>{{ formatDate(lot.endingDateHours) }}</span>
           </div>
         </div>
       </div>

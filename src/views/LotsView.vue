@@ -41,7 +41,7 @@ export default {
   computed: {
     filteredLotsSearchBar() {
       return this.lots.filter(lot =>
-        lot.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        lot.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
         lot.description.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     },
@@ -52,7 +52,7 @@ export default {
         // Filtrer les lots qui correspondent à la fois à la catégorie et à la sous-catégorie
         filtered = filtered.filter(lot =>
             lot.category && lot.category.id === parseInt(this.selectedMainCategory) &&
-            lot.sousCategory && lot.sousCategory.id === parseInt(this.selectedSubCategory)
+            lot.subCategory && lot.subCategory.id === parseInt(this.selectedSubCategory)
         );
       } else if (this.selectedMainCategory) {
         // Filtrer par catégorie principale si aucune sous-catégorie n'est sélectionnée
@@ -62,7 +62,7 @@ export default {
       } else if (this.selectedSubCategory) {
         // Filtrer par sous-catégorie si aucune catégorie principale n'est sélectionnée
         filtered = filtered.filter(lot =>
-            lot.sousCategory && lot.sousCategory.id === parseInt(this.selectedSubCategory)
+            lot.subCategory && lot.subCategory.id === parseInt(this.selectedSubCategory)
         );
       }
 
