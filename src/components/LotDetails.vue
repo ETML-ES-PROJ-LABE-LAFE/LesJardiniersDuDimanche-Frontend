@@ -1,10 +1,8 @@
 <!-- Dossier components / Fichier LotDetails.vue -->
-
 <template>
   <div class="lots-background">
     <div class="lot-details">
       <div class="lot-image">
-        <!-- <img :src="lot.imageUrl" alt="Image de l'article" /> -->
         <img :src="require('@/assets/article_test.png')" alt="Image de l'article" />
       </div>
       <div class="lot-content">
@@ -19,26 +17,31 @@
             <span>{{ lot.subCategory.name }}</span>
           </div>
           <div class="lot-info-card">
-            <strong>Description : </strong>
-            <span>{{ lot.description }}</span>
-          </div>
-          <div class="lot-info-card">
             <strong>Prix de départ : </strong>
             <span>{{ lot.startingPrice }} CHF</span>
           </div>
           <div class="lot-info-card">
-            <strong>Date et heure de début : </strong>
+            <strong>Prix de l'enchère actuelle : </strong>
+            <span>{{ lot.actualPrice }} CHF</span>
+          </div>
+          <div class="lot-info-card">
+            <strong>Date de publication : </strong>
             <span>{{ formatDate(lot.startingDateHours) }}</span>
           </div>
           <div class="lot-info-card">
-            <strong>Date et heure de fin : </strong>
+            <strong>Date de fin : </strong>
             <span>{{ formatDate(lot.endingDateHours) }}</span>
+          </div>
+          <div class="lot-info-card">
+            <strong>Description : </strong>
+            <span>{{ lot.description }}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -47,7 +50,6 @@ export default {
       required: true
     }
   },
-
   methods: {
     formatDate(date) {
       if (!date) return ''; // Retourner une chaîne vide si la date est nulle ou indéfinie
@@ -55,12 +57,10 @@ export default {
       return new Date(date).toLocaleDateString('fr-CH', options).replace(/,/g, ' ');
     }
   }
-
 };
 </script>
 
 <style scoped>
-
 .lots-background {
   min-height: calc(100vh - 80px); /* Hauteur minimale pour prendre toute la hauteur visible */
   width: 100%; /* Largeur pleine page */
@@ -92,7 +92,6 @@ export default {
   width: 100%; /* Adaptation de la largeur de l'image à son conteneur */
   max-width: 250px; /* Largeur maximale pour l'image */
   max-height: 300px;
-  /** height: auto; /* Hauteur auto pour garder le ratio */
   border-radius: 8px;
   object-fit: cover;
   border: 1.5px solid #cccccc; /* Bordure grise claire ajoutée ici */
@@ -136,7 +135,7 @@ export default {
 }
 
 .lot-info-card {
-  flex: 1 1 180px; /* Flexibilité pour que les cartes puissent grandir et avoir une base de 180px */
+  flex: 1 1 250px; /* Flexibilité pour que les cartes puissent grandir et avoir une base de 180px */
   background: #ffffff;
   padding: 10px;
   border: 1px solid #dee2e6;
@@ -148,7 +147,7 @@ export default {
   color: #333;
   text-align: center; /* Centrage du titre */
   margin: 10px; /* Aucun espace externe pour le titre */
-
 }
-</style>
 
+
+</style>
