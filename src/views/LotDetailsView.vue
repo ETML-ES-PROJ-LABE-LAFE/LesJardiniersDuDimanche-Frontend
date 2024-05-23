@@ -56,18 +56,22 @@ export default {
 
 <style scoped>
 .lot-details-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0; /* Pas d'espace entre les composants */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .bid-controls {
-  width: 100%;
+  margin-top: 20px;
 }
 
 .error-message {
   color: red;
   margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
 }
 </style>
