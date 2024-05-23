@@ -11,7 +11,7 @@
         <li><router-link to="/">Accueil</router-link></li>
         <li><router-link to="/lots">Lots</router-link></li>
         <li><router-link to="/about">À Propos</router-link></li>
-        <li><router-link to="/contact">Login</router-link></li>
+        <li><router-link to="/login">Login</router-link></li>
       </ul>
     </nav>
     <router-view/>

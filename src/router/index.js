@@ -4,6 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LotsView from '../views/LotsView.vue' // Importez la vue pour afficher la liste des lots
 import LotDetailsView from '../views/LotDetailsView.vue' // Importez la vue pour afficher les détails du lot
+import LoginView from '../views/LoginView..vue' //Importer la vue pour la page de connexion user
 
 const routes = [
   {
@@ -20,8 +21,14 @@ const routes = [
     path: '/lots/:id', // Utilisez un paramètre dynamique pour l'ID du lot
     name: 'LotDetails',
     component: LotDetailsView,
-    props: true // Passez les paramètres en tant que props au composant
-  }
+    props: true
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView,
+    props: true
+  },
 ]
 
 const router = createRouter({

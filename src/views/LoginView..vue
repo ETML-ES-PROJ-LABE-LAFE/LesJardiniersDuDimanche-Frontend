@@ -1,5 +1,5 @@
 <template>
-  <div class="login-view">
+  <div class="login-view lots-background">
     <div class="login-container">
       <h1>Connexion</h1>
       <div class="user-buttons">
@@ -52,14 +52,17 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 60px); /* Ajustez en fonction de la hauteur de votre barre de navigation */
-  background: linear-gradient(135deg, #f3f4f6 25%, #e2e8f0 100%);
+  min-height: calc(100vh - 80px); /* Ajustez en fonction de la hauteur de votre barre de navigation */
+  width: 100%;
+  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+  flex-direction: column;
+  padding-top: 0px;
 }
 
 .login-container {
   text-align: center;
   background: white;
-  padding: 50px;
+  padding: 60px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -67,7 +70,6 @@ export default {
 
 h1 {
   margin-bottom: 40px;
-
   color: #333;
 }
 
