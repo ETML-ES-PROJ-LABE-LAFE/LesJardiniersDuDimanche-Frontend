@@ -1,7 +1,7 @@
 <template>
   <div class="lot-details-view">
     <LotDetails :lot="lot" v-if="lot" />
-    <BidAuction @update-bid-amount="handleBidAmountUpdate" @validate-bid="handleBidValidation" />
+      <BidAuction @update-bid-amount="handleBidAmountUpdate" @validate-bid="handleBidValidation" />
     <div v-if="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
@@ -56,22 +56,18 @@ export default {
 
 <style scoped>
 .lot-details-view {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0; /* Pas d'espace entre les composants */
 }
 
 .bid-controls {
-  margin-top: 20px;
+  width: 100%;
 }
 
 .error-message {
   color: red;
   margin-top: 10px;
-  font-size: 14px;
-  font-weight: bold;
 }
 </style>
