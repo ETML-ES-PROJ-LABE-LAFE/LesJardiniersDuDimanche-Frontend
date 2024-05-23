@@ -21,8 +21,14 @@
 export default {
   name: 'FilterCategories',
   props: {
-    categories: Array,
-    value: String
+    categories: {
+      type: Array,
+      required: true
+    },
+    value: {
+      type: String,
+      required: true
+    }
   },
   methods: {
     // Gestion du changement de sélection dans le menu déroulant

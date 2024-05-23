@@ -26,7 +26,12 @@ export default {
   components: {
     LotItem
   },
-  props: ['lots']
+  props: {
+    lots: {
+      type: Array,
+      required: true
+    }
+  }
 };
 </script>
 

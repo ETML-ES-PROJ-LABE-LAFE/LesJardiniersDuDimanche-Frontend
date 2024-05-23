@@ -1,9 +1,12 @@
-<!-- Dossier Views/ Fichier LotsView.vue-->
 <template>
   <div class="lots-background">
-    <SearchBar v-model="searchQuery" />
-    <FilterCategorie :categories="mainCategories" v-model="selectedMainCategory" @category-changed="loadLotsByCategory" />
-    <FilterSubCategorie :subCategories="subCategories" v-model="selectedSubCategory" @subCategory-changed="loadLotsBySubCategory" />
+    <div class="search-container">
+      <SearchBar v-model="searchQuery" />
+    </div>
+    <div class="filter-container">
+      <FilterCategorie :categories="mainCategories" v-model="selectedMainCategory" @category-changed="onCategoryChanged" />
+      <FilterSubCategories :subCategories="filteredSubCategories" :subValue="selectedSubCategory" v-model="selectedSubCategory" @subCategory-changed="loadLotsBySubCategory" />
+    </div>
     <LotList :lots="filteredLotsCategories"/>
     <SearchBarNoResults v-if="filteredLotsSearchBar.length === 0" />
   </div>
@@ -15,7 +18,7 @@ import CategoryService from "@/services/CategoryService";
 import LotList from "@/components/LotList.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import FilterCategorie from "@/components/FilterCategorie.vue";
-import FilterSubCategorie from "@/components/FilterSubCategorie.vue";
+import FilterSubCategories from "@/components/FilterSubCategorie.vue";
 import SearchBarNoResults from "@/components/SearchBarNoResults.vue";
 
 export default {
@@ -24,49 +27,49 @@ export default {
     LotList,
     SearchBar,
     FilterCategorie,
-    FilterSubCategorie,
+    FilterSubCategories,
     SearchBarNoResults
   },
   data() {
     return {
       lots: [],
-      mainCategories: [], //Récupère dans le filtre les catégories parents
-      subCategories: [], //Récupère dans le filtre les sous-catégories (catégories sans parents)
-      selectedMainCategory: '', //Récupère la valeur sélectionnée de la catégorie sélectionnée.
-      selectedSubCategory: '', //Récupère la valeur sélectionnée de la sous-catégorie sélectionnée.
-      searchQuery: '', //Récupère la valeur saisie dans la barre de recherche
+      mainCategories: [],
+      subCategories: [],
+      selectedMainCategory: '',
+      selectedSubCategory: '',
+      searchQuery: '',
       loading: true,
     };
   },
   computed: {
     filteredLotsSearchBar() {
       return this.lots.filter(lot =>
-        lot.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        lot.description.toLowerCase().includes(this.searchQuery.toLowerCase())
+          lot.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          lot.description.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     },
     filteredLotsCategories() {
       let filtered = this.filteredLotsSearchBar;
 
       if (this.selectedMainCategory && this.selectedSubCategory) {
-        // Filtrer les lots qui correspondent à la fois à la catégorie et à la sous-catégorie
         filtered = filtered.filter(lot =>
             lot.category && lot.category.id === parseInt(this.selectedMainCategory) &&
             lot.subCategory && lot.subCategory.id === parseInt(this.selectedSubCategory)
         );
       } else if (this.selectedMainCategory) {
-        // Filtrer par catégorie principale si aucune sous-catégorie n'est sélectionnée
         filtered = filtered.filter(lot =>
             lot.category && lot.category.id === parseInt(this.selectedMainCategory)
         );
       } else if (this.selectedSubCategory) {
-        // Filtrer par sous-catégorie si aucune catégorie principale n'est sélectionnée
         filtered = filtered.filter(lot =>
             lot.subCategory && lot.subCategory.id === parseInt(this.selectedSubCategory)
         );
       }
 
       return filtered;
+    },
+    filteredSubCategories() {
+      return this.selectedMainCategory ? this.subCategories : [];
     }
   },
   methods: {
@@ -110,6 +113,24 @@ export default {
         console.error("Erreur lors du chargement des catégories: " + error);
       }
     },
+    async loadSubCategoriesByCategory(categoryId) {
+      try {
+        this.subCategories = await CategoryService.getSubCategoriesByParentId(categoryId);
+      } catch (error) {
+        console.error(`Erreur lors du chargement des sous-catégories pour la catégorie ${categoryId}: ${error}`);
+      }
+    },
+    async onCategoryChanged(categoryId) {
+      this.selectedMainCategory = categoryId;
+      this.selectedSubCategory = ''; // Reset subcategory selection
+      if (categoryId) {
+        await this.loadSubCategoriesByCategory(categoryId);
+        await this.loadLotsByCategory(categoryId);
+      } else {
+        this.subCategories = []; // Clear sub-categories if no category is selected
+        this.resetFilters();
+      }
+    },
     resetFilters() {
       this.selectedMainCategory = '';
       this.selectedSubCategory = '';
@@ -117,8 +138,8 @@ export default {
     }
   },
   async created() {
-    await this.loadLots(); // Charge tous les lots initialement sans distinction de catégories/sous-catégories
-    await this.loadCategories(); //Charge les lots en fonction des catégories et sous-catégories sélectionnées.
+    await this.loadLots();
+    await this.loadCategories();
   }
 };
 </script>
@@ -130,17 +151,43 @@ export default {
   background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   padding-top: 20px;
   padding-right: 10%;
+}
 
-  select {
-    margin: 10px;
-    padding: 8px 16px;
-    border-radius: 4px;
-    background-color: white;
-    border: 1px solid #ccc;
-  }
+.search-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-container > * {
+  width: 100%;
+  max-width: 500px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.filter-container > * {
+  flex: 1;
+  margin: 10px;
+}
+
+select {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #ccc;
 }
 </style>
-

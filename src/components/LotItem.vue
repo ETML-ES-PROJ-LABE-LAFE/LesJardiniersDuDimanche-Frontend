@@ -18,7 +18,12 @@
 
 <script>
 export default {
-  props: ['lot'],
+  props: {
+    lot: {
+      type: Object,
+      required: true
+    }
+  }
 };
 </script>
 
