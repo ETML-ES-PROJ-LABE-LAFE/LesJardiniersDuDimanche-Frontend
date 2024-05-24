@@ -107,8 +107,8 @@ export default {
 }
 
 .user-image {
-  width: 220px;
-  height: 220px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   border: 4px solid white;
   transition: border-color 0.3s ease;
