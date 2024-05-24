@@ -74,23 +74,25 @@ export default {
 .login-container {
   text-align: center;
   background: white;
-  padding: 100px;
+  padding: 20px 60px 150px; /* Ajuster le padding pour remonter le titre */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
 .title {
-  font-size: 38px;
-  margin-bottom: 50px;
+  font-size: 50px;
+  margin-bottom: 100px; /* Réduire la marge inférieure pour remonter le titre */
   color: #333;
+  margin-top: 40px; /* Assurez-vous qu'il n'y a pas de marge supérieure */
+  padding: 0; /* Assurez-vous qu'il n'y a pas de padding */
 }
 
 .user-buttons {
   display: flex;
   justify-content: space-around;
-  gap: 30px; /* Ajout d'espace entre les boutons */
-  margin-bottom: 20px;
+  gap: 100px; /* Ajout d'espace entre les boutons */
+
 }
 
 .user-button {
@@ -110,7 +112,7 @@ export default {
   border-radius: 50%;
   border: 4px solid white;
   transition: border-color 0.3s ease;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .user-name {
@@ -129,7 +131,7 @@ export default {
   padding: 10px 20px;
   border-radius: 5px;
   opacity: 0.9;
-  animation: fadeInOut 3s ease-in-out;
+  animation: fadeInOut 10s ease-in-out;
 }
 
 @keyframes fadeInOut {
