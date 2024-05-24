@@ -68,13 +68,13 @@ export default {
   width: 100%;
   background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
   flex-direction: column;
-  padding-top: 0px;
+  padding-top:  0px;
 }
 
 .login-container {
   text-align: center;
   background: white;
-  padding: 25px;
+  padding: 100px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -82,7 +82,7 @@ export default {
 
 .title {
   font-size: 38px;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
   color: #333;
 }
 
