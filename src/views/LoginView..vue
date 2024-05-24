@@ -7,7 +7,7 @@
           <img src="@/assets/user1.png" alt="User 1" class="user-image"/>
           <span class="user-name">John Doe</span>
         </div>
-        <div class="user-button" @click="loginUser(2, 'Jane Smith')">
+        <div class="user-button" @click="loginUser(2, 'Max Verstappen')">
           <img src="@/assets/user2.png" alt="User 2" class="user-image"/>
           <span class="user-name">Jane Smith</span>
         </div>
