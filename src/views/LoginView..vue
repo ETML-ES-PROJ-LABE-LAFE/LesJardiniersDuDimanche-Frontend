@@ -47,6 +47,8 @@ export default {
           }
         }
         // Connexion de l'utilisateur sélectionné
+        const updatedUser = await UserService.loginUser(userId);
+        console.log(`Valeur de isConnected pour ${userName}:`, updatedUser.isConnected);
         this.alertMessage = `Vous êtes connecté ${userName}`;
         setTimeout(() => {
           this.alertMessage = '';
