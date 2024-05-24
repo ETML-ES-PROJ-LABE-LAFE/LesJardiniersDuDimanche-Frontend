@@ -1,5 +1,5 @@
 <template>
-  <div class="bid">
+  <div class="bid animated">
     <div class="bid-input">
       <input
           type="number"
@@ -39,6 +39,8 @@ export default {
   align-items: center;
   gap: 15px;
   margin-top: 0; /* Suppression de la marge supérieure */
+  opacity: 0; /* Initialement invisible */
+  animation: fadeInAnimation 1.5s ease-out forwards; /* Animation de fade-in */
 }
 
 .bid-input input {
@@ -59,10 +61,10 @@ export default {
 }
 
 .bid-button {
-  background-color: #4CAF50;
+  background-color: #ffffff;
   border: none;
-  color: white;
-  padding: 15px 32px;
+  color: black;
+  padding: 14px 22px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -71,17 +73,27 @@ export default {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
 }
 
 .bid-button:hover {
-  background-color: #45a049;
+  background-color: #6dc571;
   transform: translateY(-2px);
 }
 
 .bid-button:active {
-  background-color: #3e8e41;
+  background-color: #6dc571;
   transform: translateY(1px);
 }
 
-
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0; /* Initialement invisible */
+    transform: scale(0.5); /* Légèrement plus petit */
+  }
+  100% {
+    opacity: 1; /* Pleinement visible */
+    transform: scale(1); /* Échelle normale */
+  }
+}
 </style>
