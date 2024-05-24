@@ -1,23 +1,19 @@
-<!-- Fichier HomeView.vue-->
-
 <template>
   <header class="home">
-    <h1>Venez claquer vos thunes !</h1>
+    <h1 class="welcome-message">Venez claquer vos thunes !</h1>
   </header>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: 'HomeView',
   data() {
-    }
+    return {};
+  }
 }
 </script>
 
 <style>
-
 html, body {
   height: 100%;
   margin: 0;
@@ -28,7 +24,7 @@ html, body {
 .home {
   min-height: calc(100vh - 80px); /* Ajustez '50px' à la hauteur de votre navbar */
   width: 100%;
-  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,13 +33,19 @@ html, body {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
-.home h1 {
-  transition: transform 0.3s ease;
+.welcome-message {
+  animation: move 3s infinite alternate;
 }
 
-.home h1:hover {
-  transform: scale(1.2);
+@keyframes move {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
-
-
 </style>

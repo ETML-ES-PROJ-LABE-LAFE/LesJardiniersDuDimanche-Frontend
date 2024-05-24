@@ -148,7 +148,7 @@ export default {
 .lots-background {
   min-height: calc(100vh - 80px);
   width: 100%;
-  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
   display: flex;
   flex-direction: column;
   align-items: center;
