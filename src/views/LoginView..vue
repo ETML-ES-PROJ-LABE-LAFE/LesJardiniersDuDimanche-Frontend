@@ -33,17 +33,23 @@ export default {
     async fetchUsers() {
       try {
         this.users = await UserService.getAllUsers();  // Récupère tous les utilisateurs
+        console.log('Utilisateurs récupérés:', this.users);
       } catch (error) {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
       }
     },
     async loginUser(userId, userName) {
       try {
-        await UserService.logoutUser(1); // Déconnexion de l'utilisateur 1 si connecté
-        await UserService.logoutUser(2); // Déconnexion de l'utilisateur 2 si connecté
-        await UserService.loginUser(userId);
+        // Déconnexion des autres utilisateurs
+        for (let user of this.users) {
+          if (user.id !== userId) {
+            await UserService.logoutUser(user.id);
+          }
+        }
+        // Connexion de l'utilisateur sélectionné
+        const updatedUser = await UserService.loginUser(userId);
+        console.log(`Valeur de isConnected pour ${userName}:`, updatedUser.isConnected);
         this.alertMessage = `Vous êtes connecté ${userName}`;
-        console.log(`Vous êtes connecté ${userName}`);
         setTimeout(() => {
           this.alertMessage = '';
         }, 3000);
@@ -68,13 +74,13 @@ export default {
   width: 100%;
   background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
   flex-direction: column;
-  padding-top:  0px;
+  padding-top: 0px;
 }
 
 .login-container {
   text-align: center;
   background: white;
-  padding: 20px 60px 150px; /* Ajuster le padding pour remonter le titre */
+  padding: 20px 60px 150px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -82,17 +88,16 @@ export default {
 
 .title {
   font-size: 50px;
-  margin-bottom: 100px; /* Réduire la marge inférieure pour remonter le titre */
+  margin-bottom: 100px;
   color: #333;
-  margin-top: 40px; /* Assurez-vous qu'il n'y a pas de marge supérieure */
-  padding: 0; /* Assurez-vous qu'il n'y a pas de padding */
+  margin-top: 40px;
+  padding: 0;
 }
 
 .user-buttons {
   display: flex;
   justify-content: space-around;
-  gap: 100px; /* Ajout d'espace entre les boutons */
-
+  gap: 100px;
 }
 
 .user-button {

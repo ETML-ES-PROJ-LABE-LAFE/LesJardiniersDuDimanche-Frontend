@@ -21,12 +21,36 @@ class UserService {
         }
     }
 
+    async updateUser(userId, userData) {
+        try {
+            console.log(`Mise à jour de l'utilisateur ${userId} avec les données:`, userData);
+            const response = await axios.put(`${this.baseURL}/${userId}`, userData);
+            console.log(`Réponse de mise à jour pour l'utilisateur ${userId}:`, response.data);
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de la mise à jour de l'utilisateur: ${error.message}`);
+        }
+    }
+
+    async updateIsConnected(userId, isConnected) {
+        try {
+            const response = await axios.put(`${this.baseURL}/${userId}/isConnected`, { isConnected: isConnected }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(`Réponse de mise à jour pour isConnected de l'utilisateur ${userId}:`, response.data);
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de la mise à jour de isConnected: ${error.message}`);
+        }
+    }
+
     async loginUser(userId) {
         try {
-            const user = await this.getUserById(userId);
-            user.isConnected = true;
-            const response = await axios.put(`${this.baseURL}/${userId}`, user);
-            return response.data;
+            const updatedUser = await this.updateIsConnected(userId, true);
+            console.log(`Utilisateur ${userId} est maintenant connecté:`, updatedUser.isConnected);
+            return updatedUser;
         } catch (error) {
             throw new Error(`Erreur lors de la connexion de l'utilisateur: ${error.message}`);
         }
@@ -34,10 +58,9 @@ class UserService {
 
     async logoutUser(userId) {
         try {
-            const user = await this.getUserById(userId);
-            user.isConnected = false;
-            const response = await axios.put(`${this.baseURL}/${userId}`, user);
-            return response.data;
+            const updatedUser = await this.updateIsConnected(userId, false);
+            console.log(`Utilisateur ${userId} est maintenant déconnecté:`, updatedUser.isConnected);
+            return updatedUser;
         } catch (error) {
             throw new Error(`Erreur lors de la déconnexion de l'utilisateur: ${error.message}`);
         }
