@@ -62,6 +62,18 @@ class LotService {
             throw new Error(`Erreur lors de la récupération des lots par sous-catégorie: ${error.message}`);
         }
     }
+    async placeBid(lotId, bidAmount) {
+        try {
+            const response = await axios.put(`${this.baseURL}/${lotId}/bid`, bidAmount, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`${error.response ? error.response.data : error.message}`);
+        }
+    }
 }
 
 export default new LotService();
