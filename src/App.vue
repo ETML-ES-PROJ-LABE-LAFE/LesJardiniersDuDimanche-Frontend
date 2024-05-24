@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <nav class="navbar">
       <div class="logo-and-name">
         <router-link to="/">
@@ -14,10 +14,16 @@
         <li><router-link to="/login">Login</router-link></li>
       </ul>
     </nav>
-    <router-view/>
+    <main class="main-content">
+      <router-view/>
+    </main>
     <footer class="footer">
       <div class="footer-content">
         <p>&copy; 2024 RIZCARDEAU. Tous droits réservés.</p>
+        <p>
+          <router-link to="/privacy-policy">Politique de confidentialité</router-link> |
+          <router-link to="/terms-of-service">Conditions d'utilisation</router-link>
+        </p>
       </div>
     </footer>
   </div>
@@ -26,10 +32,14 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
-body {
-  font-family: 'Nunito', sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+.app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -37,10 +47,10 @@ body {
 
 .navbar {
   display: flex;
-  height: 50px;
+  height: 60px;
   justify-content: space-between;
   align-items: center;
-  background-color: #333333;
+  background-color: #333;
   color: white;
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -53,7 +63,7 @@ body {
 
 .nav-logo {
   width: auto;
-  height: 50px;
+  height: 60px;
   transition: transform 0.3s ease;
   object-fit: cover;
   border-radius: 30%;
@@ -65,7 +75,7 @@ body {
 
 .site-name {
   margin-left: 10px;
-  font-size: 23px;
+  font-size: 25px;
   color: #FFF;
 }
 
@@ -90,13 +100,15 @@ body {
   text-decoration: underline;
 }
 
+.main-content {
+  flex: 1; /* Prend tout l'espace restant pour pousser le footer vers le bas */
+}
+
 .footer {
-  background-color: #333333;
+  background-color: #333;
   color: white;
   text-align: center;
   padding: 10px 0;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
