@@ -1,6 +1,5 @@
 <!-- Dossier components / Fichier LotDetails.vue -->
 <template>
-  <div class="lots-background">
     <div class="lot-details">
       <div class="lot-image">
         <img :src="require('@/assets/article_test.png')" alt="Image de l'article" />
@@ -39,7 +38,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -61,16 +59,6 @@ export default {
 </script>
 
 <style scoped>
-.lots-background {
-  min-height: calc(100vh - 80px); /* Hauteur minimale pour prendre toute la hauteur visible */
-  width: 100%; /* Largeur pleine page */
-  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%); /* Dégradé de couleur en arrière-plan */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centre les éléments verticalement */
-  align-items: center; /* Centre les éléments horizontalement */
-  padding-top: 0px;
-}
 
 .lot-details {
   display: flex;

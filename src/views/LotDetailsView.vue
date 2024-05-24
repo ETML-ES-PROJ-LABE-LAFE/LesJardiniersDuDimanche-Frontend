@@ -43,7 +43,7 @@ export default {
     },
     handleBidValidation(amount) {
       if (isNaN(amount) || amount === '') {
-        this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère.';
+        this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère !';
       } else {
         // Logique de validation de l'enchère
         console.log(`Enchère validée avec le montant : ${amount}`);
@@ -56,10 +56,14 @@ export default {
 
 <style scoped>
 .lot-details-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0; /* Pas d'espace entre les composants */
+    min-height: calc(100vh - 80px); /* Hauteur minimale pour prendre toute la hauteur visible */
+    width: 100%; /* Largeur pleine page */
+    background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%); /* Dégradé de couleur en arrière-plan */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre les éléments verticalement */
+    align-items: center; /* Centre les éléments horizontalement */
+    padding-top: 0px;
 }
 
 .bid-controls {
@@ -67,7 +71,8 @@ export default {
 }
 
 .error-message {
-  color: red;
-  margin-top: 10px;
+  color: white;
+  margin-top: 15px;
+  font-size: 25px;
 }
 </style>

@@ -82,4 +82,6 @@ export default {
   background-color: #3e8e41;
   transform: translateY(1px);
 }
+
+
 </style>
