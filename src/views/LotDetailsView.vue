@@ -1,7 +1,7 @@
 <template>
   <div class="lot-details-view">
     <LotDetails :lot="lot" v-if="lot" />
-      <BidAuction @update-bid-amount="handleBidAmountUpdate" @validate-bid="handleBidValidation" />
+    <BidAuction @update-bid-amount="handleBidAmountUpdate" @validate-bid="handleBidValidation" />
     <div v-if="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
@@ -41,13 +41,17 @@ export default {
       this.bidAmount = amount;
       this.errorMessage = ''; // Réinitialise le message d'erreur lors de la mise à jour de l'enchère
     },
-    handleBidValidation(amount) {
-      if (isNaN(amount) || amount === '') {
+    async handleBidValidation() {
+      if (isNaN(this.bidAmount) || this.bidAmount === '') {
         this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère !';
       } else {
-        // Logique de validation de l'enchère
-        console.log(`Enchère validée avec le montant : ${amount}`);
-        this.errorMessage = ''; // Réinitialiser le message d'erreur après validation réussie
+        try {
+          await lotServices.placeBid(this.lot.id, parseFloat(this.bidAmount));
+          this.fetchLotDetails(this.lot.id); // Rafraîchir les détails du lot après une enchère réussie
+          this.errorMessage = ''; // Réinitialiser le message d'erreur après validation réussie
+        } catch (error) {
+          this.errorMessage = `Erreur: ${error.message}`;
+        }
       }
     }
   }
@@ -56,14 +60,14 @@ export default {
 
 <style scoped>
 .lot-details-view {
-    min-height: calc(100vh - 80px); /* Hauteur minimale pour prendre toute la hauteur visible */
-    width: 100%; /* Largeur pleine page */
-    background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%); /* Dégradé de couleur en arrière-plan */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centre les éléments verticalement */
-    align-items: center; /* Centre les éléments horizontalement */
-    padding-top: 0px;
+  min-height: calc(100vh - 80px); /* Hauteur minimale pour prendre toute la hauteur visible */
+  width: 100%; /* Largeur pleine page */
+  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%); /* Dégradé de couleur en arrière-plan */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centre les éléments verticalement */
+  align-items: center; /* Centre les éléments horizontalement */
+  padding-top: 0px;
 }
 
 .bid-controls {
