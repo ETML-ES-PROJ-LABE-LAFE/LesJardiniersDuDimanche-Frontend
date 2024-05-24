@@ -1,15 +1,11 @@
 <template>
   <div class="login-view lots-background">
     <div class="login-container">
-      <h1>Connexion</h1>
+      <h1 class="title">Connexion</h1>
       <div class="user-buttons">
-        <div class="user-button" @click="loginUser(1, 'John Doe')">
-          <img src="@/assets/user1.png" alt="User 1" class="user-image"/>
-          <span class="user-name">John Doe</span>
-        </div>
-        <div class="user-button" @click="loginUser(2, 'Max Verstappen')">
-          <img src="@/assets/user2.png" alt="User 2" class="user-image"/>
-          <span class="user-name">Max Verstappen</span>
+        <div v-for="user in users" :key="user.id" class="user-button" @click="loginUser(user.id, user.name)">
+          <img :src="getUserImage(user.id)" :alt="`User ${user.id}`" class="user-image"/>
+          <span class="user-name">{{ user.name }}</span>
         </div>
       </div>
       <div v-if="alertMessage" class="alert">
@@ -26,22 +22,38 @@ export default {
   name: 'LoginView',
   data() {
     return {
-      alertMessage: ''
+      alertMessage: '',
+      users: []  // Liste des utilisateurs
     };
   },
+  created() {
+    this.fetchUsers();  // Récupérer les utilisateurs au chargement du composant
+  },
   methods: {
+    async fetchUsers() {
+      try {
+        this.users = await UserService.getAllUsers();  // Récupère tous les utilisateurs
+      } catch (error) {
+        console.error('Erreur lors de la récupération des utilisateurs:', error);
+      }
+    },
     async loginUser(userId, userName) {
       try {
         await UserService.logoutUser(1); // Déconnexion de l'utilisateur 1 si connecté
         await UserService.logoutUser(2); // Déconnexion de l'utilisateur 2 si connecté
         await UserService.loginUser(userId);
-        this.alertMessage = `Vous êtes connecté "${userName}"`;
+        this.alertMessage = `Vous êtes connecté ${userName}`;
+        console.log(`Vous êtes connecté ${userName}`);
         setTimeout(() => {
           this.alertMessage = '';
         }, 3000);
       } catch (error) {
         this.alertMessage = `Erreur lors de la connexion de l'utilisateur ${userName}: ${error.message}`;
+        console.error(`Erreur lors de la connexion de l'utilisateur ${userName}: ${error.message}`);
       }
+    },
+    getUserImage(userId) {
+      return require(`@/assets/user${userId}.png`);
     }
   }
 };
@@ -52,7 +64,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px); /* Ajustez en fonction de la hauteur de votre barre de navigation */
+  min-height: calc(100vh - 80px);
   width: 100%;
   background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
   flex-direction: column;
@@ -62,14 +74,15 @@ export default {
 .login-container {
   text-align: center;
   background: white;
-  padding: 60px;
+  padding: 25px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
-h1 {
-  margin-bottom: 40px;
+.title {
+  font-size: 38px;
+  margin-bottom: 15px;
   color: #333;
 }
 
@@ -92,8 +105,8 @@ h1 {
 }
 
 .user-image {
-  width: 320px; /* Agrandissement de la taille des images */
-  height: 320px; /* Agrandissement de la taille des images */
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   border: 4px solid white;
   transition: border-color 0.3s ease;
@@ -101,7 +114,7 @@ h1 {
 }
 
 .user-name {
-  font-size: 24px; /* Augmentation de la taille de la police */
+  font-size: 24px;
   font-weight: bold;
   color: #333;
 }
