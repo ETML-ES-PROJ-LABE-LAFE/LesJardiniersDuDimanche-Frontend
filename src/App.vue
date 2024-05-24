@@ -111,9 +111,6 @@ html, body {
   padding: 10px 0;
   width: 100%;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  position: fixed; /* Footer fixe */
-  bottom: 0; /* Toujours en bas */
-  left: 0;
 }
 
 .footer-content p {
