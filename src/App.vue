@@ -20,10 +20,6 @@
     <footer class="footer">
       <div class="footer-content">
         <p>&copy; 2024 RIZCARDEAU. Tous droits réservés.</p>
-        <p>
-          <router-link to="/privacy-policy">Politique de confidentialité</router-link> |
-          <router-link to="/terms-of-service">Conditions d'utilisation</router-link>
-        </p>
       </div>
     </footer>
   </div>
