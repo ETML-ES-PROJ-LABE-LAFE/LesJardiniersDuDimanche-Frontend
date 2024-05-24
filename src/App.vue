@@ -11,11 +11,14 @@
         <li><router-link to="/">Accueil</router-link></li>
         <li><router-link to="/lots">Lots</router-link></li>
         <li><router-link to="/about">À Propos</router-link></li>
-        <li><router-link to="/login">Login</router-link></li>
+        <li v-if="connectedUser">
+          <img :src="getUserImage(connectedUser.id)" alt="User Icon" class="user-icon" />
+        </li>
+        <li v-else><router-link to="/login">Login</router-link></li>
       </ul>
     </nav>
     <main class="main-content">
-      <router-view/>
+      <router-view @userLoggedIn="handleUserLoggedIn"/>
     </main>
     <footer class="footer">
       <div class="footer-content">
@@ -24,6 +27,24 @@
     </footer>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      connectedUser: null
+    };
+  },
+  methods: {
+    handleUserLoggedIn(user) {
+      this.connectedUser = user;
+    },
+    getUserImage(userId) {
+      return require(`@/assets/user${userId}.png`);
+    }
+  }
+};
+</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
@@ -82,6 +103,7 @@ html, body {
 
 .nav-links li {
   margin-left: 20px;
+  margin-top: 10px;
 }
 
 .nav-links a {
@@ -94,6 +116,13 @@ html, body {
 .nav-links a:hover, .nav-links a:focus {
   color: #1e90ff;
   text-decoration: underline;
+}
+
+.user-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid white;
 }
 
 .main-content {

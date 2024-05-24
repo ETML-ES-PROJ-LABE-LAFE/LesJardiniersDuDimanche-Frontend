@@ -50,6 +50,7 @@ export default {
         const updatedUser = await UserService.loginUser(userId);
         console.log(`Valeur de isConnected pour ${userName}:`, updatedUser.isConnected);
         this.alertMessage = `Vous êtes connecté ${userName}`;
+        this.$emit('userLoggedIn', updatedUser); // Émettre l'événement
         setTimeout(() => {
           this.alertMessage = '';
         }, 3000);
