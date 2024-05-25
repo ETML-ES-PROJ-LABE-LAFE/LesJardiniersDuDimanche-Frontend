@@ -3,8 +3,8 @@
     <img :src="getUserImage(user.id)" alt="User Icon" class="profile-image" />
     <h1>Profil de {{ user.name }}</h1>
     <p>Email: {{ user.email }}</p>
-    <p> Porte-Monnaie: {{ user.wallet }} CHF </p>
-    <p>Status: En ligne </p>
+    <p>Porte-Monnaie: {{ user.wallet }} CHF</p>
+    <p>Status: {{ user.isConnected ? 'En ligne' : 'Hors ligne' }}</p>
   </div>
   <div v-else>
     <p>Loading...</p>
@@ -47,7 +47,7 @@ export default {
 <style scoped>
 .profile-view {
   margin-top: 50px;
-  padding : 20px;
+  padding: 20px;
   background: white;
   border-radius: 10px;
 }

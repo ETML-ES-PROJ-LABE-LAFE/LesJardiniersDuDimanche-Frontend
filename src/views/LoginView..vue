@@ -51,7 +51,7 @@ export default {
         this.$emit('userLoggedIn', updatedUser);
         setTimeout(() => {
           this.alertMessage = '';
-          this.$router.push({ name: 'Profile', params: { id: updatedUser.id } }); // Redirection vers la page de profil
+          this.$router.push({name: 'Profile', params: {id: updatedUser.id}}); // Redirection vers la page de profil
         }, 3000);
       } catch (error) {
         this.alertMessage = `Erreur lors de la connexion de l'utilisateur ${userName}: ${error.message}`;
