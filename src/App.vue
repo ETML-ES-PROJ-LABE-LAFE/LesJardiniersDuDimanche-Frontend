@@ -12,13 +12,15 @@
         <li><router-link to="/lots">Lots</router-link></li>
         <li><router-link to="/about">À Propos</router-link></li>
         <li v-if="connectedUser">
-          <img :src="getUserImage(connectedUser.id)" alt="User Icon" class="user-icon" @click="goToProfile"/>
+          <router-link :to="{ name: 'Profile', params: { id: connectedUser.id }}">
+            <img :src="getUserImage(connectedUser.id)" alt="User Icon" class="user-icon" />
+          </router-link>
         </li>
         <li v-else><router-link to="/login">Login</router-link></li>
       </ul>
     </nav>
     <main class="main-content">
-      <router-view @userLoggedIn="handleUserLoggedIn"/>
+      <router-view @userLoggedIn="handleUserLoggedIn" @userLoggedOut="handleUserLoggedOut"/>
     </main>
     <footer class="footer">
       <div class="footer-content">
@@ -39,13 +41,11 @@ export default {
     handleUserLoggedIn(user) {
       this.connectedUser = user;
     },
+    handleUserLoggedOut() {
+      this.connectedUser = null;
+    },
     getUserImage(userId) {
       return require(`@/assets/user${userId}.png`);
-    },
-    goToProfile() {
-      if (this.connectedUser) {
-        this.$router.push({ name: 'Profile', params: { id: this.connectedUser.id } });
-      }
     }
   }
 };
@@ -132,7 +132,6 @@ html, body {
   height: 30px;
   border-radius: 50%;
   border: 2px solid white;
-  cursor: pointer; /* Add cursor pointer to indicate clickable icon */
 }
 
 .main-content {

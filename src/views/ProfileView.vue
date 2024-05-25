@@ -5,6 +5,7 @@
     <p>Email: {{ user.email }}</p>
     <p>Porte-Monnaie: {{ user.wallet }} CHF</p>
     <p>Status: {{ user.isConnected ? 'En ligne' : 'Hors ligne' }}</p>
+    <button @click="logout"> Déconnexion </button>
   </div>
   <div v-else>
     <p>Loading...</p>
@@ -39,6 +40,15 @@ export default {
     },
     getUserImage(userId) {
       return require(`@/assets/user${userId}.png`);
+    },
+    async logout() {
+      try {
+        await UserService.logoutUser(this.user.id);
+        this.$emit('userLoggedOut'); // Émet l'événement de déconnexion
+        this.$router.push({ name: 'Login' }); // Redirection vers la page de connexion
+      } catch (error) {
+        console.error('Erreur lors de la déconnexion:', error);
+      }
     }
   }
 };
@@ -68,5 +78,20 @@ h1 {
 
 p {
   margin: 10px 0;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #ff1a1a;
 }
 </style>
