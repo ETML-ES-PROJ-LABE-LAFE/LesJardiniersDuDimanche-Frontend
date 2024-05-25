@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue'
 import LotsView from '../views/LotsView.vue' // Importez la vue pour afficher la liste des lots
 import LotDetailsView from '../views/LotDetailsView.vue' // Importez la vue pour afficher les détails du lot
 import LoginView from '../views/LoginView..vue' //Importer la vue pour la page de connexion user
+import ProfileView from '../views/ProfileView.vue' //Importer la vue pour la page de profil de l'user connecté
 
 const routes = [
   {
@@ -29,6 +30,12 @@ const routes = [
     component: LoginView,
     props: true
   },
+  {
+    path: '/profile/:id',
+    name: 'Profile',
+    component: ProfileView,
+    props: true
+  }
 ]
 
 const router = createRouter({
