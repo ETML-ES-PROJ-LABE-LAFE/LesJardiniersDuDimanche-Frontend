@@ -99,11 +99,15 @@ html, body {
 .nav-links {
   list-style: none;
   display: flex;
+  align-items: center; /* Center vertically */
+  height: 100%;
 }
 
 .nav-links li {
   margin-left: 20px;
-  margin-top: 10px;
+  display: flex;
+  align-items: center; /* Center vertically */
+  height: 100%;
 }
 
 .nav-links a {
