@@ -32,7 +32,7 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        this.users = await UserService.getAllUsers();  // Récupère tous les utilisateurs
+        this.users = await UserService.getAllUsers();
         console.log('Utilisateurs récupérés:', this.users);
       } catch (error) {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
@@ -40,19 +40,18 @@ export default {
     },
     async loginUser(userId, userName) {
       try {
-        // Déconnexion des autres utilisateurs
         for (let user of this.users) {
           if (user.id !== userId) {
             await UserService.logoutUser(user.id);
           }
         }
-        // Connexion de l'utilisateur sélectionné
         const updatedUser = await UserService.loginUser(userId);
         console.log(`Valeur de isConnected pour ${userName}:`, updatedUser.isConnected);
         this.alertMessage = `Vous êtes connecté ${userName}`;
-        this.$emit('userLoggedIn', updatedUser); // Émettre l'événement
+        this.$emit('userLoggedIn', updatedUser);
         setTimeout(() => {
           this.alertMessage = '';
+          this.$router.push({name: 'Profile', params: {id: updatedUser.id}}); // Redirection vers la page de profil
         }, 3000);
       } catch (error) {
         this.alertMessage = `Erreur lors de la connexion de l'utilisateur ${userName}: ${error.message}`;

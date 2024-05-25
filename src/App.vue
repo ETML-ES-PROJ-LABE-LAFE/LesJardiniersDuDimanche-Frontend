@@ -12,13 +12,15 @@
         <li><router-link to="/lots">Lots</router-link></li>
         <li><router-link to="/about">À Propos</router-link></li>
         <li v-if="connectedUser">
-          <img :src="getUserImage(connectedUser.id)" alt="User Icon" class="user-icon" />
+          <router-link :to="{ name: 'Profile', params: { id: connectedUser.id }}">
+            <img :src="getUserImage(connectedUser.id)" alt="User Icon" class="user-icon" />
+          </router-link>
         </li>
         <li v-else><router-link to="/login">Login</router-link></li>
       </ul>
     </nav>
     <main class="main-content">
-      <router-view @userLoggedIn="handleUserLoggedIn"/>
+      <router-view @userLoggedIn="handleUserLoggedIn" @userLoggedOut="handleUserLoggedOut"/>
     </main>
     <footer class="footer">
       <div class="footer-content">
@@ -38,6 +40,9 @@ export default {
   methods: {
     handleUserLoggedIn(user) {
       this.connectedUser = user;
+    },
+    handleUserLoggedOut() {
+      this.connectedUser = null;
     },
     getUserImage(userId) {
       return require(`@/assets/user${userId}.png`);
