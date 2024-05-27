@@ -5,10 +5,6 @@
       <h1>Profil de {{ user.name }}</h1>
       <p><i class="fas fa-envelope icon"></i> {{ user.email }}</p>
       <p><i class="fas fa-wallet icon"></i> Porte-Monnaie: {{ user.wallet }} CHF</p>
-      <p :class="user.isConnected ? 'online' : 'offline'">
-        <i :class="user.isConnected ? 'fas fa-circle icon online-icon' : 'fas fa-circle icon offline-icon'"></i>
-        Status: {{ user.isConnected ? 'En ligne' : 'Hors ligne' }}
-      </p>
       <button @click="logout">Déconnexion</button>
     </div>
   </div>
