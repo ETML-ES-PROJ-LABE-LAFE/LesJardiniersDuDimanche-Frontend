@@ -26,8 +26,7 @@ export default {
       required: true
     },
     value: {
-      type: String,
-      required: true
+      type: String
     }
   },
   methods: {
