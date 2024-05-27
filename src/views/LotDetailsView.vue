@@ -3,7 +3,7 @@
     <router-link to="/lots" class="back-button animated">Retour à la liste des lots</router-link>
     <div class="details-and-bid animated">
       <LotDetails :lot="lot" v-if="lot" />
-      <BidAuction @update-bid-amount="handleBidAmountUpdate" @validate-bid="handleBidValidation" />
+      <BidAuction v-if="user && user.connected" @update-bid-amount="handleBidAmountUpdate" @validate-bid="handleBidValidation" />
     </div>
     <div v-if="errorMessage" class="error-message">
       {{ errorMessage }}
@@ -15,6 +15,7 @@
 import LotDetails from "@/components/LotDetails.vue";
 import BidAuction from "@/components/BidAuction.vue";
 import lotServices from "@/services/LotService";
+import UserService from "@/services/UserService";
 
 export default {
   components: {
@@ -25,12 +26,14 @@ export default {
     return {
       lot: null,
       bidAmount: '',
-      errorMessage: ''
+      errorMessage: '',
+      user: null // Ajoutez une propriété pour stocker l'utilisateur connecté
     };
   },
   created() {
     const lotId = this.$route.params.id;
     this.fetchLotDetails(lotId);
+    this.fetchUserDetails(); // Récupérez les détails de l'utilisateur lors de la création du composant
   },
   methods: {
     async fetchLotDetails(lotId) {
@@ -38,6 +41,19 @@ export default {
         this.lot = await lotServices.getById(lotId);
       } catch (error) {
         console.error("Erreur lors de la récupération des détails du lot: " + error);
+      }
+    },
+    async fetchUserDetails() {
+      try {
+        const userId = UserService.getLoggedInUserId(); // Récupérer l'ID de l'utilisateur depuis le local storage
+        if (userId) {
+          this.user = await UserService.getUserById(userId);
+          console.log('Détails de l\'utilisateur récupérés:', this.user);
+        } else {
+          console.error("Aucun utilisateur connecté trouvé.");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des détails de l'utilisateur: " + error);
       }
     },
     handleBidAmountUpdate(amount) {
@@ -117,3 +133,4 @@ export default {
   }
 }
 </style>
+

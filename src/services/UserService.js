@@ -49,7 +49,8 @@ class UserService {
     async loginUser(userId) {
         try {
             const updatedUser = await this.updateIsConnected(userId, true);
-            console.log(`Utilisateur ${userId} est maintenant connecté:`, updatedUser.isConnected);
+            console.log(`Utilisateur ${userId} est maintenant connecté:`, updatedUser.connected);
+            localStorage.setItem('userId', userId); // Stocker l'ID de l'utilisateur dans le local storage
             return updatedUser;
         } catch (error) {
             throw new Error(`Erreur lors de la connexion de l'utilisateur: ${error.message}`);
@@ -59,12 +60,21 @@ class UserService {
     async logoutUser(userId) {
         try {
             const updatedUser = await this.updateIsConnected(userId, false);
-            console.log(`Utilisateur ${userId} est maintenant déconnecté:`, updatedUser.isConnected);
+            console.log(`Utilisateur ${userId} est maintenant déconnecté:`, updatedUser.connected);
+            localStorage.removeItem('userId'); // Supprimer l'ID de l'utilisateur du stockage
             return updatedUser;
         } catch (error) {
             throw new Error(`Erreur lors de la déconnexion de l'utilisateur: ${error.message}`);
         }
     }
+
+    getLoggedInUserId() {
+        return localStorage.getItem('userId'); // Récupérer l'ID de l'utilisateur depuis le local storage
+        // Solution de contournement que l'on a mis en place pour quand meme nous permettre d'avoir un systeme de User
+        // Car comme discuté avec Mme.Bianchi nous n'avons pas vu la réelle facon de faire et nous n'allons pas avoir le temps de le faire
+    }
 }
 
 export default new UserService();
+
+
