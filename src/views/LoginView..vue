@@ -46,13 +46,12 @@ export default {
           }
         }
         const updatedUser = await UserService.loginUser(userId);
-        console.log(`Valeur de isConnected pour ${userName}:`, updatedUser.isConnected);
         this.alertMessage = `Vous êtes connecté ${userName}`;
         this.$emit('userLoggedIn', updatedUser);
         setTimeout(() => {
           this.alertMessage = '';
           this.$router.push({name: 'Profile', params: {id: updatedUser.id}}); // Redirection vers la page de profil
-        }, 3000);
+        }, 1000);
       } catch (error) {
         this.alertMessage = `Erreur lors de la connexion de l'utilisateur ${userName}: ${error.message}`;
         console.error(`Erreur lors de la connexion de l'utilisateur ${userName}: ${error.message}`);
