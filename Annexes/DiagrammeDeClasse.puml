@@ -1,21 +1,39 @@
 @startuml
 
 class Category {
-    - int id
+    - Long id
     - String name
+    + Long getId()
+    + void setId(Long id)
+    + String getName()
+    + void setName(String name)
 }
 
 class Lot {
-    - int id
+    - Long id
     - String description
     - double price
-    + Category category
+    - Category category
+    + Long getId()
+    + void setId(Long id)
+    + String getDescription()
+    + void setDescription(String description)
+    + double getPrice()
+    + void setPrice(double price)
+    + Category getCategory()
+    + void setCategory(Category category)
 }
 
 class User {
-    - int id
+    - Long id
     - String username
     - String email
+    + Long getId()
+    + void setId(Long id)
+    + String getUsername()
+    + void setUsername(String username)
+    + String getEmail()
+    + void setEmail(String email)
 }
 
 class CategoryController {
