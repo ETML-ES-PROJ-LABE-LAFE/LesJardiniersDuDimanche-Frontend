@@ -1,0 +1,29 @@
+@startuml
+
+actor User
+
+participant "LotController" as LC
+participant "LotRepository" as LR
+participant "CategoryRepository" as CR
+
+User -> LC: getLotsByCategory(Long categoryId)
+activate LC
+
+LC -> CR: findById(categoryId)
+activate CR
+CR --> LC: Category
+deactivate CR
+
+alt Category exists
+    LC -> LR: findByCategory(Category category)
+    activate LR
+    LR --> LC: List<Lot>
+    deactivate LR
+else Category does not exist
+    LC -> User: CategoryNotFoundException
+end
+
+LC --> User: List<Lot>
+deactivate LC
+
+@enduml
