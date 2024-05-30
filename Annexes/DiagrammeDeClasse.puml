@@ -1,0 +1,96 @@
+@startuml
+
+class Category {
+    - int id
+    - String name
+}
+
+class Lot {
+    - int id
+    - String description
+    - double price
+    + Category category
+}
+
+class User {
+    - int id
+    - String username
+    - String email
+}
+
+class CategoryController {
+    + List<Category> getAllCategories()
+    + Category getCategoryById(int id)
+    + Category createCategory(Category category)
+    + Category updateCategory(int id, Category category)
+    + void deleteCategory(int id)
+}
+
+class CategoryNotFoundException extends RuntimeException {
+    + CategoryNotFoundException(Long id)
+}
+
+class LotController {
+    + List<Lot> getAllLots()
+    + Lot getLotById(int id)
+    + Lot createLot(Lot lot)
+    + Lot updateLot(int id, Lot lot)
+    + void deleteLot(int id)
+}
+
+class LotNotFoundAdvice {
+    + String lotNotFoundHandler(LotNotFoundException ex)
+}
+
+class LotNotFoundException extends RuntimeException {
+    + LotNotFoundException(Long id)
+}
+
+class UserController {
+    + List<User> getAllUsers()
+    + User getUserById(int id)
+    + User createUser(User user)
+    + User updateUser(int id, User user)
+    + void deleteUser(int id)
+}
+
+class UserNotFoundException extends RuntimeException {
+    + UserNotFoundException(Long id)
+}
+
+interface CategoryRepository {
+    + List<Category> findAll()
+    + Category findById(int id)
+    + Category save(Category category)
+    + void deleteById(int id)
+}
+
+interface LotRepository {
+    + List<Lot> findAll()
+    + Lot findById(int id)
+    + Lot save(Lot lot)
+    + void deleteById(int id)
+}
+
+interface UserRepository {
+    + List<User> findAll()
+    + User findById(int id)
+    + User save(User user)
+    + void deleteById(int id)
+}
+
+CategoryController --> CategoryRepository
+LotController --> LotRepository
+UserController --> UserRepository
+CategoryRepository --> Category
+LotRepository --> Lot
+UserRepository --> User
+
+Lot --> Category : @ManyToOne
+
+CategoryNotFoundException -|> RuntimeException
+LotNotFoundException -|> RuntimeException
+UserNotFoundException -|> RuntimeException
+LotNotFoundAdvice --> LotNotFoundException
+
+@enduml
