@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style scoped>
-/* Styles CSS spécifiques à ce composant */
+
 .no-results {
   display: flex;
   flex-direction: column;

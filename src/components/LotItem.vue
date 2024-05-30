@@ -36,9 +36,9 @@ export default {
   background-color: #e8f0fe;
 }
 .fixed-width {
-  width: 10%; /* Ajustez ce pourcentage en fonction du nombre total de colonnes */
+  width: 10%;
 }
 .description-width {
-  width: 30%; /* Ajustez ce pourcentage pour la colonne description */
+  width: 30%;
 }
 </style>

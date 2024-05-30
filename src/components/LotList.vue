@@ -1,5 +1,3 @@
-<!-- Dossier Components/Fichier LostList.vue-->
-
 <template>
   <table class="lot-table">
     <thead>
@@ -44,7 +42,7 @@ export default {
   border-collapse: collapse;
   margin: 5px auto;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  font-family: 'Nunito', sans-serif; /* Assurez-vous que la police est appliquée au tableau */
+  font-family: 'Nunito', sans-serif;
   font-weight : bold;
 }
 
@@ -55,12 +53,12 @@ export default {
   border-bottom: 1px solid #ddd;
   background-color: #f4f4f4;
   font-size: 16px;
-  color: #333; /* Définit la couleur du texte pour une meilleure visibilité */
+  color: #333;
 }
 
 .lot-table th {
   background-color: #333;
-  color: white; /* Couleur de texte pour les en-têtes pour le contraste */
+  color: white;
 }
 
 .lot-table tr:nth-child(even) {

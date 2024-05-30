@@ -52,112 +52,112 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: 'Nunito', sans-serif;
-}
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+  }
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-.navbar {
-  display: flex;
-  height: 60px;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  .navbar {
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-.logo-and-name {
-  display: flex;
-  align-items: center; /* Align vertical des éléments */
-}
+  .logo-and-name {
+    display: flex;
+    align-items: center;
+  }
 
-.nav-logo {
-  width: auto;
-  height: 60px;
-  transition: transform 0.3s ease;
-  object-fit: cover;
-  border-radius: 30%;
-}
+  .nav-logo {
+    width: auto;
+    height: 60px;
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    border-radius: 30%;
+  }
 
-.nav-logo:hover {
-  transform: scale(1.1);
-}
+  .nav-logo:hover {
+    transform: scale(1.1);
+  }
 
-.site-name {
-  margin-left: 10px;
-  font-size: 25px;
-  color: #FFF;
-}
+  .site-name {
+    margin-left: 10px;
+    font-size: 25px;
+    color: #FFF;
+  }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  align-items: center; /* Center vertically */
-  height: 100%;
-}
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 
-.nav-links li {
-  margin-left: 20px;
-  display: flex;
-  align-items: center; /* Center vertically */
-  height: 100%;
-}
+  .nav-links li {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s;
-}
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
 
-.nav-links a:hover, .nav-links a:focus {
-  color: #1e90ff;
-  text-decoration: underline;
-}
+  .nav-links a:hover, .nav-links a:focus {
+    color: #1e90ff;
+    text-decoration: underline;
+  }
 
-.user-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
+  .user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
 
-.main-content {
-  flex: 1; /* Prend tout l'espace restant pour pousser le footer vers le bas */
-}
+  .main-content {
+    flex: 1;
+  }
 
-.footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
-  width: 100%;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-.footer-content p {
-  margin: 5px 0;
-}
+  .footer-content p {
+    margin: 5px 0;
+  }
 
-.footer-content a {
-  color: #1e90ff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
+  .footer-content a {
+    color: #1e90ff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
 
-.footer-content a:hover {
-  text-decoration: underline;
-}
+  .footer-content a:hover {
+    text-decoration: underline;
+  }
 </style>

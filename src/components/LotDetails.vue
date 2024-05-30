@@ -1,4 +1,3 @@
-<!-- Dossier components / Fichier LotDetails.vue -->
 <template>
     <div class="lot-details">
       <div class="lot-image">
@@ -41,101 +40,99 @@
 </template>
 
 <script>
-export default {
-  props: {
-    lot: {
-      type: Object,
-      required: true
+  export default {
+    props: {
+      lot: {
+        type: Object,
+        required: true
+      }
+    },
+    methods: {
+      formatDate(date) {
+        if (!date) return ''; // Retourner une chaîne vide si la date est nulle ou indéfinie
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+        return new Date(date).toLocaleDateString('fr-CH', options).replace(/,/g, ' ');
+      }
     }
-  },
-  methods: {
-    formatDate(date) {
-      if (!date) return ''; // Retourner une chaîne vide si la date est nulle ou indéfinie
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-      return new Date(date).toLocaleDateString('fr-CH', options).replace(/,/g, ' ');
-    }
-  }
-};
+  };
 </script>
 
 <style scoped>
 
-.lot-details {
-  display: flex;
-  flex-direction: column; /* Change la direction pour une mise en page verticale */
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); /* Ombre portée stylée pour un effet dynamique */
-  width: 100%; /* Définir une largeur maximale pour le contrôle de la taille */
-  max-width: 800px; /* Largeur maximale pour garder le contenu lisible */
-  align-items: center; /* Assure que tous les éléments intérieurs sont centrés */
-  border: 1.5px solid #cccccc; /* Bordure grise claire ajoutée ici */
-  opacity: 0; /* Démarre avec l'image invisible */
-  animation: fadeInAnimation 1.5s ease-out forwards; /* Animation pour faire apparaître l'image */
-}
-
-.lot-image img {
-  width: 100%; /* Adaptation de la largeur de l'image à son conteneur */
-  max-width: 250px; /* Largeur maximale pour l'image */
-  max-height: 300px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 1.5px solid #cccccc; /* Bordure grise claire ajoutée ici */
-  margin-right: 20px; /* Espace entre l'image et les détails du lot */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); /* Ombre portée stylée pour un effet dynamique */
-  opacity: 1; /* Démarre avec l'image invisible */
-  animation: slideInFromLeft 1.5s ease-out forwards; /* Animation personnalisée pour l'effet de glissement */
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%); /* Démarre à gauche, en dehors du point de vue */
-    opacity: 0; /* Commence complètement transparente */
+  .lot-details {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 800px;
+    align-items: center;
+    border: 1.5px solid #cccccc;
+    opacity: 0;
+    animation: fadeInAnimation 1.5s ease-out forwards;
   }
-  100% {
-    transform: translateX(0); /* Termine au centre du conteneur destiné */
-    opacity: 1; /* Complètement visible */
+
+  .lot-image img {
+    width: 100%;
+    max-width: 250px;
+    max-height: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1.5px solid #cccccc;
+    margin-right: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    opacity: 1;
+    animation: slideInFromLeft 1.5s ease-out forwards;
   }
-}
 
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0; /* L'image commence invisible */
-    transform: scale(0.5); /* Commence à une échelle réduite */
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
-  100% {
-    opacity: 1; /* L'image devient pleinement visible */
-    transform: scale(1); /* Échelle normale */
+
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
-}
 
-.lot-content {
-  width: 100%; /* Utilisation de toute la largeur disponible */
-}
+  .lot-content {
+    width: 100%;
+  }
 
-.lot-info {
-  display: flex; /* Utilise flex pour un alignement horizontal des cartes */
-  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante si nécessaire */
-  gap: 5px; /* Espace entre les cartes */
-  justify-content: space-between; /* Répartit uniformément l'espace entre les cartes */
-}
+  .lot-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-between;
+  }
 
-.lot-info-card {
-  flex: 1 1 250px; /* Flexibilité pour que les cartes puissent grandir et avoir une base de 180px */
-  background: #ffffff;
-  padding: 10px;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
-  min-height: 5px; /* Hauteur minimale pour l'uniformité */
-}
+  .lot-info-card {
+    flex: 1 1 250px;
+    background: #ffffff;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    min-height: 5px;
+  }
 
-.lot-title {
-  color: #333;
-  text-align: center; /* Centrage du titre */
-  margin: 10px; /* Aucun espace externe pour le titre */
-}
-
+  .lot-title {
+    color: #333;
+    text-align: center;
+    margin: 10px;
+  }
 
 </style>

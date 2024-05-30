@@ -1,5 +1,3 @@
-//Dossier services / Fichier LotService.js
-
 import axios from "axios";
 
 class LotService {
@@ -62,6 +60,13 @@ class LotService {
             throw new Error(`Erreur lors de la récupération des lots par sous-catégorie: ${error.message}`);
         }
     }
+
+    /**
+     * @param lotId L'identifiant du lot
+     * @param bidAmount Le montant de l'enchère à placer
+     * @returns La réponse de l'API après avoir placé l'enchère
+     * @throws Erreur en cas d'échec de la requête
+     */
     async placeBid(lotId, bidAmount) {
         try {
             const response = await axios.put(`${this.baseURL}/${lotId}/bid`, bidAmount, {

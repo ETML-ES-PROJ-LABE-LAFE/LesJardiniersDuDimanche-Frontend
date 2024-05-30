@@ -78,59 +78,59 @@ export default {
 </script>
 
 <style scoped>
-.lot-details-view {
-  min-height: calc(100vh - 80px); /* Hauteur minimale pour prendre toute la hauteur visible */
-  width: 100%; /* Largeur pleine page */
-  background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centre les éléments verticalement */
-  align-items: center; /* Centre les éléments horizontalement */
-}
-
-.details-and-bid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  opacity: 0; /* Initialement invisible */
-  animation: fadeInAnimation 1.5s ease-out forwards; /* Animation de fade-in */
-}
-
-.error-message {
-  color: white;
-  margin-top: 15px;
-  font-size: 25px;
-}
-
-.back-button {
-  margin-top: 5px;
-  margin-bottom: 10px;
-  padding: 10px 20px;
-  background-color: white;
-  color: #333;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
-  opacity: 0; /* Initialement invisible */
-  animation: fadeInAnimation 1.5s ease-out forwards; /* Animation de fade-in */
-}
-
-.back-button:hover {
-  background-color: #6dc571;
-  color: white;
-}
-
-/* Animation keyframes */
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0; /* Initialement invisible */
-    transform: scale(0.5); /* Légèrement plus petit */
+  .lot-details-view {
+    min-height: calc(100vh - 80px);
+    width: 100%;
+    background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  100% {
-    opacity: 1; /* Pleinement visible */
-    transform: scale(1); /* Échelle normale */
+
+  .details-and-bid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    animation: fadeInAnimation 1.5s ease-out forwards;
   }
-}
+
+  .error-message {
+    color: white;
+    margin-top: 15px;
+    font-size: 25px;
+  }
+
+  .back-button {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    opacity: 0;
+    animation: fadeInAnimation 1.5s ease-out forwards;
+  }
+
+  .back-button:hover {
+    background-color: #6dc571;
+    color: white;
+  }
+
+
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 </style>
 

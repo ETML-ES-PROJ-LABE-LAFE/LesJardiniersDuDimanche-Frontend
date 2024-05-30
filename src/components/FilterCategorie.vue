@@ -1,5 +1,3 @@
-<!-- Dossier components/ Fichier FilterCategories-->
-
 <template>
   <div class="filter-categorie">
 
@@ -32,13 +30,13 @@ export default {
   methods: {
     // Gestion du changement de sélection dans le menu déroulant
     onCategoryChange(value) {
-      if (!value) { // Si aucune valeur n'est sélectionnée (option vide - Sélectionner une catégorie)
+      if (!value) {
         this.$emit('category-changed', null);  // Émet un événement avec `null` pour indiquer la réinitialisation
       }
       else { // Si une valeur est sélectionnée
         const category = this.categories.find(cat => cat.id === parseInt(value)); // Trouver la catégorie correspondante
         const categoryName = category ? category.name : 'Inconnue'; // Obtenir le nom de la catégorie ou 'Inconnue' si non trouvée
-        console.log("Changement de catégorie : ID :", value, "Nom:", categoryName); // Logger le changement
+        console.log("Changement de catégorie : ID :", value, "Nom:", categoryName);
         this.$emit('input', value);  // Émettre la valeur sélectionnée pour mise à jour du v-model
         this.$emit('category-changed', value);  // Émettre l'ID de la catégorie pour chargement des lots spécifiques
       }
@@ -48,32 +46,32 @@ export default {
 </script>
 
 <style scoped>
-.filter-categorie {
-  display: inline-block; /* Pour que l'élément se comporte comme un bloc mais s'aligne en ligne */
-  vertical-align: top; /* Alignement vertical pour correspondre à la hauteur de la barre de recherche */
-  margin: 0px 20px 0px;
-}
+  .filter-categorie {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px 20px 0px;
+  }
 
-select {
-  border-radius: 8px;
-  background-color: white;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  color: #333;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s;
-  width: 100%; /* Assure que le select prend toute la largeur disponible de son conteneur */
-  margin-top: 0; /* Réduit ou supprime la marge supérieure si elle est présente */
-}
+  select {
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    width: 100%;
+    margin-top: 0;
+  }
 
-select:hover {
-  border-color: #888;
-}
+  select:hover {
+    border-color: #888;
+  }
 
-select:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
-}
+  select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
+  }
 
 </style>
 

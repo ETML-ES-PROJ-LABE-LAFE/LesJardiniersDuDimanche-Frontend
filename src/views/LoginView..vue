@@ -65,85 +65,85 @@ export default {
 </script>
 
 <style scoped>
-.login-view {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 80px);
-  width: 100%;
-  background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
-  flex-direction: column;
-  padding-top: 0px;
-}
-
-.login-container {
-  text-align: center;
-  background: white;
-  padding: 20px 60px 150px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-}
-
-.title {
-  font-size: 50px;
-  margin-bottom: 100px;
-  color: #333;
-  margin-top: 40px;
-  padding: 0;
-}
-
-.user-buttons {
-  display: flex;
-  justify-content: space-around;
-  gap: 100px;
-}
-
-.user-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.user-button:hover .user-image {
-  border-color: #2563eb;
-}
-
-.user-image {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  border: 4px solid white;
-  transition: border-color 0.3s ease;
-  margin-bottom: 20px;
-}
-
-.user-name {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-.alert {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #3b82f6;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  opacity: 0.9;
-  animation: fadeInOut 10s ease-in-out;
-}
-
-@keyframes fadeInOut {
-  0%, 100% {
-    opacity: 0;
+  .login-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    width: 100%;
+    background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
+    flex-direction: column;
+    padding-top: 0px;
   }
-  10%, 90% {
+
+  .login-container {
+    text-align: center;
+    background: white;
+    padding: 20px 60px 150px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .title {
+    font-size: 50px;
+    margin-bottom: 100px;
+    color: #333;
+    margin-top: 40px;
+    padding: 0;
+  }
+
+  .user-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 100px;
+  }
+
+  .user-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .user-button:hover .user-image {
+    border-color: #2563eb;
+  }
+
+  .user-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 4px solid white;
+    transition: border-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+
+  .user-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .alert {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
     opacity: 0.9;
+    animation: fadeInOut 10s ease-in-out;
   }
-}
+
+  @keyframes fadeInOut {
+    0%, 100% {
+      opacity: 0;
+    }
+    10%, 90% {
+      opacity: 0.9;
+    }
+  }
 </style>
