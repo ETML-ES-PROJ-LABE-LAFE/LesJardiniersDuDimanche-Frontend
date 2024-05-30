@@ -1,114 +1,138 @@
 @startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
 
+class AuctionApp {
+  + AuctionApp(): 
+  + main(String[]): void
+}
 class Category {
-    - Long id
-    - String name
-    + Long getId()
-    + void setId(Long id)
-    + String getName()
-    + void setName(String name)
+  + Category(): 
+  + Category(String, Category): 
+  - id: Long
+  - name: String
+  - parentCategory: Category
+  + hashCode(): int
+  + equals(Object): boolean
+  + toString(): String
+   name: String
+   id: Long
+   parentCategory: Category
 }
-
-class Lot {
-    - Long id
-    - String description
-    - double price
-    - Category category
-    + Long getId()
-    + void setId(Long id)
-    + String getDescription()
-    + void setDescription(String description)
-    + double getPrice()
-    + void setPrice(double price)
-    + Category getCategory()
-    + void setCategory(Category category)
-}
-
-class User {
-    - Long id
-    - String username
-    - String email
-    + Long getId()
-    + void setId(Long id)
-    + String getUsername()
-    + void setUsername(String username)
-    + String getEmail()
-    + void setEmail(String email)
-}
-
 class CategoryController {
-    + List<Category> getAllCategories()
-    + Category getCategoryById(int id)
-    + Category createCategory(Category category)
-    + Category updateCategory(int id, Category category)
-    + void deleteCategory(int id)
+  + CategoryController(CategoryRepository): 
+  + deleteCategory(Long): void
+  + addCategory(Category): Category
+  + updateCategory(Category, Long): Category
+  + getCategoryById(Long): Category
+  + getSubCategoriesByParentId(Long): List<Category>
+   allCategories: List<Category>
 }
-
-class CategoryNotFoundException extends RuntimeException {
-    + CategoryNotFoundException(Long id)
+class CategoryNotFoundException {
+  ~ CategoryNotFoundException(Long): 
 }
-
+interface CategoryRepository << interface >> {
+  + findByParentCategoryId(Long): List<Category>
+}
+class CorsConfig {
+  + CorsConfig(): 
+  + corsConfigurer(): WebMvcConfigurer
+}
+class LoadDatabase {
+  + LoadDatabase(): 
+  ~ initDatabase(LotRepository, CategoryRepository, UserRepository): CommandLineRunner
+}
+class Lot {
+  + Lot(): 
+  + Lot(String, String, Double, Double, Date, Date, Category, Category): 
+  - category: Category
+  - startingDateHours: Date
+  - description: String
+  - name: String
+  - id: Long
+  - actualPrice: Double
+  - endingDateHours: Date
+  - startingPrice: Double
+  - subCategory: Category
+  + hashCode(): int
+  + toString(): String
+  + equals(Object): boolean
+   name: String
+   description: String
+   startingDateHours: Date
+   category: Category
+   startingPrice: Double
+   subCategory: Category
+   id: Long
+   actualPrice: Double
+   endingDateHours: Date
+}
 class LotController {
-    + List<Lot> getAllLots()
-    + Lot getLotById(int id)
-    + Lot createLot(Lot lot)
-    + Lot updateLot(int id, Lot lot)
-    + void deleteLot(int id)
+  ~ LotController(LotRepository, CategoryRepository): 
+  ~ replaceLot(Lot, Long): Lot
+  + placeBid(Long, Double): ResponseEntity<String>
+  ~ all(): List<Lot>
+  ~ newLot(Lot): Lot
+  ~ one(Long): Lot
+  + getByCategory(Long): List<Lot>
+  + getBySubCategory(Long): List<Lot>
+  ~ deleteLot(Long): void
 }
-
 class LotNotFoundAdvice {
-    + String lotNotFoundHandler(LotNotFoundException ex)
+  + LotNotFoundAdvice(): 
+  ~ LotNotFoundHandler(LotNotFoundException): String
 }
-
-class LotNotFoundException extends RuntimeException {
-    + LotNotFoundException(Long id)
+class LotNotFoundException {
+  ~ LotNotFoundException(Long): 
 }
-
+interface LotRepository << interface >> {
+  + findBySubCategory_Id(Long): List<Lot>
+  + findByCategory(Category): List<Lot>
+}
+class User {
+  + User(String, String, BigDecimal): 
+  + User(): 
+  - isConnected: boolean
+  - wallet: BigDecimal
+  - name: String
+  - email: String
+  - id: Long
+  + equals(Object): boolean
+  + hashCode(): int
+  + toString(): String
+   name: String
+   id: Long
+   email: String
+   isConnected: boolean
+   wallet: BigDecimal
+}
 class UserController {
-    + List<User> getAllUsers()
-    + User getUserById(int id)
-    + User createUser(User user)
-    + User updateUser(int id, User user)
-    + void deleteUser(int id)
+  ~ UserController(UserRepository): 
+  ~ debitWallet(Long, BigDecimal): User
+  ~ deleteUser(Long): void
+  ~ one(Long): User
+  ~ replaceUser(User, Long): User
+  ~ all(): List<User>
+  ~ newUser(User): User
+  ~ updateIsConnected(Long, Map<String, Boolean>): User
+  ~ creditWallet(Long, BigDecimal): User
 }
-
-class UserNotFoundException extends RuntimeException {
-    + UserNotFoundException(Long id)
+class UserNotFoundException {
+  + UserNotFoundException(Long): 
 }
+interface UserRepository << interface >>
 
-interface CategoryRepository {
-    + List<Category> findAll()
-    + Category findById(int id)
-    + Category save(Category category)
-    + void deleteById(int id)
-}
-
-interface LotRepository {
-    + List<Lot> findAll()
-    + Lot findById(int id)
-    + Lot save(Lot lot)
-    + void deleteById(int id)
-}
-
-interface UserRepository {
-    + List<User> findAll()
-    + User findById(int id)
-    + User save(User user)
-    + void deleteById(int id)
-}
-
-CategoryController --> CategoryRepository
-LotController --> LotRepository
-UserController --> UserRepository
-CategoryRepository --> Category
-LotRepository --> Lot
-UserRepository --> User
-
-Lot --> Category : @ManyToOne
-
-CategoryNotFoundException -|> RuntimeException
-LotNotFoundException -|> RuntimeException
-UserNotFoundException -|> RuntimeException
-LotNotFoundAdvice --> LotNotFoundException
-
+CategoryController         -[#595959,dashed]->  CategoryNotFoundException : "«create»"
+CategoryController        "1" *-[#595959,plain]-> "repository\n1" CategoryRepository        
+LoadDatabase               -[#595959,dashed]->  Category                  : "«create»"
+LoadDatabase               -[#595959,dashed]->  Lot                       : "«create»"
+LoadDatabase               -[#595959,dashed]->  User                      : "«create»"
+Lot                       "1" *-[#595959,plain]-> "category\n1" Category                  
+LotController              -[#595959,dashed]->  CategoryNotFoundException : "«create»"
+LotController             "1" *-[#595959,plain]-> "categoryRepository\n1" CategoryRepository        
+LotController              -[#595959,dashed]->  LotNotFoundException      : "«create»"
+LotController             "1" *-[#595959,plain]-> "repository\n1" LotRepository             
+UserController             -[#595959,dashed]->  UserNotFoundException     : "«create»"
+UserController            "1" *-[#595959,plain]-> "userRepository\n1" UserRepository
 @enduml
