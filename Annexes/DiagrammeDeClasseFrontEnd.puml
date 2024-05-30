@@ -1,0 +1,95 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype polyline
+
+class node12 as "assets/logo_enchere.jpg"
+class node17 as "assets/pinguin_erro.png"
+class node18 as "axios/index.d.cts"
+class node14 as "axios/index.d.ts"
+class node4 as "components/BidAuction.vue"
+class node15 as "components/FilterCategorie.vue"
+class node3 as "components/FilterSubCategorie.vue"
+class node7 as "components/LotDetails.vue"
+class node10 as "components/LotItem.vue"
+class node9 as "components/LotList.vue" {
+   LotItem:
+}
+class node11 as "components/SearchBar.vue"
+class node5 as "components/SearchBarNoResults.vue"
+class node6 as "router/index.js" {
+   HomeView:
+   LoginView:
+   LotDetailsView:
+   LotsView:
+   ProfileView:
+   createRouter:
+   createWebHashHistory:
+}
+class node2 as "services/CategoryService.js" {
+   axios:
+}
+class node21 as "services/LotService.js" {
+   axios:
+}
+class node16 as "services/UserService.js" {
+   axios:
+}
+class node19 as "src/App.vue"
+class node20 as "views/HomeView.vue"
+class node13 as "views/LoginView..vue" {
+   UserService:
+}
+class node0 as "views/LotDetailsView.vue" {
+   BidAuction:
+   LotDetails:
+   UserService:
+   lotServices:
+}
+class node1 as "views/LotsView.vue" {
+   CategoryService:
+   FilterCategorie:
+   FilterSubCategories:
+   LotList:
+   LotService:
+   SearchBar:
+   SearchBarNoResults:
+}
+class node8 as "views/ProfileView.vue" {
+   UserService:
+}
+class node22 as "vue-router/.../vue-router.d.ts" {
+   createRouter:
+   createWebHashHistory:
+}
+
+node9   <-[#595959,plain]-  node10
+node5   <-[#595959,plain]-  node17
+node6   <-[#595959,plain]-  node20
+node6   <-[#595959,plain]-  node13
+node6   <-[#595959,plain]-  node0
+node6   <-[#595959,plain]-  node1
+node6   <-[#595959,plain]-  node8
+node6   <-[#595959,plain]-  node22
+node6   <-[#595959,plain]-  node22
+node2   <-[#595959,plain]-  node18
+node2   <-[#595959,plain]-  node14
+node21  <-[#595959,plain]-  node18
+node21  <-[#595959,plain]-  node14
+node16  <-[#595959,plain]-  node18
+node16  <-[#595959,plain]-  node14
+node19  <-[#595959,plain]-  node12
+node13  <-[#595959,plain]-  node16
+node0   <-[#595959,plain]-  node4
+node0   <-[#595959,plain]-  node7
+node0   <-[#595959,plain]-  node21
+node0   <-[#595959,plain]-  node16
+node1   <-[#595959,plain]-  node15
+node1   <-[#595959,plain]-  node3
+node1   <-[#595959,plain]-  node9
+node1   <-[#595959,plain]-  node11
+node1   <-[#595959,plain]-  node5
+node1   <-[#595959,plain]-  node2
+node1   <-[#595959,plain]-  node21
+node8   <-[#595959,plain]-  node16
+@enduml
