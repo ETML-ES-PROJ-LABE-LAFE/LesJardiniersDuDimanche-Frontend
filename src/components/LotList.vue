@@ -15,11 +15,7 @@
     <LotItem v-for="lot in paginatedLots" :key="lot.id" :lot="lot" />
     </tbody>
   </table>
-  <PageNumber
-      :currentPage="currentPage"
-      :totalPages="totalPages"
-      @change-page="handleChangePage"
-    />
+  <PageNumber :currentPage="currentPage" :totalPages="totalPages" @change-page="handleChangePage" />
 </template>
 
 <script>
