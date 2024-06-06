@@ -45,18 +45,18 @@ export default {
 
 button {
   margin: 0 10px;
-  padding: 10px 20px; /* Taille du padding pour des boutons plus grands */
+  padding: 10px 20px;
   border: none;
-  background-color: #007BFF; /* Nouvelle couleur bleu */
+  background-color: #007BFF;
   color: white;
   cursor: pointer;
   border-radius: 4px;
-  font-size: 18px; /* Taille de la police pour des boutons plus grands */
-  transition: background-color 0.3s ease; /* Ajout de transition pour effet visuel */
+  font-size: 18px;
+  transition: background-color 0.3s ease;
 }
 
 button:hover:not(:disabled) {
-  background-color: #0056b3; /* Couleur pour l'effet hover */
+  background-color: #0056b3;
 }
 
 button:disabled {
