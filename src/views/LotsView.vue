@@ -9,6 +9,7 @@
     </div>
     <LotList :lots="filteredLotsCategories"/>
     <SearchBarNoResults v-if="filteredLotsSearchBar.length === 0" />
+    <button v-if="isUserConnected" @click="navigateToAddLot">Ajouter un lot</button>
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import SearchBar from "@/components/SearchBar.vue";
 import FilterCategorie from "@/components/FilterCategorie.vue";
 import FilterSubCategories from "@/components/FilterSubCategorie.vue";
 import SearchBarNoResults from "@/components/SearchBarNoResults.vue";
+import UserService from "@/services/UserService";
 
 export default {
   name: 'LotsView',
@@ -70,6 +72,9 @@ export default {
     },
     filteredSubCategories() {
       return this.selectedMainCategory ? this.subCategories : [];
+    },
+    isUserConnected() {
+      return !!UserService.getLoggedInUserId();
     }
   },
   methods: {
@@ -135,6 +140,9 @@ export default {
       this.selectedMainCategory = '';
       this.selectedSubCategory = '';
       this.loadLots();  // Reload all lots when filters are cleared
+    },
+    navigateToAddLot() {
+      this.$router.push({name: 'AddLot'});
     }
   },
   async created() {
@@ -183,11 +191,18 @@ export default {
   margin: 10px;
 }
 
-select {
-  width: 100%;
-  padding: 8px 16px;
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
   border-radius: 4px;
-  background-color: white;
-  border: 1px solid #ccc;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }
 </style>

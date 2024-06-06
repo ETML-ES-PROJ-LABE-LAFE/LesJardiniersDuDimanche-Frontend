@@ -1,11 +1,10 @@
-// Dossier routeur Fichier index.js
-
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue' //Importer la vue pour revenir à l'écran d'accueil
-import LotsView from '../views/LotsView.vue' // Importer la vue pour afficher la liste des lots
-import LotDetailsView from '../views/LotDetailsView.vue' // Importez la vue pour afficher les détails du lot
-import LoginView from '../views/LoginView..vue' //Importer la vue pour la page de connexion user
-import ProfileView from '../views/ProfileView.vue' //Importer la vue pour la page de profil de l'user connecté
+import HomeView from '../views/HomeView.vue'
+import LotsView from '../views/LotsView.vue'
+import LotDetailsView from '../views/LotDetailsView.vue'
+import LoginView from '../views/LoginView..vue'
+import ProfileView from '../views/ProfileView.vue'
+import AddLotView from '../views/AddLotView.vue'
 
 const routes = [
   {
@@ -19,7 +18,7 @@ const routes = [
     component: LotsView
   },
   {
-    path: '/lots/:id', // Utilisation d'un paramètre dynamique pour l'ID du lot
+    path: '/lots/:id',
     name: 'LotDetails',
     component: LotDetailsView,
     props: true
@@ -31,10 +30,16 @@ const routes = [
     props: true
   },
   {
-    path: '/profile/:id', // Utilisation d'un paramètre dynamique pour l'ID de l'utilisateur
+    path: '/profile/:id',
     name: 'Profile',
     component: ProfileView,
     props: true
+  },
+  {
+    path: '/add-lot',
+    name: 'AddLot',
+    component: AddLotView,
+    meta: { requiresAuth: true }
   }
 ]
 
@@ -43,4 +48,17 @@ const router = createRouter({
   routes
 })
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      next({ name: 'Login' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

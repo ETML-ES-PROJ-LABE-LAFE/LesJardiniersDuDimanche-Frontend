@@ -79,6 +79,18 @@ class LotService {
             throw new Error(`${error.response ? error.response.data : error.message}`);
         }
     }
+    async createLot(lotData) {
+        try {
+            const response = await axios.post(this.baseURL, lotData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de la création du lot: ${error.message}`);
+        }
+    }
 }
 
 export default new LotService();
