@@ -12,22 +12,46 @@
     </tr>
     </thead>
     <tbody>
-    <LotItem v-for="lot in lots" :key="lot.id" :lot="lot" />
+    <LotItem v-for="lot in paginatedLots" :key="lot.id" :lot="lot" />
     </tbody>
   </table>
+  <PageNumber :currentPage="currentPage" :totalPages="totalPages" @change-page="handleChangePage" />
 </template>
 
 <script>
 import LotItem from "@/components/LotItem.vue";
+import PageNumber from "@/components/PageNumber.vue";
 
 export default {
   components: {
-    LotItem
+    LotItem,
+    PageNumber
   },
   props: {
     lots: {
       type: Array,
       required: true
+    }
+  },
+  data(){
+    return {
+      currentPage : 1,
+      itemsPerPage : 10 //Change le nombre de lots à afficher par pages
+    }
+  },
+  computed :{
+    totalPages() {
+      return Math.ceil(this.lots.length / this.itemsPerPage);
+    },
+    paginatedLots() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.lots.slice(start, end);
+    }
+  },
+  methods : {
+    handleChangePage(page){
+      this.currentPage = page;
     }
   }
 };
