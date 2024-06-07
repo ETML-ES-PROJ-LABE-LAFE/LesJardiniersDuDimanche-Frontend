@@ -3,9 +3,54 @@
     <div class="profile-card">
       <img :src="getUserImage(user.id)" alt="User Icon" class="profile-image" />
       <h1>Profil de {{ user.name }}</h1>
-      <p><i class="fas fa-envelope icon"></i> {{ user.email }}</p>
-      <p><i class="fas fa-wallet icon"></i> Porte-Monnaie: {{ user.wallet }} CHF</p>
-      <button @click="logout">Déconnexion</button>
+
+      <!-- Sections disposées horizontalement avec boutons à droite -->
+      <div class="profile-sections">
+        <!-- Section Changer l'email -->
+        <div class="section">
+          <div class="section-content">
+            <div>
+              <h2><i class="fas fa-envelope icon"></i> Changer l'email</h2>
+              <p>{{ user.email }}</p>
+            </div>
+            <button @click="navigateToUpdateEmail">Changer l'email</button>
+          </div>
+        </div>
+
+        <!-- Section Porte-Monnaie -->
+        <div class="section">
+          <div class="section-content">
+            <div>
+              <h2><i class="fas fa-wallet icon"></i> Porte-Monnaie</h2>
+              <p>Solde: {{ user.wallet }} CHF</p>
+            </div>
+            <button @click="navigateToAddMoney">Ajouter de l'argent</button>
+          </div>
+        </div>
+
+        <!-- Section Ajouter un Lot -->
+        <div class="section">
+          <div class="section-content">
+            <div>
+              <h2><i class="fas fa-plus-circle icon"></i> Ajouter un Lot</h2>
+            </div>
+            <button @click="navigateToAddLot">Ajouter un lot</button>
+          </div>
+        </div>
+
+        <!-- Section Suivi des Lots -->
+        <div class="section">
+          <div class="section-content">
+            <div>
+              <h2><i class="fas fa-list icon"></i> Lots Suivis</h2>
+            </div>
+            <button @click="navigateToTrackedLots">Voir les lots</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Déconnexion -->
+      <button class="logout-button" @click="logout">Déconnexion</button>
     </div>
   </div>
   <div v-else>
@@ -73,59 +118,109 @@ export default {
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 60px;
-    max-width: 600px;
+    padding: 20px; /* Réduire le padding pour éviter les débordements */
+    max-width: 1000px;
     width: 100%;
     text-align: center;
     animation: fadeIn 1s ease-in-out;
   }
 
   .profile-image {
-    margin-top: -120px;
-    width: 180px;
-    height: 180px;
+    margin-top: -75px; /* Ajusté pour aligner avec le padding réduit */
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     border: 4px solid white;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   h1 {
-    margin-top: 20px;
+    margin-top: 10px;
     color: #333;
-    font-size: 32px;
+    font-size: 28px;
   }
 
-  p {
-    margin: 15px 0;
-    font-weight: bold;
-    color: #666;
+  .profile-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Réduire l'espacement entre les sections */
+    margin-top: 20px;
+  }
+
+  .section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px; /* Réduire le padding interne des sections */
+    background: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .section h2 {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    font-size: 18px; /* Réduire la taille de la police pour plus de compacité */
+    margin-bottom: 0; /* Enlever la marge pour aligner mieux */
   }
 
-  p i {
+  .section p {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .section .icon {
     margin-right: 10px;
-    font-size: 24px;
+    font-size: 18px; /* Réduire la taille de l'icône pour plus de compacité */
+    color: #555;
   }
 
   button {
-    margin-top: 30px;
-    padding: 15px 30px;
-    background-color: #ff4d4d;
+    padding: 8px 16px; /* Réduire le padding pour ajuster la taille du bouton */
+    background-color: #888888;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
+    margin-left: 10px; /* Ajouter un espacement pour ne pas coller au texte */
   }
 
   button:hover {
     background-color: #ff1a1a;
+  }
+
+  .logout-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+  }
+
+  .tracking-section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    text-align: left;
+  }
+
+  .tracking-section li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
   }
 
   @keyframes fadeIn {
@@ -139,3 +234,4 @@ export default {
     }
   }
 </style>
+
