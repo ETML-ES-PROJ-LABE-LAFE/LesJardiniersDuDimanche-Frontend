@@ -107,6 +107,38 @@ class UserService {
         // Solution de contournement que l'on a mis en place pour quand meme nous permettre d'avoir un systeme de User
         // Car comme discuté avec Mme.Bianchi nous n'avons pas vu la réelle facon de faire et nous n'allons pas avoir le temps de le faire
     }
+
+    /**
+     * Met à jour l'email de l'utilisateur
+     * @param userId L'identifiant de l'utilisateur
+     * @param newEmail Le nouvel email de l'utilisateur
+     * @returns Les données mises à jour de l'utilisateur sous forme JSON
+     * @throws Erreur en cas d'échec de la requête
+     */
+    async updateUserEmail(userId, newEmail) {
+        try {
+            const response = await axios.put(`${this.baseURL}/${userId}/email`, { email: newEmail });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de la mise à jour de l'email de l'utilisateur: ${error.message}`);
+        }
+    }
+
+    /**
+     * Ajoute de l'argent au portefeuille de l'utilisateur
+     * @param userId L'identifiant de l'utilisateur
+     * @param amount Le montant à ajouter
+     * @returns Les données mises à jour de l'utilisateur sous forme JSON
+     * @throws Erreur en cas d'échec de la requête
+     */
+    async addMoneyToWallet(userId, amount) {
+        try {
+            const response = await axios.put(`${this.baseURL}/${userId}/wallet`, { amount: amount });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de l'ajout d'argent au portefeuille de l'utilisateur: ${error.message}`);
+        }
+    }
 }
 
 export default new UserService();
