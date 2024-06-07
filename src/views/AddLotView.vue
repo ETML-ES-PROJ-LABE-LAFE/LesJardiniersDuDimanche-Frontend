@@ -7,10 +7,12 @@
   </div>
 </template>
 
+
 <script>
 import AddLotForm from "@/components/AddLotForm.vue";
 import LotService from "@/services/LotService";
 import CategoryService from "@/services/CategoryService";
+import UserService from "@/services/UserService";
 
 export default {
   name: "AddLotView",
@@ -20,11 +22,13 @@ export default {
   data() {
     return {
       categories: [],
-      subCategories: []
+      subCategories: [],
+      connectedUser: null
     };
   },
   async created() {
     await this.loadCategories();
+    await this.loadConnectedUser();
   },
   methods: {
     async loadCategories() {
@@ -36,10 +40,27 @@ export default {
         console.error("Erreur lors du chargement des catégories: " + error);
       }
     },
+    async loadConnectedUser() {
+      try {
+        const userId = UserService.getLoggedInUserId();
+        if (userId) {
+          this.connectedUser = await UserService.getUserById(userId);
+        } else {
+          console.error("Aucun utilisateur connecté trouvé.");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des détails de l'utilisateur: " + error);
+      }
+    },
     async handleLotSubmit(lot) {
       try {
-        await LotService.createLot(lot);
-        this.$router.push("/lots");
+        if (this.connectedUser) {
+          lot.user = this.connectedUser;
+          await LotService.createLot(lot);
+          this.$router.push("/lots");
+        } else {
+          console.error("Utilisateur connecté non trouvé.");
+        }
       } catch (error) {
         console.error("Erreur lors de la création du lot: " + error);
       }
@@ -47,6 +68,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .add-lot-view {
