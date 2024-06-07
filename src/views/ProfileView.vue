@@ -57,11 +57,17 @@
       <!-- Déconnexion -->
       <button class="logout-button" @click="logout">Déconnexion</button>
     </div>
+
+    <!-- Zone de notification -->
+    <div v-if="notificationMessage" class="notification">
+      {{ notificationMessage }}
+    </div>
   </div>
   <div v-else>
     <p>Loading...</p>
   </div>
 </template>
+
 
 <script>
 import UserService from '../services/UserService';
@@ -75,7 +81,8 @@ export default {
       isEditingEmail: false,
       newEmail: '',
       isAddingMoney: false,
-      amountToAdd: 0
+      amountToAdd: 0,
+      notificationMessage: '', // État pour le message de notification
     };
   },
   async created() {
@@ -120,7 +127,7 @@ export default {
         this.user.email = this.newEmail;
         this.isEditingEmail = false;
         this.newEmail = '';
-        alert('Email mis à jour avec succès.');
+        this.showNotification('Email mis à jour avec succès.');
       } catch (error) {
         console.error('Erreur lors de la mise à jour de l\'email:', error);
       }
@@ -139,7 +146,7 @@ export default {
         this.user.wallet += amount;
         this.isAddingMoney = false;
         this.amountToAdd = 0;
-        alert('Montant ajouté avec succès.');
+        this.showNotification('Montant ajouté avec succès.');
       } catch (error) {
         console.error('Erreur lors de l\'ajout d\'argent:', error);
       }
@@ -149,6 +156,12 @@ export default {
     },
     navigateToTrackedLots() {
       this.$router.push({ name: 'TrackedLots' });
+    },
+    showNotification(message) {
+      this.notificationMessage = message;
+      setTimeout(() => {
+        this.notificationMessage = '';
+      }, 3000); // Cache la notification après 3 secondes
     }
   }
 };
@@ -289,6 +302,31 @@ export default {
     background-color: #ff1a1a;
   }
 
+  /* Styles pour la notification */
+  .notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #4CAF50; /* Vert pour indiquer le succès */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    z-index: 1000; /* Assure que la notification est au-dessus de tout le reste */
+    animation: fadeInOut 3s; /* Animation pour apparaître et disparaître */
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% {
+      opacity: 0;
+    }
+    10%, 90% {
+      opacity: 1;
+    }
+  }
+
   .tracking-section ul {
     list-style-type: none;
     padding: 0;
@@ -316,3 +354,4 @@ export default {
     }
   }
 </style>
+
