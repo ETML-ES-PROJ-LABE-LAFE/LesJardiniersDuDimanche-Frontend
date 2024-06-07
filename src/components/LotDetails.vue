@@ -5,6 +5,10 @@
       </div>
       <div class="lot-content">
         <h2 class="lot-title">{{ lot.name }}</h2>
+        <div class="lot-info-card">
+          <strong>Vendeur : </strong>
+          <span>{{ lot.user.name }}</span>
+        </div>
         <div class="lot-info">
           <div class="lot-info-card">
             <strong>Catégorie : </strong>
@@ -116,12 +120,13 @@
   .lot-info {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
     justify-content: space-between;
   }
 
   .lot-info-card {
     flex: 1 1 250px;
+    margin-bottom: 10px;
+    margin-right: 5px;
     background: #ffffff;
     padding: 10px;
     border: 1px solid #dee2e6;
