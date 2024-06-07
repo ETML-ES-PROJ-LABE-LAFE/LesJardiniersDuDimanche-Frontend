@@ -4,16 +4,18 @@
       <img :src="getUserImage(user.id)" alt="User Icon" class="profile-image" />
       <h1>Profil de {{ user.name }}</h1>
 
-      <!-- Sections disposées horizontalement avec boutons à droite -->
       <div class="profile-sections">
         <!-- Section Changer l'email -->
         <div class="section">
           <div class="section-content">
             <div>
               <h2><i class="fas fa-envelope icon"></i> Changer l'email</h2>
-              <p>{{ user.email }}</p>
+              <p v-if="!isEditingEmail">{{ user.email }}</p>
+              <input v-else v-model="newEmail" type="email" placeholder="Nouveau email" />
             </div>
-            <button @click="navigateToUpdateEmail">Changer l'email</button>
+            <button @click="toggleEditEmail" :class="[isEditingEmail ? 'confirm-button' : 'blue-button']">
+              {{ isEditingEmail ? 'Confirmer' : 'Changer l\'email' }}
+            </button>
           </div>
         </div>
 
@@ -23,8 +25,11 @@
             <div>
               <h2><i class="fas fa-wallet icon"></i> Porte-Monnaie</h2>
               <p>Solde: {{ user.wallet }} CHF</p>
+              <input v-if="isAddingMoney" v-model="amountToAdd" type="number" placeholder="Montant à ajouter" />
             </div>
-            <button @click="navigateToAddMoney">Ajouter de l'argent</button>
+            <button @click="toggleAddMoney" :class="[isAddingMoney ? 'confirm-button' : 'blue-button']">
+              {{ isAddingMoney ? 'Confirmer' : 'Ajouter de l\'argent' }}
+            </button>
           </div>
         </div>
 
@@ -34,7 +39,7 @@
             <div>
               <h2><i class="fas fa-plus-circle icon"></i> Ajouter un Lot</h2>
             </div>
-            <button @click="navigateToAddLot">Ajouter un lot</button>
+            <button @click="navigateToAddLot" class="blue-button">Ajouter un lot</button>
           </div>
         </div>
 
@@ -44,7 +49,7 @@
             <div>
               <h2><i class="fas fa-list icon"></i> Lots Suivis</h2>
             </div>
-            <button @click="navigateToTrackedLots">Voir les lots</button>
+            <button @click="navigateToTrackedLots" class="blue-button">Voir les lots</button>
           </div>
         </div>
       </div>
@@ -66,7 +71,11 @@ export default {
   props: ['id'],
   data() {
     return {
-      user: null
+      user: null,
+      isEditingEmail: false,
+      newEmail: '',
+      isAddingMoney: false,
+      amountToAdd: 0
     };
   },
   async created() {
@@ -95,6 +104,51 @@ export default {
       } catch (error) {
         console.error('Erreur lors de la déconnexion:', error);
       }
+    },
+    toggleEditEmail() {
+      if (this.isEditingEmail) {
+        // Confirmer le changement d'email
+        this.updateEmail();
+      } else {
+        this.newEmail = this.user.email; // Pré-remplir avec l'email actuel
+      }
+      this.isEditingEmail = !this.isEditingEmail;
+    },
+    async updateEmail() {
+      try {
+        await UserService.updateUserEmail(this.user.id, this.newEmail);
+        this.user.email = this.newEmail;
+        this.isEditingEmail = false;
+        this.newEmail = '';
+        alert('Email mis à jour avec succès.');
+      } catch (error) {
+        console.error('Erreur lors de la mise à jour de l\'email:', error);
+      }
+    },
+    toggleAddMoney() {
+      if (this.isAddingMoney) {
+        // Confirmer l'ajout d'argent
+        this.addMoney();
+      }
+      this.isAddingMoney = !this.isAddingMoney;
+    },
+    async addMoney() {
+      try {
+        const amount = parseFloat(this.amountToAdd);
+        await UserService.addMoneyToWallet(this.user.id, amount);
+        this.user.wallet += amount;
+        this.isAddingMoney = false;
+        this.amountToAdd = 0;
+        alert('Montant ajouté avec succès.');
+      } catch (error) {
+        console.error('Erreur lors de l\'ajout d\'argent:', error);
+      }
+    },
+    navigateToAddLot() {
+      this.$router.push({ name: 'AddLot' });
+    },
+    navigateToTrackedLots() {
+      this.$router.push({ name: 'TrackedLots' });
     }
   }
 };
@@ -118,7 +172,7 @@ export default {
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px; /* Réduire le padding pour éviter les débordements */
+    padding: 20px;
     max-width: 1000px;
     width: 100%;
     text-align: center;
@@ -126,7 +180,7 @@ export default {
   }
 
   .profile-image {
-    margin-top: -75px; /* Ajusté pour aligner avec le padding réduit */
+    margin-top: -75px;
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -145,7 +199,7 @@ export default {
   .profile-sections {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Réduire l'espacement entre les sections */
+    gap: 10px;
     margin-top: 20px;
   }
 
@@ -155,7 +209,7 @@ export default {
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 15px; /* Réduire le padding interne des sections */
+    padding: 15px;
     background: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -170,8 +224,8 @@ export default {
   .section h2 {
     display: flex;
     align-items: center;
-    font-size: 18px; /* Réduire la taille de la police pour plus de compacité */
-    margin-bottom: 0; /* Enlever la marge pour aligner mieux */
+    font-size: 18px;
+    margin-bottom: 0;
   }
 
   .section p {
@@ -181,13 +235,21 @@ export default {
 
   .section .icon {
     margin-right: 10px;
-    font-size: 18px; /* Réduire la taille de l'icône pour plus de compacité */
+    font-size: 18px;
     color: #555;
   }
 
+  .section input {
+    margin-left: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  /* Styles généraux pour les boutons */
   button {
-    padding: 8px 16px; /* Réduire le padding pour ajuster la taille du bouton */
-    background-color: #888888;
+    padding: 8px 16px;
     color: white;
     border: none;
     border-radius: 5px;
@@ -195,16 +257,36 @@ export default {
     font-size: 14px;
     transition: background-color 0.3s ease;
     white-space: nowrap;
-    margin-left: 10px; /* Ajouter un espacement pour ne pas coller au texte */
+    margin-left: 10px;
   }
 
-  button:hover {
-    background-color: #ff1a1a;
+  /* Style des boutons par défaut (bleu) */
+  button.blue-button {
+    background-color: #007bff; /* Bleu pour les actions normales */
   }
 
+  button.blue-button:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+  }
+
+  /* Style pour le mode confirmation (vert) */
+  .confirm-button {
+    background-color: #4CAF50; /* Vert pour le mode confirmation */
+  }
+
+  .confirm-button:hover {
+    background-color: #45a049; /* Vert plus foncé au survol */
+  }
+
+  /* Style pour le bouton de déconnexion (rouge) */
   .logout-button {
     margin-top: 20px;
     padding: 10px 20px;
+    background-color: #ff4d4d; /* Rouge pour la déconnexion */
+  }
+
+  .logout-button:hover {
+    background-color: #ff1a1a;
   }
 
   .tracking-section ul {
@@ -234,4 +316,3 @@ export default {
     }
   }
 </style>
-
