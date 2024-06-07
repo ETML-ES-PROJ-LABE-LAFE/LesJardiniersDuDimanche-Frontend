@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <h2 class="form-title">Ajouter un nouveau lot</h2>
+    <h1 class="form-title">Ajouter un nouveau lot</h1>
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="name">Nom :</label>
@@ -101,7 +101,7 @@ export default {
 .form-container {
   max-width: 800px;
   margin: 20px auto;
-  padding: 20px;
+  padding: 40px;
   background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
@@ -127,8 +127,10 @@ label {
 }
 
 input, textarea, select {
-  width: 100%;
+  width: calc(100% - 50px); /* Adjust the width to account for padding/margin */
   padding: 10px;
+  margin-right: 10px; /* Add margin to the right */
+  margin-left: 10px; /* Add margin to the left */
   border-radius: 4px;
   border: 1px solid #dee2e6;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -143,7 +145,7 @@ input:focus, textarea:focus, select:focus {
 button {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 15px;
   background-color: #6dc571;
   color: white;
   border: none;
