@@ -40,10 +40,22 @@
       Vous avez des questions ou des commentaires ? N'hésitez pas à nous contacter via les moyens suivants :
     </p>
     <ul>
-      <li><strong>Email :</strong> <a href="mailto:contact@rizcardeau.com">samuel.mottier@eduvaud.ch</a></li>
+      <li><strong>Email :</strong> <a href="mailto:samuel.mottier@eduvaud.ch">samuel.mottier@eduvaud.ch</a></li>
       <li><strong>Téléphone :</strong> +41 79 862 33 48</li>
       <li><strong>Adresse :</strong> Recordon 1bis, 1001 Lausanne, Suisse</li>
     </ul>
+
+    <!-- Carte Google Maps intégrée -->
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2762.595938404018!2d6.632273515606781!3d46.52000777912795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c6510a2b212d1%3A0xf0da1b8f21a7b5e4!2sRecordon%201bis%2C%201001%20Lausanne%2C%20Switzerland!5e0!3m2!1sen!2sus!4v1689081962784!5m2!1sen!2sus"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
   </div>
 </template>
 
@@ -66,26 +78,19 @@ export default {
   box-sizing: border-box;
 }
 
-.about-view h1 {
+.about-view h1, .about-view h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #fff;
 }
 
-.about-view h2 {
-  margin-top: 20px;
-  color: #fff;
-}
-
-.about-view p {
+.about-view p, .about-view ul {
   margin-bottom: 20px;
   line-height: 1.6;
   color: #fff;
 }
 
 .about-view ul {
-  margin-bottom: 20px;
-  color: #fff;
   padding-left: 20px;
 }
 
@@ -100,5 +105,12 @@ export default {
 
 .about-view a:hover {
   text-decoration: underline;
+}
+
+/* Styles pour la carte Google Maps */
+.map-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
 }
 </style>
