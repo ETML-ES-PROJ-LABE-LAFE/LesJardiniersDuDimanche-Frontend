@@ -4,7 +4,7 @@
       <input
           type="number"
           v-model="bidAmount"
-          placeholder="Saisir le montant de l'enchère"
+          placeholder="CHF"
           @input="updateBidAmount"
       />
     </div>

@@ -9,7 +9,6 @@
     </div>
     <LotList :lots="filteredLotsCategories"/>
     <SearchBarNoResults v-if="filteredLotsSearchBar.length === 0" />
-    <button v-if="isUserConnected" @click="navigateToAddLot">Ajouter un lot</button>
   </div>
 </template>
 
@@ -140,10 +139,8 @@ export default {
       this.selectedMainCategory = '';
       this.selectedSubCategory = '';
       this.loadLots();  // Reload all lots when filters are cleared
-    },
-    navigateToAddLot() {
-      this.$router.push({name: 'AddLot'});
     }
+
   },
   async created() {
     await this.loadLots();
