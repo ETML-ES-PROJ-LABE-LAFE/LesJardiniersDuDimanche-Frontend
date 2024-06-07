@@ -1,42 +1,43 @@
 <template>
   <div class="form-container">
-    <h1 class="form-title">Ajouter un nouveau lot</h1>
+    <h1 class="form-title">Créer un nouveau lot</h1>
+    <p class="required-message">Tous les champs sont obligatoires.</p>
     <form @submit.prevent="handleSubmit">
-      <div class="form-group">
-        <label for="name">Nom :</label>
-        <input type="text" v-model="lot.name" required />
+      <div :class="['form-group', { 'has-error': errors.name }]">
+        <label for="name">Nom <span class="required">*</span> :</label>
+        <input placeholder="Veuillez entrer un nom d'article" type="text" v-model="lot.name" />
       </div>
-      <div class="form-group">
-        <label for="description">Description :</label>
-        <textarea v-model="lot.description" required></textarea>
+      <div :class="['form-group', { 'has-error': errors.description }]">
+        <label for="description">Description <span class="required">*</span> :</label>
+        <textarea placeholder="Veuillez entrer une description" v-model="lot.description"></textarea>
       </div>
-      <div class="form-group">
-        <label for="startingPrice">Prix de départ :</label>
-        <input type="number" v-model="lot.startingPrice" required />
+      <div :class="['form-group', { 'has-error': errors.startingPrice }]">
+        <label for="startingPrice">Prix de départ <span class="required">*</span> :</label>
+        <input placeholder="CHF" type="number" v-model="lot.startingPrice" />
       </div>
-      <div class="form-group">
-        <label for="endingDateHours">Date de fin :</label>
-        <input type="datetime-local" v-model="lot.endingDateHours" required />
+      <div :class="['form-group', { 'has-error': errors.endingDateHours }]">
+        <label for="endingDateHours">Date de fin <span class="required">*</span> :</label>
+        <input type="datetime-local" v-model="lot.endingDateHours" />
       </div>
-      <div class="form-group">
-        <label for="category">Catégorie :</label>
-        <select v-model="lot.category.id" required>
-          <option value="" disabled>Choisissez une catégorie</option>
+      <div :class="['form-group', { 'has-error': errors.category }]">
+        <label for="category">Catégorie <span class="required">*</span> :</label>
+        <select v-model="lot.category.id" @change="onCategoryChange">
+          <option value="">Choisissez une catégorie</option>
           <option v-for="category in categories" :value="category.id" :key="category.id">
             {{ category.name }}
           </option>
         </select>
       </div>
-      <div class="form-group">
-        <label for="subCategory">Sous-catégorie :</label>
-        <select v-model="lot.subCategory.id" required>
-          <option value="" disabled>Choisissez une sous-catégorie</option>
-          <option v-for="subCategory in subCategories" :value="subCategory.id" :key="subCategory.id">
+      <div :class="['form-group', { 'has-error': errors.subCategory }]">
+        <label for="subCategory">Sous-catégorie <span class="required">*</span> :</label>
+        <select v-model="lot.subCategory.id">
+          <option value="">Choisissez une sous-catégorie</option>
+          <option v-for="subCategory in filteredSubCategories" :value="subCategory.id" :key="subCategory.id">
             {{ subCategory.name }}
           </option>
         </select>
       </div>
-      <button type="submit" :disabled="isSubmitting">Ajouter le lot</button>
+      <button type="submit" :disabled="isSubmitting">Ajouter</button>
     </form>
   </div>
 </template>
@@ -58,40 +59,72 @@ export default {
         endingDateHours: "",
         category: { id: null, name: "" },
         subCategory: { id: null, name: "" }
+      },
+      errors: {
+        name: false,
+        description: false,
+        startingPrice: false,
+        endingDateHours: false,
+        category: false,
+        subCategory: false
       }
     };
   },
+  computed: {
+    filteredSubCategories() {
+      return this.subCategories.filter(subCategory => subCategory.parentCategory.id === this.lot.category.id);
+    }
+  },
   methods: {
     handleSubmit() {
-      console.log('Form submitted');
+      this.clearErrors();
       if (this.validateForm()) {
-        console.log('Form is valid');
         this.isSubmitting = true;
-        this.lot.startingDateHours = new Date().toISOString(); // Set starting date to current date and time
-        this.lot.actualPrice = this.lot.startingPrice; // Ensure actual price is equal to starting price
+        this.lot.startingDateHours = new Date().toISOString();
+        this.lot.actualPrice = this.lot.startingPrice;
         this.$emit('submit-lot', this.lot);
-      } else {
-        alert('Veuillez remplir tous les champs requis avec des valeurs valides.');
       }
     },
     validateForm() {
-      const endingDate = new Date(this.lot.endingDateHours);
-      const now = new Date();
-      const isDateValid = endingDate > now;
-
-      if (!isDateValid) {
-        alert('La date de fin doit être après la date actuelle.');
+      let isValid = true;
+      if (!this.lot.name) {
+        this.errors.name = true;
+        isValid = false;
       }
-
-      return (
-          this.lot.name &&
-          this.lot.description &&
-          this.lot.startingPrice !== null &&
-          this.lot.endingDateHours &&
-          this.lot.category.id &&
-          this.lot.subCategory.id &&
-          isDateValid // Ensure ending date is after the current date and time
-      );
+      if (!this.lot.description) {
+        this.errors.description = true;
+        isValid = false;
+      }
+      if (this.lot.startingPrice === null) {
+        this.errors.startingPrice = true;
+        isValid = false;
+      }
+      if (!this.lot.endingDateHours || new Date(this.lot.endingDateHours) <= new Date()) {
+        this.errors.endingDateHours = true;
+        isValid = false;
+      }
+      if (!this.lot.category.id) {
+        this.errors.category = true;
+        isValid = false;
+      }
+      if (!this.lot.subCategory.id) {
+        this.errors.subCategory = true;
+        isValid = false;
+      }
+      return isValid;
+    },
+    clearErrors() {
+      this.errors = {
+        name: false,
+        description: false,
+        startingPrice: false,
+        endingDateHours: false,
+        category: false,
+        subCategory: false
+      };
+    },
+    onCategoryChange() {
+      this.lot.subCategory.id = null; // Reset sub-category selection
     }
   }
 };
@@ -99,7 +132,7 @@ export default {
 
 <style scoped>
 .form-container {
-  max-width: 800px;
+  width: 800px;
   margin: 20px auto;
   padding: 40px;
   background-color: #f8f9fa;
@@ -116,8 +149,21 @@ export default {
   margin-bottom: 20px;
 }
 
+.required-message {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
 .form-group {
   margin-bottom: 1rem;
+}
+
+.has-error input,
+.has-error textarea,
+.has-error select {
+  border-color: red;
 }
 
 label {
@@ -126,11 +172,15 @@ label {
   font-weight: bold;
 }
 
+.required {
+  color: red;
+}
+
 input, textarea, select {
-  width: calc(100% - 50px); /* Adjust the width to account for padding/margin */
+  width: calc(100% - 50px);
   padding: 10px;
-  margin-right: 10px; /* Add margin to the right */
-  margin-left: 10px; /* Add margin to the left */
+  margin-right: 10px;
+  margin-left: 10px;
   border-radius: 4px;
   border: 1px solid #dee2e6;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -168,7 +218,7 @@ button:hover:not(:disabled) {
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(0.9);
   }
   100% {
     opacity: 1;
@@ -176,3 +226,4 @@ button:hover:not(:disabled) {
   }
 }
 </style>
+
