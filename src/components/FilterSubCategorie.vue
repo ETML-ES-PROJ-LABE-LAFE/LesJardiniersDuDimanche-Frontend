@@ -43,19 +43,20 @@ export default {
   .filter-subcategorie {
     display: inline-block;
     vertical-align: middle;
-    margin: 0px 20px 0px;
+    margin: 0px 10px;
+    width: 100%;
   }
 
   select {
-    border-radius: 8px;
-    background-color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
     border: 1px solid #ccc;
+    background-color: white;
     font-size: 16px;
     color: #333;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s;
-    width: 100%;
-    margin-top: 0;
   }
 
   select:hover {
