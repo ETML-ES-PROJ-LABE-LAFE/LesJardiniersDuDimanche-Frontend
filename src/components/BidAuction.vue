@@ -28,6 +28,7 @@ export default {
     },
     validateBid() {
       this.$emit('validate-bid', this.bidAmount);
+      this.bidAmount = ''; // Réinitialise le champ après validation de l'enchère
     }
   }
 };

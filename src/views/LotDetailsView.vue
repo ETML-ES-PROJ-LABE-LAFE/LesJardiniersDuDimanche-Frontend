@@ -3,7 +3,10 @@
     <router-link to="/lots" class="back-button animated">Retour à la liste des lots</router-link>
     <div class="details-and-bid animated">
       <LotDetails :lot="lot" v-if="lot" />
-      <BidAuction v-if="user && user.connected" @update-bid-amount="handleBidAmountUpdate" @validate-bid="handleBidValidation" />
+      <BidAuction v-if="user && user.connected"
+                  :key="bidComponentKey"
+                  @update-bid-amount="handleBidAmountUpdate"
+                  @validate-bid="handleBidValidation" />
     </div>
     <div v-if="errorMessage" class="error-message">
       {{ errorMessage }}
@@ -27,7 +30,8 @@ export default {
       lot: null,
       bidAmount: '',
       errorMessage: '',
-      user: null // Ajoutez une propriété pour stocker l'utilisateur connecté
+      user: null, // Ajoutez une propriété pour stocker l'utilisateur connecté
+      bidComponentKey : 0 // Clé dynamique pour rétablir le composant initial
     };
   },
   created() {
@@ -61,16 +65,30 @@ export default {
       this.errorMessage = ''; // Réinitialise le message d'erreur lors de la mise à jour de l'enchère
     },
     async handleBidValidation() {
-      if (isNaN(this.bidAmount) || this.bidAmount === '') {
-        this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère !';
-      } else {
-        try {
-          await lotServices.placeBid(this.lot.id, parseFloat(this.bidAmount));
-          this.fetchLotDetails(this.lot.id); // Rafraîchir les détails du lot après une enchère réussie
-          this.errorMessage = ''; // Réinitialiser le message d'erreur après validation réussie
-        } catch (error) {
-          this.errorMessage = `Erreur: ${error.message}`;
-        }
+    if (isNaN(this.bidAmount) || this.bidAmount === '') {
+      this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère !';
+      this.bidComponentKey +=1;
+      return;
+    }
+
+    const bidAmount = parseFloat(this.bidAmount);
+
+    if (this.user.wallet < bidAmount) {
+      this.errorMessage = 'Fonds insuffisants pour placer cette enchère !';
+      this.bidComponentKey +=1;
+      return;
+    }
+
+    try {
+      await lotServices.placeBid(this.lot.id, bidAmount);
+      this.user.wallet -= bidAmount;
+      await UserService.deductFromWallet(this.user.id, this.user.wallet);
+      this.fetchLotDetails(this.lot.id);
+      this.errorMessage = '';
+      this.$emit('walletUpdated', this.user.wallet);
+      this.bidComponentKey +=1;
+    } catch (error) {
+      this.errorMessage = `Erreur: ${error.message}`;
       }
     }
   }

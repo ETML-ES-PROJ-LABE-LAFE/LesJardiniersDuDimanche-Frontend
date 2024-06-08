@@ -139,6 +139,21 @@ class UserService {
             throw new Error(`Erreur lors de l'ajout d'argent au portefeuille de l'utilisateur: ${error.message}`);
         }
     }
+    /**
+    * Déduit de l'argent du portefeuille de l'utilisateur
+    * @param userId L'identifiant de l'utilisateur
+    * @param amount Le montant à déduire
+    * @returns Les données mises à jour de l'utilisateur sous forme JSON
+    * @throws Erreur en cas d'échec de la requête
+    */
+     async deductFromWallet(userId, amount) {
+        try {
+            const response = await axios.put(`${this.baseURL}/${userId}/wallet/deduct`, { amount: amount });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de la déduction du portefeuille de l'utilisateur: ${error.message}`);
+        }
+    }
 }
 
 export default new UserService();
