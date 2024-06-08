@@ -11,16 +11,17 @@
         <li><router-link to="/">Accueil</router-link></li>
         <li><router-link to="/lots">Lots</router-link></li>
         <li><router-link to="/about">À Propos</router-link></li>
-        <li v-if="connectedUser">
+        <li v-if="connectedUser" class="user-info">
           <router-link :to="{ name: 'Profile', params: { id: connectedUser.id }}">
             <img :src="getUserImage(connectedUser.id)" alt="User Icon" class="user-icon" />
           </router-link>
+          <span class="wallet-balance">{{ connectedUser.wallet }} CHF</span>
         </li>
         <li v-else><router-link to="/login">Login</router-link></li>
       </ul>
     </nav>
     <main class="main-content">
-      <router-view @userLoggedIn="handleUserLoggedIn" @userLoggedOut="handleUserLoggedOut"/>
+      <router-view @userLoggedIn="handleUserLoggedIn" @userLoggedOut="handleUserLoggedOut" @walletUpdated="handleWalletUpdate"/>
     </main>
     <footer class="footer">
       <div class="footer-content">
@@ -43,6 +44,11 @@ export default {
     },
     handleUserLoggedOut() {
       this.connectedUser = null;
+    },
+    handleWalletUpdate(newWallet) {
+      if (this.connectedUser) {
+        this.connectedUser.wallet = newWallet;
+      }
     },
     getUserImage(userId) {
       return require(`@/assets/user${userId}.png`);
@@ -132,6 +138,17 @@ export default {
     height: 30px;
     border-radius: 50%;
     border: 2px solid white;
+    margin-right: 10px; /* Espace entre l'icône et le solde */
+  }
+
+  .wallet-balance {
+    color: white;
+    font-size: 16px;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
   }
 
   .main-content {

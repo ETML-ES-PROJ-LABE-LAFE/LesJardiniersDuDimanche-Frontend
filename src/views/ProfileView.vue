@@ -82,7 +82,7 @@ export default {
       newEmail: '',
       isAddingMoney: false,
       amountToAdd: 0,
-      notificationMessage: '', // État pour le message de notification
+      notificationMessage: '',
     };
   },
   async created() {
@@ -106,18 +106,17 @@ export default {
     async logout() {
       try {
         await UserService.logoutUser(this.user.id);
-        this.$emit('userLoggedOut'); // Émet l'événement de déconnexion
-        this.$router.push({ name: 'Login' }); // Redirection vers la page de connexion
+        this.$emit('userLoggedOut');
+        this.$router.push({ name: 'Login' });
       } catch (error) {
         console.error('Erreur lors de la déconnexion:', error);
       }
     },
     toggleEditEmail() {
       if (this.isEditingEmail) {
-        // Confirmer le changement d'email
         this.updateEmail();
       } else {
-        this.newEmail = this.user.email; // Pré-remplir avec l'email actuel
+        this.newEmail = this.user.email;
       }
       this.isEditingEmail = !this.isEditingEmail;
     },
@@ -134,7 +133,6 @@ export default {
     },
     toggleAddMoney() {
       if (this.isAddingMoney) {
-        // Confirmer l'ajout d'argent
         this.addMoney();
       }
       this.isAddingMoney = !this.isAddingMoney;
@@ -147,6 +145,8 @@ export default {
         this.isAddingMoney = false;
         this.amountToAdd = 0;
         this.showNotification('Montant ajouté avec succès.');
+        // Émet un événement pour mettre à jour le solde dans App.vue
+        this.$emit('walletUpdated', this.user.wallet);
       } catch (error) {
         console.error('Erreur lors de l\'ajout d\'argent:', error);
       }
@@ -161,7 +161,7 @@ export default {
       this.notificationMessage = message;
       setTimeout(() => {
         this.notificationMessage = '';
-      }, 3000); // Cache la notification après 3 secondes
+      }, 3000);
     }
   }
 };
