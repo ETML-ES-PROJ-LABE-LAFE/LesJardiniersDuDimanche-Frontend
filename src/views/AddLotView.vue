@@ -1,6 +1,13 @@
 <template>
   <div class="add-lot-view">
-    <router-link to="/lots" class="back-button animated">Retour à la liste des lots</router-link>
+    <div class="buttons-container">
+      <router-link v-if="connectedUser" :to="{ name: 'Profile', params: { id: connectedUser.id } }" class="back-button animated">
+        Retour au profil
+      </router-link>
+      <router-link to="/trackedlots" class="back-button animated">
+        Gestion de vos lots
+      </router-link>
+    </div>
     <div class="form-wrapper animated">
       <AddLotForm :categories="categories" :subCategories="subCategories" @submit-lot="handleLotSubmit"/>
     </div>
@@ -81,17 +88,14 @@ export default {
   align-items: center;
 }
 
-.form-wrapper {
+.buttons-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  opacity: 0;
-  animation: fadeInAnimation 1.5s ease-out forwards;
+  justify-content: center;
+  gap:500px; /* Espacement entre les boutons */
+  margin-bottom: 20px;
 }
 
 .back-button {
-  margin-top: 5px;
-  margin-bottom: 10px;
   padding: 10px 20px;
   background-color: white;
   color: #333;
@@ -106,6 +110,14 @@ export default {
 .back-button:hover {
   background-color: #6dc571;
   color: white;
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInAnimation 1.5s ease-out forwards;
 }
 
 @keyframes fadeInAnimation {
