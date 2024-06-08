@@ -186,6 +186,7 @@ export default {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
+    margin-top: -50px;
     max-width: 1000px;
     width: 100%;
     text-align: center;
