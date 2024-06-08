@@ -5,7 +5,8 @@ import LotDetailsView from '../views/LotDetailsView.vue';
 import LoginView from '../views/LoginView..vue';
 import ProfileView from '../views/ProfileView.vue';
 import AddLotView from '../views/AddLotView.vue';
-import AboutView from '../views/AboutView.vue'; // Import the AboutView component
+import AboutView from '../views/AboutView.vue';
+import TrackedLotsView from "@/views/TrackedLotsView.vue"; // Import the AboutView component
 
 const routes = [
   {
@@ -46,6 +47,12 @@ const routes = [
     path: '/about',
     name: 'About',
     component: AboutView // Add the new route for AboutView
+  },
+  {
+    path : '/trackedlots',
+    name : 'TrackedLots',
+    component: TrackedLotsView,
+    meta: { requiresAuth: true }
   }
 ];
 
