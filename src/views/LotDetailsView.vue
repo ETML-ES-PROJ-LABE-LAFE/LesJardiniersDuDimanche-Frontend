@@ -30,14 +30,14 @@ export default {
       lot: null,
       bidAmount: '',
       errorMessage: '',
-      user: null, // Ajoutez une propriété pour stocker l'utilisateur connecté
-      bidComponentKey : 0 // Clé dynamique pour rétablir le composant initial
+      user: null,
+      bidComponentKey : 0
     };
   },
   created() {
     const lotId = this.$route.params.id;
     this.fetchLotDetails(lotId);
-    this.fetchUserDetails(); // Récupérez les détails de l'utilisateur lors de la création du composant
+    this.fetchUserDetails();
   },
   methods: {
     async fetchLotDetails(lotId) {
@@ -49,10 +49,9 @@ export default {
     },
     async fetchUserDetails() {
       try {
-        const userId = UserService.getLoggedInUserId(); // Récupérer l'ID de l'utilisateur depuis le local storage
+        const userId = UserService.getLoggedInUserId();
         if (userId) {
           this.user = await UserService.getUserById(userId);
-          console.log('Détails de l\'utilisateur récupérés:', this.user);
         } else {
           console.error("Aucun utilisateur connecté trouvé.");
         }
@@ -62,7 +61,7 @@ export default {
     },
     handleBidAmountUpdate(amount) {
       this.bidAmount = amount;
-      this.errorMessage = ''; // Réinitialise le message d'erreur lors de la mise à jour de l'enchère
+      this.errorMessage = '';
     },
     async handleBidValidation() {
     if (isNaN(this.bidAmount) || this.bidAmount === '') {

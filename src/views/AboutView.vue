@@ -45,7 +45,6 @@
       <li><strong>Adresse :</strong> Recordon 1bis, 1001 Lausanne, Suisse</li>
     </ul>
 
-    <!-- Carte Google Maps intégrée -->
     <div class="map-container">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2762.595938404018!2d6.632273515606781!3d46.52000777912795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c6510a2b212d1%3A0xf0da1b8f21a7b5e4!2sRecordon%201bis%2C%201001%20Lausanne%2C%20Switzerland!5e0!3m2!1sen!2sus!4v1689081962784!5m2!1sen!2sus"
@@ -107,7 +106,7 @@ export default {
   text-decoration: underline;
 }
 
-/* Styles pour la carte Google Maps */
+
 .map-container {
   width: 100%;
   height: 400px;

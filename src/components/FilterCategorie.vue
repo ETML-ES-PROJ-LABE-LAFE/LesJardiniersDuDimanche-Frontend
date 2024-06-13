@@ -1,11 +1,10 @@
 <template>
   <div class="filter-categorie">
 
-    <!-- Sélection de la catégorie avec gestion dynamique de la valeur et du changement -->
+
     <select :value="value" @change="onCategoryChange($event.target.value)">
       <option value="">Sélectionnez une catégorie</option>
 
-      <!-- Bloc conditionnel qui vérifie si des catégories sont disponibles pour l'affichage -->
       <template v-if="categories && categories.length">
         <option v-for="category in categories" :value="category.id" :key="category.id">
           {{ category.name }}
@@ -28,17 +27,17 @@ export default {
     }
   },
   methods: {
-    // Gestion du changement de sélection dans le menu déroulant
+
     onCategoryChange(value) {
       if (!value) {
-        this.$emit('category-changed', null);  // Émet un événement avec `null` pour indiquer la réinitialisation
+        this.$emit('category-changed', null);
       }
-      else { // Si une valeur est sélectionnée
-        const category = this.categories.find(cat => cat.id === parseInt(value)); // Trouver la catégorie correspondante
-        const categoryName = category ? category.name : 'Inconnue'; // Obtenir le nom de la catégorie ou 'Inconnue' si non trouvée
+      else {
+        const category = this.categories.find(cat => cat.id === parseInt(value));
+        const categoryName = category ? category.name : 'Inconnue';
         console.log("Changement de catégorie : ID :", value, "Nom:", categoryName);
-        this.$emit('input', value);  // Émettre la valeur sélectionnée pour mise à jour du v-model
-        this.$emit('category-changed', value);  // Émettre l'ID de la catégorie pour chargement des lots spécifiques
+        this.$emit('input', value);
+        this.$emit('category-changed', value);
       }
     }
   }

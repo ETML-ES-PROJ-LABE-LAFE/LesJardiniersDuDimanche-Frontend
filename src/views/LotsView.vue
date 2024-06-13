@@ -90,7 +90,6 @@ export default {
       } else {
         try {
           this.lots = await LotService.getLotsByCategory(categoryId);
-          console.log("Lots chargés pour la catégorie :", categoryId, this.lots);
         } catch (error) {
           console.error(`Erreur lors du chargement des lots pour la catégorie ${categoryId}: ${error}`);
         }
@@ -102,7 +101,6 @@ export default {
       } else {
         try {
           this.lots = await LotService.getLotsBySubCategory(subCategoryId);
-          console.log("Lots chargés pour la sous-catégorie :", subCategoryId, this.lots);
         } catch (error) {
           console.error(`Erreur lors du chargement des lots pour la sous-catégorie ${subCategoryId}: ${error}`);
         }
@@ -126,19 +124,19 @@ export default {
     },
     async onCategoryChanged(categoryId) {
       this.selectedMainCategory = categoryId;
-      this.selectedSubCategory = ''; // Reset subcategory selection
+      this.selectedSubCategory = '';
       if (categoryId) {
         await this.loadSubCategoriesByCategory(categoryId);
         await this.loadLotsByCategory(categoryId);
       } else {
-        this.subCategories = []; // Clear sub-categories if no category is selected
+        this.subCategories = [];
         this.resetFilters();
       }
     },
     resetFilters() {
       this.selectedMainCategory = '';
       this.selectedSubCategory = '';
-      this.loadLots();  // Reload all lots when filters are cleared
+      this.loadLots();
     }
 
   },

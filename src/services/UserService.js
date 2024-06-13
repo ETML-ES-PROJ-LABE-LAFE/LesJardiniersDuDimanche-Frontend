@@ -38,9 +38,7 @@ class UserService {
      */
     async updateUser(userId, userData) {
         try {
-            console.log(`Mise à jour de l'utilisateur ${userId} avec les données:`, userData);
             const response = await axios.put(`${this.baseURL}/${userId}`, userData);
-            console.log(`Réponse de mise à jour pour l'utilisateur ${userId}:`, response.data);
             return response.data;
         } catch (error) {
             throw new Error(`Erreur lors de la mise à jour de l'utilisateur: ${error.message}`);
@@ -60,7 +58,6 @@ class UserService {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(`Réponse de mise à jour pour isConnected de l'utilisateur ${userId}:`, response.data);
             return response.data;
         } catch (error) {
             throw new Error(`Erreur lors de la mise à jour de isConnected: ${error.message}`);
@@ -75,7 +72,6 @@ class UserService {
     async loginUser(userId) {
         try {
             const updatedUser = await this.updateIsConnected(userId, true);
-            console.log(`Utilisateur ${userId} est maintenant connecté:`, updatedUser.connected);
             localStorage.setItem('userId', userId); // Stocker l'ID de l'utilisateur dans le local storage
             return updatedUser;
         } catch (error) {
@@ -91,7 +87,6 @@ class UserService {
     async logoutUser(userId) {
         try {
             const updatedUser = await this.updateIsConnected(userId, false);
-            console.log(`Utilisateur ${userId} est maintenant déconnecté:`, updatedUser.connected);
             localStorage.removeItem('userId'); // Supprimer l'ID de l'utilisateur du stockage
             return updatedUser;
         } catch (error) {

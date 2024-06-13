@@ -9,11 +9,10 @@ class LotService {
      */
     async get() {
         try {
-            console.log("GET")
+
             // Envoi de la requête pour récupérer tous les lots
             const response = await axios.get(this.baseURL);
-            console.log("lot recu " + response.data);
-            console.log(response.status);
+
             // Renvoi des données en format JSON
             return response.data;
         } catch (error) {
@@ -41,7 +40,6 @@ class LotService {
     async getLotsByCategory(categoryId) {
         try {
             const response = await axios.get(`${this.baseURL}/category/${categoryId}`);
-            console.log("Lots par catégorie reçus: ", response.data);
             return response.data;
         } catch (error) {
             throw new Error(`Erreur lors de la récupération des lots par catégorie: ${error.message}`);
@@ -55,7 +53,6 @@ class LotService {
     async getLotsBySubCategory(subCategoryId) {
         try {
             const response = await axios.get(`${this.baseURL}/subcategory/${subCategoryId}`);
-            console.log("Lots par sous-catégorie reçus: ", response.data);
             return response.data;
         } catch (error) {
             throw new Error(`Erreur lors de la récupération des lots par sous-catégorie: ${error.message}`);

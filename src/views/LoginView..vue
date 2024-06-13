@@ -23,17 +23,16 @@ export default {
   data() {
     return {
       alertMessage: '',
-      users: []  // Liste des utilisateurs
+      users: []
     };
   },
   created() {
-    this.fetchUsers();  // Récupérer les utilisateurs au chargement du composant
+    this.fetchUsers();
   },
   methods: {
     async fetchUsers() {
       try {
         this.users = await UserService.getAllUsers();
-        console.log('Utilisateurs récupérés:', this.users);
       } catch (error) {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
       }
@@ -50,7 +49,7 @@ export default {
         this.$emit('userLoggedIn', updatedUser);
         setTimeout(() => {
           this.alertMessage = '';
-          this.$router.push({name: 'Profile', params: {id: updatedUser.id}}); // Redirection vers la page de profil
+          this.$router.push({name: 'Profile', params: {id: updatedUser.id}});
         }, 1000);
       } catch (error) {
         this.alertMessage = `Erreur lors de la connexion de l'utilisateur ${userName}: ${error.message}`;

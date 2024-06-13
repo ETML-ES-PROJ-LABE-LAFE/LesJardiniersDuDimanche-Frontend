@@ -36,7 +36,7 @@ export default {
   data(){
     return {
       currentPage : 1,
-      itemsPerPage : 10 //Change le nombre de lots à afficher par pages
+      itemsPerPage : 10
     }
   },
   computed :{

@@ -124,7 +124,7 @@ export default {
       };
     },
     onCategoryChange() {
-      this.lot.subCategory.id = null; // Reset sub-category selection
+      this.lot.subCategory.id = null;
     }
   }
 };

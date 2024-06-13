@@ -21,7 +21,7 @@
         <td>{{ lot.description }}</td>
         <td>{{ lot.startingPrice }} CHF</td>
         <td>{{ lot.actualPrice }} CHF</td>
-        <td>{{ lot.state }}</td> <!-- Affichage de l'état du lot -->
+        <td>{{ lot.state }}</td>
         <td>
           <router-link :to="{ name: 'LotDetails', params: { id: lot.id }}">
             Voir les détails
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import PageNumber from "@/components/PageNumber.vue"; // Assurez-vous que le chemin est correct
+import PageNumber from "@/components/PageNumber.vue";
 
 export default {
   name: 'LotListSeller',
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 10 // Changez ce nombre selon le nombre de lots par page souhaité
+      itemsPerPage: 10
     };
   },
   computed: {

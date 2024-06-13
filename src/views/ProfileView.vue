@@ -95,7 +95,6 @@ export default {
     async fetchUserDetails() {
       try {
         this.user = await UserService.getUserById(this.id);
-        console.log('Détails de l\'utilisateur récupérés:', this.user);
       } catch (error) {
         console.error('Erreur lors de la récupération des détails de l\'utilisateur:', error);
       }
@@ -145,7 +144,6 @@ export default {
         this.isAddingMoney = false;
         this.amountToAdd = 0;
         this.showNotification('Montant ajouté avec succès.');
-        // Émet un événement pour mettre à jour le solde dans App.vue
         this.$emit('walletUpdated', this.user.wallet);
       } catch (error) {
         console.error('Erreur lors de l\'ajout d\'argent:', error);

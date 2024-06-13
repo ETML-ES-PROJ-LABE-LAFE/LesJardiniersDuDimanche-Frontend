@@ -6,7 +6,7 @@ import LoginView from '../views/LoginView..vue';
 import ProfileView from '../views/ProfileView.vue';
 import AddLotView from '../views/AddLotView.vue';
 import AboutView from '../views/AboutView.vue';
-import TrackedLotsView from "@/views/TrackedLotsView.vue"; // Import the AboutView component
+import TrackedLotsView from "@/views/TrackedLotsView.vue";
 
 const routes = [
   {
@@ -46,7 +46,7 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: AboutView // Add the new route for AboutView
+    component: AboutView
   },
   {
     path : '/trackedlots',

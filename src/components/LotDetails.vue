@@ -53,7 +53,7 @@
     },
     methods: {
       formatDate(date) {
-        if (!date) return ''; // Retourner une chaîne vide si la date est nulle ou indéfinie
+        if (!date) return '';
         const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
         return new Date(date).toLocaleDateString('fr-CH', options).replace(/,/g, ' ');
       }
