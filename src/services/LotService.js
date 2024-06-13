@@ -1,42 +1,26 @@
 import axios from "axios";
-import reponse from "core-js/internals/is-forced";
 
 class LotService {
     baseURL = "http://localhost:8080/lots";
 
-    /**
-     * @returns Les lots disponibles sous forme JSON
-     */
     async get() {
         try {
-
-            // Envoi de la requête pour récupérer tous les lots
             const response = await axios.get(this.baseURL);
-
-            // Renvoi des données en format JSON
             return response.data;
         } catch (error) {
             throw new Error(`Erreur HTTP ${error.response.status}: ${error.response.data}`);
         }
     }
 
-    /**
-     * @param lotId L'identifiant du lot
-     * @returns Le lot correspondant à l'identifiant sous forme JSON
-     */
-    async getById(lotId) {
+    async getByArticleNumber(articleNumber) {
         try {
-            const response = await axios.get(`${this.baseURL}/${lotId}`);
+            const response = await axios.get(`${this.baseURL}/${articleNumber}`);
             return response.data;
         } catch (error) {
             throw new Error(`Erreur lors de la récupération des détails du lot: ${error.message}`);
         }
     }
 
-    /**
-     * @param categoryId L'identifiant de la catégorie
-     * @returns Les lots appartenant à une catégorie spécifique
-     */
     async getLotsByCategory(categoryId) {
         try {
             const response = await axios.get(`${this.baseURL}/category/${categoryId}`);
@@ -46,10 +30,6 @@ class LotService {
         }
     }
 
-    /**
-     * @param subCategoryId L'identifiant de la sous-catégorie
-     * @returns Les lots appartenant à une sous-catégorie spécifique
-     */
     async getLotsBySubCategory(subCategoryId) {
         try {
             const response = await axios.get(`${this.baseURL}/subcategory/${subCategoryId}`);
@@ -59,15 +39,9 @@ class LotService {
         }
     }
 
-    /**
-     * @param lotId L'identifiant du lot
-     * @param bidAmount Le montant de l'enchère à placer
-     * @returns La réponse de l'API après avoir placé l'enchère
-     * @throws Erreur en cas d'échec de la requête
-     */
-    async placeBid(lotId, bidAmount) {
+    async placeBid(articleNumber, bidAmount) {
         try {
-            const response = await axios.put(`${this.baseURL}/${lotId}/bid`, bidAmount, {
+            const response = await axios.put(`${this.baseURL}/${articleNumber}/bid`, bidAmount, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -77,6 +51,7 @@ class LotService {
             throw new Error(`${error.response ? error.response.data : error.message}`);
         }
     }
+
     async createLot(lotData) {
         try {
             const response = await axios.post(this.baseURL, lotData, {
@@ -90,15 +65,10 @@ class LotService {
         }
     }
 
-    /**
-     * @param userId L'identifiant de l'utilisateur en tant que vendeur
-     * @returns Les lots soumis par le vendeur sous forme JSON
-     * @throws Erreur en cas d'échec de la requête
-     */
     async getLotsBySellerId(userId) {
         try {
             const response = await axios.get(`${this.baseURL}/seller/${userId}`);
-            console.log(reponse.data)
+            console.log(response.data);
             return response.data;
         } catch (error) {
             throw new Error(`Erreur lors de la récupération des lots par vendeur: ${error.message}`);

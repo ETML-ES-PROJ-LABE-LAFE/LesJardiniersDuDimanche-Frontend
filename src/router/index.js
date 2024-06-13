@@ -20,7 +20,7 @@ const routes = [
     component: LotsView
   },
   {
-    path: '/lots/:id',
+    path: '/lots/:articleNumber',
     name: 'LotDetails',
     component: LotDetailsView,
     props: true
@@ -49,8 +49,8 @@ const routes = [
     component: AboutView
   },
   {
-    path : '/trackedlots',
-    name : 'TrackedLots',
+    path: '/trackedlots',
+    name: 'TrackedLots',
     component: TrackedLotsView,
     meta: { requiresAuth: true }
   }

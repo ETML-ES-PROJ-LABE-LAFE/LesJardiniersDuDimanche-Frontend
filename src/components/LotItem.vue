@@ -7,7 +7,7 @@
     <td class="fixed-width">{{ lot.startingPrice }} CHF</td>
     <td class="fixed-width">{{ lot.actualPrice }} CHF</td>
     <td class="fixed-width">
-      <router-link :to="{ name: 'LotDetails', params: { id: lot.id }}">
+      <router-link :to="{ name: 'LotDetails', params: { articleNumber: lot.articleNumber }}">
         Voir les détails
       </router-link>
     </td>

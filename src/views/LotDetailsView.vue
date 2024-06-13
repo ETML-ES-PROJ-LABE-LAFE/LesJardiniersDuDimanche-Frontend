@@ -35,14 +35,14 @@ export default {
     };
   },
   created() {
-    const lotId = this.$route.params.id;
-    this.fetchLotDetails(lotId);
+    const articleNumber = this.$route.params.articleNumber;
+    this.fetchLotDetails(articleNumber);
     this.fetchUserDetails();
   },
   methods: {
-    async fetchLotDetails(lotId) {
+    async fetchLotDetails(articleNumber) {
       try {
-        this.lot = await lotServices.getById(lotId);
+        this.lot = await lotServices.getByArticleNumber(articleNumber);
       } catch (error) {
         console.error("Erreur lors de la récupération des détails du lot: " + error);
       }
@@ -64,35 +64,36 @@ export default {
       this.errorMessage = '';
     },
     async handleBidValidation() {
-    if (isNaN(this.bidAmount) || this.bidAmount === '') {
-      this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère !';
-      this.bidComponentKey +=1;
-      return;
-    }
+      if (isNaN(this.bidAmount) || this.bidAmount === '') {
+        this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère !';
+        this.bidComponentKey +=1;
+        return;
+      }
 
-    const bidAmount = parseFloat(this.bidAmount);
+      const bidAmount = parseFloat(this.bidAmount);
 
-    if (this.user.wallet < bidAmount) {
-      this.errorMessage = 'Fonds insuffisants pour placer cette enchère !';
-      this.bidComponentKey +=1;
-      return;
-    }
+      if (this.user.wallet < bidAmount) {
+        this.errorMessage = 'Fonds insuffisants pour placer cette enchère !';
+        this.bidComponentKey +=1;
+        return;
+      }
 
-    try {
-      await lotServices.placeBid(this.lot.id, bidAmount);
-      this.user.wallet -= bidAmount;
-      await UserService.deductFromWallet(this.user.id, this.user.wallet);
-      this.fetchLotDetails(this.lot.id);
-      this.errorMessage = '';
-      this.$emit('walletUpdated', this.user.wallet);
-      this.bidComponentKey +=1;
-    } catch (error) {
-      this.errorMessage = `Erreur: ${error.message}`;
+      try {
+        await lotServices.placeBid(this.lot.articleNumber, bidAmount);
+        this.user.wallet -= bidAmount;
+        await UserService.deductFromWallet(this.user.id, this.user.wallet);
+        this.fetchLotDetails(this.lot.articleNumber);
+        this.errorMessage = '';
+        this.$emit('walletUpdated', this.user.wallet);
+        this.bidComponentKey +=1;
+      } catch (error) {
+        this.errorMessage = `Erreur: ${error.message}`;
       }
     }
   }
 };
 </script>
+
 
 <style scoped>
   .lot-details-view {
