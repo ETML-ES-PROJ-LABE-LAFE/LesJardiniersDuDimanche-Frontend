@@ -1,4 +1,5 @@
 import axios from "axios";
+import reponse from "core-js/internals/is-forced";
 
 class LotService {
     baseURL = "http://localhost:8080/lots";
@@ -89,6 +90,21 @@ class LotService {
             return response.data;
         } catch (error) {
             throw new Error(`Erreur lors de la création du lot: ${error.message}`);
+        }
+    }
+
+    /**
+     * @param userId L'identifiant de l'utilisateur en tant que vendeur
+     * @returns Les lots soumis par le vendeur sous forme JSON
+     * @throws Erreur en cas d'échec de la requête
+     */
+    async getLotsBySellerId(userId) {
+        try {
+            const response = await axios.get(`${this.baseURL}/seller/${userId}`);
+            console.log(reponse.data)
+            return response.data;
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération des lots par vendeur: ${error.message}`);
         }
     }
 }
