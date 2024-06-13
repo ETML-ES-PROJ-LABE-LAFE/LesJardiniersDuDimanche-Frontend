@@ -47,7 +47,7 @@
         <div class="section">
           <div class="section-content">
             <div>
-              <h2><i class="fas fa-list icon"></i> Mes Lots mis en enchère </h2>
+              <h2><i class="fas fa-list icon"></i> Liste de mes lots </h2>
             </div>
             <button @click="navigateToTrackedLots" class="blue-button">Voir les lots</button>
           </div>
