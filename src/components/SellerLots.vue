@@ -1,19 +1,23 @@
 <template>
   <div class="seller-lots">
-    <LotList :lots="lots" v-if="lots.length" />
-    <p v-else>You haven't auctioned any lots yet.</p>
+    <LotListSeller :lots="lots" v-if="lots.length" />
+    <NoSellerLots/>
   </div>
+
 </template>
 
 <script>
-import LotList from "@/components/LotList.vue";
 import LotService from "@/services/LotService";
 import UserService from "@/services/UserService";
+import LotListSeller from "@/components/LotListSeller.vue";
+import NoSellerLots from "@/components/NoSellerLots.vue";
 
 export default {
   name: "SellerLots",
   components: {
-    LotList
+    NoSellerLots,
+    LotListSeller,
+
   },
   data() {
     return {
