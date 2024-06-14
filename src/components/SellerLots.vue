@@ -1,7 +1,7 @@
 <template>
   <div class="seller-lots">
     <LotListSeller :lots="lots" v-if="lots.length" />
-    <NoSellerLots/>
+    <NoSellerLots v-if="!lots.length" />
   </div>
 
 </template>
