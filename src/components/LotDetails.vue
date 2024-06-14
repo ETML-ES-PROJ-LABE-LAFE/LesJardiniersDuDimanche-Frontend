@@ -38,6 +38,10 @@
             <strong>Description : </strong>
             <span>{{ lot.description }}</span>
           </div>
+          <div class="lot-info-card">
+            <strong>Etat : </strong>
+            <span>{{ lot.state.stateName }}</span>
+          </div>
         </div>
       </div>
     </div>

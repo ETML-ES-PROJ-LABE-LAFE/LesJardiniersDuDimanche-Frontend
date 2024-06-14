@@ -21,7 +21,7 @@ export default {
   width: 100%;
   margin-top: 20px;
   padding: 20px;
-  color: #fff;
+  color: #000000;
 }
 
 .pinguin-dort {

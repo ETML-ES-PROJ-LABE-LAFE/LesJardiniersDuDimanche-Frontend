@@ -1,9 +1,8 @@
 <template>
   <div class="seller-lots">
-    <LotListSeller :lots="lots" v-if="lots.length" />
+    <LotListSeller :lots="lots" v-if="lots.length" @lotUpdated="loadSellerLots" />
     <NoSellerLots v-if="!lots.length" />
   </div>
-
 </template>
 
 <script>
@@ -17,7 +16,6 @@ export default {
   components: {
     NoSellerLots,
     LotListSeller,
-
   },
   data() {
     return {

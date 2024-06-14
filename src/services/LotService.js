@@ -74,6 +74,18 @@ class LotService {
             throw new Error(`Erreur lors de la récupération des lots par vendeur: ${error.message}`);
         }
     }
+    async cloturerLot(articleNumber) {
+        console.log("Appel API pour clôturer le lot avec le numéro d'article :", articleNumber);
+        try {
+            const response = await axios.put(`${this.baseURL}/${articleNumber}/endbit`);
+            console.log("Réponse de l'API pour la clôture du lot :", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Erreur lors de l'appel API pour clôturer le lot :", error);
+            throw new Error(`Erreur lors de la clôture du lot: ${error.message}`);
+        }
+    }
+
 }
 
 export default new LotService();

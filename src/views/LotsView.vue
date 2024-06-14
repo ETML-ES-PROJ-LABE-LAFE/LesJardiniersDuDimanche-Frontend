@@ -79,7 +79,8 @@ export default {
   methods: {
     async loadLots() {
       try {
-        this.lots = await LotService.get();
+        const allLots = await LotService.get();
+        this.lots = allLots.filter(lot => lot.state.stateName !== 'Terminé');
       } catch (error) {
         console.error("Erreur lors du chargement des lots: " + error);
       }

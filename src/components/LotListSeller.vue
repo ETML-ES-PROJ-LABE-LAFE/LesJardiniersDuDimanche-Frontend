@@ -11,6 +11,7 @@
         <th>Prix actuel</th>
         <th>État</th>
         <th>Details</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -21,11 +22,14 @@
         <td>{{ lot.description }}</td>
         <td>{{ lot.startingPrice }} CHF</td>
         <td>{{ lot.actualPrice }} CHF</td>
-        <td>{{ lot.state }}</td>
+        <td>{{ lot.state.stateName }}</td>
         <td>
           <router-link :to="{ name: 'LotDetails', params: { articleNumber: lot.articleNumber }}">
             Voir les détails
           </router-link>
+        </td>
+        <td>
+          <button @click="cloturerLot(lot.articleNumber)" :disabled="lot.state.stateName === 'Terminé'">Clôturer</button>
         </td>
       </tr>
       </tbody>
@@ -40,6 +44,7 @@
 
 <script>
 import PageNumber from "@/components/PageNumber.vue";
+import LotService from "@/services/LotService";
 
 export default {
   name: 'LotListSeller',
@@ -71,6 +76,16 @@ export default {
   methods: {
     handleChangePage(page) {
       this.currentPage = page;
+    },
+    async cloturerLot(articleNumber) {
+      console.log("Tentative de clôture du lot avec le numéro d'article:", articleNumber);
+      try {
+        const response = await LotService.cloturerLot(articleNumber);
+        console.log("Réponse de l'API pour la clôture du lot:", response);
+        this.$emit('lotUpdated');
+      } catch (error) {
+        console.error("Erreur lors de la clôture du lot !!!!!", error);
+      }
     }
   }
 };
