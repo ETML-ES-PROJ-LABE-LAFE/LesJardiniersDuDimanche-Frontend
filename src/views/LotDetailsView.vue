@@ -3,10 +3,16 @@
     <router-link to="/lots" class="back-button animated">Retour à la liste des lots</router-link>
     <div class="details-and-bid animated">
       <LotDetails :lot="lot" v-if="lot" />
-      <BidAuction v-if="user && user.connected"
-                  :key="bidComponentKey"
-                  @update-bid-amount="handleBidAmountUpdate"
-                  @validate-bid="handleBidValidation" />
+      <div v-if="user && user.connected && !isOwner">
+        <BidAuction
+            :key="bidComponentKey"
+            @update-bid-amount="handleBidAmountUpdate"
+            @validate-bid="handleBidValidation"
+        />
+      </div>
+      <div v-if="user && user.connected && isOwner" class="owner-message">
+        Vous ne pouvez pas enchérir sur votre propre lot.
+      </div>
     </div>
     <div v-if="errorMessage" class="error-message">
       {{ errorMessage }}
@@ -23,7 +29,7 @@ import UserService from "@/services/UserService";
 export default {
   components: {
     LotDetails,
-    BidAuction
+    BidAuction,
   },
   data() {
     return {
@@ -31,7 +37,8 @@ export default {
       bidAmount: '',
       errorMessage: '',
       user: null,
-      bidComponentKey : 0
+      bidComponentKey: 0,
+      isOwner: false,
     };
   },
   created() {
@@ -43,6 +50,7 @@ export default {
     async fetchLotDetails(articleNumber) {
       try {
         this.lot = await lotServices.getByArticleNumber(articleNumber);
+        this.checkIfOwner();
       } catch (error) {
         console.error("Erreur lors de la récupération des détails du lot: " + error);
       }
@@ -52,11 +60,19 @@ export default {
         const userId = UserService.getLoggedInUserId();
         if (userId) {
           this.user = await UserService.getUserById(userId);
+          this.checkIfOwner();
         } else {
           console.error("Aucun utilisateur connecté trouvé.");
         }
       } catch (error) {
         console.error("Erreur lors de la récupération des détails de l'utilisateur: " + error);
+      }
+    },
+    checkIfOwner() {
+      if (this.user && this.lot && this.user.id === this.lot.user.id) {
+        this.isOwner = true;
+      } else {
+        this.isOwner = false;
       }
     },
     handleBidAmountUpdate(amount) {
@@ -66,7 +82,7 @@ export default {
     async handleBidValidation() {
       if (isNaN(this.bidAmount) || this.bidAmount === '') {
         this.errorMessage = 'Veuillez entrer un nombre valide pour l\'enchère !';
-        this.bidComponentKey +=1;
+        this.bidComponentKey += 1;
         return;
       }
 
@@ -74,7 +90,7 @@ export default {
 
       if (this.user.wallet < bidAmount) {
         this.errorMessage = 'Fonds insuffisants pour placer cette enchère !';
-        this.bidComponentKey +=1;
+        this.bidComponentKey += 1;
         return;
       }
 
@@ -85,70 +101,73 @@ export default {
         this.fetchLotDetails(this.lot.articleNumber);
         this.errorMessage = '';
         this.$emit('walletUpdated', this.user.wallet);
-        this.bidComponentKey +=1;
+        this.bidComponentKey += 1;
       } catch (error) {
         this.errorMessage = `Erreur: ${error.message}`;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-
 <style scoped>
-  .lot-details-view {
-    min-height: calc(100vh - 80px);
-    width: 100%;
-    background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.lot-details-view {
+  min-height: calc(100vh - 80px);
+  width: 100%;
+  background: linear-gradient(120deg, #ffaeae 0%, #8726ff 130%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  .details-and-bid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.details-and-bid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInAnimation 1.5s ease-out forwards;
+}
+
+.error-message {
+  color: white;
+  margin-top: 15px;
+  font-size: 25px;
+}
+
+.owner-message {
+  color: white;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.back-button {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  opacity: 0;
+  animation: fadeInAnimation 1.5s ease-out forwards;
+}
+
+.back-button:hover {
+  background-color: #6dc571;
+  color: white;
+}
+
+@keyframes fadeInAnimation {
+  0% {
     opacity: 0;
-    animation: fadeInAnimation 1.5s ease-out forwards;
+    transform: scale(0.5);
   }
-
-  .error-message {
-    color: white;
-    margin-top: 15px;
-    font-size: 25px;
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
-
-  .back-button {
-    margin-top: 5px;
-    margin-bottom: 10px;
-    padding: 10px 20px;
-    background-color: white;
-    color: #333;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-    opacity: 0;
-    animation: fadeInAnimation 1.5s ease-out forwards;
-  }
-
-  .back-button:hover {
-    background-color: #6dc571;
-    color: white;
-  }
-
-
-  @keyframes fadeInAnimation {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
+}
 </style>
-
