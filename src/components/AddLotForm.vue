@@ -58,7 +58,8 @@ export default {
         startingPrice: null,
         endingDateHours: "",
         category: { id: null, name: "" },
-        subCategory: { id: null, name: "" }
+        subCategory: { id: null, name: "" },
+        state: null
       },
       errors: {
         name: false,
