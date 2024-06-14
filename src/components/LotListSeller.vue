@@ -23,7 +23,7 @@
         <td>{{ lot.actualPrice }} CHF</td>
         <td>{{ lot.state }}</td>
         <td>
-          <router-link :to="{ name: 'LotDetails', params: { id: lot.id }}">
+          <router-link :to="{ name: 'LotDetails', params: { articleNumber: lot.articleNumber }}">
             Voir les détails
           </router-link>
         </td>
