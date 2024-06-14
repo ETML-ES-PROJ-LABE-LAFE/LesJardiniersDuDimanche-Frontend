@@ -1,7 +1,7 @@
 <template>
     <div class="lot-details">
       <div class="lot-image">
-        <img :src="require('@/assets/article_test.png')" alt="Image de l'article" />
+        <img :src="lot.img" alt="Image de l'article" />
       </div>
       <div class="lot-content">
         <h2 class="lot-title">{{ lot.name }}</h2>
