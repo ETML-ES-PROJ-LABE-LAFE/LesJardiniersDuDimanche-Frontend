@@ -59,18 +59,11 @@ export default {
   padding-right: 10%;
 }
 
-.header-container {
-  padding: 20px 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  margin-bottom: 10px;
-}
-
 h1 {
-  margin: 0;
   font-size: 2.5rem;
-  color: #333;
+  color: floralwhite;
+  padding-top: 5px;
+  margin-bottom: 0px;
 }
 
 .seller-lots {
