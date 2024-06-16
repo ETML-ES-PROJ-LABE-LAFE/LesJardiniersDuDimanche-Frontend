@@ -1,5 +1,10 @@
 <template>
   <div class="tracked-lots-view">
+     <div class="buttons-container">
+      <router-link v-if="connectedUser" :to="{ name: 'Profile', params: { id: connectedUser.id } }" class="back-button animated">
+        Retour au profil
+      </router-link>
+     </div>
     <div class="header-container">
       <h1>Suivi de vos lots mis aux enchères</h1>
     </div>
@@ -24,11 +29,13 @@ export default {
   },
   data() {
     return {
-      lots: []
+      lots: [],
+      connectedUser : null
     };
   },
   async created() {
     await this.loadSellerLots();
+    await this.loadConnectedUser();
   },
   methods: {
     async loadSellerLots() {
@@ -42,12 +49,25 @@ export default {
       } catch (error) {
         console.error("Error fetching seller's lots:", error);
       }
+    },
+    async loadConnectedUser() {
+      try {
+        const userId = UserService.getLoggedInUserId();
+        if (userId) {
+          this.connectedUser = await UserService.getUserById(userId);
+        } else {
+          console.error("Aucun utilisateur connecté trouvé.");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des détails de l'utilisateur: " + error);
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+
 .tracked-lots-view {
   min-height: calc(100vh - 80px);
   width: 100%;
@@ -62,12 +82,47 @@ export default {
 h1 {
   font-size: 2.5rem;
   color: floralwhite;
-  padding-top: 5px;
-  margin-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 30px;
 }
 
 .seller-lots {
-  padding: 20px;
-  width: 95%;
+  width: 98%;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding-left: 50px;
+}
+
+.back-button {
+  padding: 10px 20px;
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  opacity: 0;
+  animation: fadeInAnimation 1.5s ease-out forwards;
+}
+
+.back-button:hover {
+  background-color: #6dc571;
+  color: white;
+}
+
+/* Animation d'apparition */
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 </style>
