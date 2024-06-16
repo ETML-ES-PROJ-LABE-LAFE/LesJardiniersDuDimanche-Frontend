@@ -126,13 +126,6 @@ export default {
   background-color: #e2e2e2;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
 .pagination button {
   margin: 0 10px;
   padding: 10px 20px;
