@@ -2,6 +2,7 @@
   <table class="lot-table">
     <thead>
     <tr>
+      <th>Aperçu</th>
       <th>Catégorie</th>
       <th>Sous-Catégorie</th>
       <th>Nom</th>
@@ -92,4 +93,5 @@ export default {
 .lot-table tr:hover {
   background-color: #e2e2e2;
 }
+
 </style>
