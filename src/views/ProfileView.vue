@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="profile-view background" v-if="user">
     <div class="profile-card">
       <img :src="getUserImage(user.id)" alt="User Icon" class="profile-image" />
