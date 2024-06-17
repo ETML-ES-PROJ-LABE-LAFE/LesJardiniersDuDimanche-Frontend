@@ -3,6 +3,7 @@
     <table class="lot-table">
       <thead>
       <tr>
+        <th>Aperçu</th>
         <th>Catégorie</th>
         <th>Sous-Catégorie</th>
         <th>Nom</th>
@@ -16,13 +17,20 @@
       </thead>
       <tbody>
       <tr v-for="lot in paginatedLots" :key="lot.id">
+         <td class="image-width">
+          <img :src="lot.img" alt="Lot Image" class="lot-image" />
+        </td>
         <td>{{ lot.category.name }}</td>
         <td>{{ lot.subCategory.name }}</td>
         <td>{{ lot.name }}</td>
         <td>{{ lot.description }}</td>
         <td>{{ lot.startingPrice }} CHF</td>
         <td>{{ lot.actualPrice }} CHF</td>
-        <td>{{ lot.state.stateName }}</td>
+        <td>
+          <span :class="getStateClass(lot.state.stateName)">
+            {{ lot.state.stateName }}
+          </span>
+        </td>
         <td>
           <router-link :to="{ name: 'LotDetails', params: { articleNumber: lot.articleNumber }}">
             Voir les détails
@@ -86,6 +94,12 @@ export default {
       } catch (error) {
         console.error("Erreur lors de la clôture du lot !!!!!", error);
       }
+    },
+     getStateClass(stateName) {
+      return {
+        'state-label': true,
+        'state-en-cours': stateName === 'En Cours',
+      }
     }
   }
 };
@@ -97,53 +111,73 @@ export default {
 .lot-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin: 10px 0;
   font-family: 'Nunito', sans-serif;
-  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.lot-table th, .lot-table td {
+.lot-table th {
+  background-color: #333;
+  color: white;
   text-align: left;
   padding: 15px;
-  vertical-align: middle;
+}
+
+.lot-table td {
+  padding: 15px;
   border-bottom: 1px solid #ddd;
   background-color: #f4f4f4;
   font-size: 16px;
   color: #333;
 }
 
-.lot-table th {
-  background-color: #333;
-  color: white;
-}
-
-.lot-table tr:nth-child(even) {
+.lot-table tr:nth-child(even) td {
   background-color: #f0f0f0;
 }
 
-.lot-table tr:hover {
+.lot-table tr:hover td {
   background-color: #e2e2e2;
 }
+.image-width {
+  width: 12%;
+  padding: 0;
+}
 
-.pagination button {
-  margin: 0 10px;
+.lot-image {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+
+button {
+  margin-top: 20px;
   padding: 10px 20px;
   border: none;
-  background-color: #007BFF;
-  color: white;
-  cursor: pointer;
   border-radius: 4px;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
+  background-color: indianred;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.pagination button:hover:not(:disabled) {
-  background-color: #0056b3;
+button:hover {
+  background-color: royalblue;
 }
 
-.pagination button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+.state-label {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.state-en-cours {
+  background-color: green;
 }
 </style>
