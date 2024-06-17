@@ -101,63 +101,60 @@ export default {
 .lot-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin: 10px 0;
   font-family: 'Nunito', sans-serif;
-  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.lot-table th, .lot-table td {
+.lot-table th {
+  background-color: #333;
+  color: white;
   text-align: left;
   padding: 15px;
-  vertical-align: middle;
+}
+
+.lot-table td {
+  padding: 15px;
   border-bottom: 1px solid #ddd;
   background-color: #f4f4f4;
   font-size: 16px;
   color: #333;
 }
 
-.lot-table th {
-  background-color: #333;
-  color: white;
-}
-
-.lot-table tr:nth-child(even) {
+.lot-table tr:nth-child(even) td {
   background-color: #f0f0f0;
 }
 
-.lot-table tr:hover {
+.lot-table tr:hover td {
   background-color: #e2e2e2;
 }
-
-.pagination button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  border: none;
-  background-color: #007BFF;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
-}
-
-.pagination button:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-.pagination button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
 .image-width {
-  width: 10%;
+  width: 12%;
   padding: 0;
 }
 
 .lot-image {
+  max-width: 100%;
   width: 100%;
-  height: 100px;
+  height: auto;
+  display: block;
   object-fit: cover;
 }
+
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: indianred;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
 </style>
