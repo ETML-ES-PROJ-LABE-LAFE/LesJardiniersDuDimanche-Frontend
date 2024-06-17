@@ -26,7 +26,11 @@
         <td>{{ lot.description }}</td>
         <td>{{ lot.startingPrice }} CHF</td>
         <td>{{ lot.actualPrice }} CHF</td>
-        <td>{{ lot.state.stateName }}</td>
+        <td>
+          <span :class="getStateClass(lot.state.stateName)">
+            {{ lot.state.stateName }}
+          </span>
+        </td>
         <td>
           <router-link :to="{ name: 'LotDetails', params: { articleNumber: lot.articleNumber }}">
             Voir les détails
@@ -89,6 +93,12 @@ export default {
         this.$emit('lotUpdated');
       } catch (error) {
         console.error("Erreur lors de la clôture du lot !!!!!", error);
+      }
+    },
+     getStateClass(stateName) {
+      return {
+        'state-label': true,
+        'state-en-cours': stateName === 'En Cours',
       }
     }
   }
@@ -154,7 +164,20 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: royalblue;
 }
 
+.state-label {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+.state-en-cours {
+  background-color: green;
+}
 </style>
