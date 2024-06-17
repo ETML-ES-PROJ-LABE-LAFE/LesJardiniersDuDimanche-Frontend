@@ -3,6 +3,7 @@
     <table class="lot-table">
       <thead>
       <tr>
+        <th>Aperçu</th>
         <th>Catégorie</th>
         <th>Sous-Catégorie</th>
         <th>Nom</th>
@@ -16,6 +17,9 @@
       </thead>
       <tbody>
       <tr v-for="lot in paginatedLots" :key="lot.id">
+         <td class="image-width">
+          <img :src="lot.img" alt="Lot Image" class="lot-image" />
+        </td>
         <td>{{ lot.category.name }}</td>
         <td>{{ lot.subCategory.name }}</td>
         <td>{{ lot.name }}</td>
@@ -145,5 +149,15 @@ export default {
 .pagination button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+.image-width {
+  width: 10%;
+  padding: 0;
+}
+
+.lot-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
 }
 </style>
