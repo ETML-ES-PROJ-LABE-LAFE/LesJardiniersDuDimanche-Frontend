@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       isSubmitting: false,
+      assetsPath: "https://s3.us-west-2.amazonaws.com/les-jardiniers-du-dimanche.etml.es/",
       lot: {
         name: "",
         description: "",
@@ -59,7 +60,8 @@ export default {
         endingDateHours: "",
         category: { id: null, name: "" },
         subCategory: { id: null, name: "" },
-        state: null
+        state: null,
+        img: "Default.png"
       },
       errors: {
         name: false,
@@ -83,6 +85,7 @@ export default {
         this.isSubmitting = true;
         this.lot.startingDateHours = new Date().toISOString();
         this.lot.actualPrice = this.lot.startingPrice;
+        this.lot.img = this.assetsPath + this.lot.img;
         this.$emit('submit-lot', this.lot);
       }
     },
