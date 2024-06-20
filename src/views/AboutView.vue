@@ -5,45 +5,63 @@
       Bienvenue chez RIZCARDEAU, votre plateforme d'enchères en ligne de confiance.
       Nous nous engageons à offrir une expérience utilisateur exceptionnelle, que vous soyez un acheteur ou un vendeur.
     </p>
+
     <h2>Notre Mission</h2>
-    <p>
-      Notre mission est de connecter les acheteurs et les vendeurs de manière transparente et efficace.
-      Nous croyons en la transparence, la sécurité et la satisfaction de nos utilisateurs.
-    </p>
+    <div class="section">
+      <img src="@/assets/missions.jpg" alt="Notre Mission" class="section-image"/>
+      <p>
+        Notre mission est de connecter les acheteurs et les vendeurs de manière transparente et efficace.
+        Nous croyons en la transparence, la sécurité et la satisfaction de nos utilisateurs.
+      </p>
+    </div>
+
     <h2>Notre Histoire</h2>
-    <p>
-      RIZCARDEAU a été fondé en 2024 avec l'objectif de révolutionner le marché des enchères en ligne.
-      Depuis nos débuts modestes, nous avons grandi pour devenir l'une des plateformes les plus respectées du secteur.
-    </p>
+    <div class="section reverse">
+      <img src="@/assets/histoire.jpg" alt="Notre Histoire" class="section-image"/>
+      <p>
+        RIZCARDEAU a été fondé en 2024 avec l'objectif de révolutionner le marché des enchères en ligne.
+        Depuis nos débuts modestes, nous avons grandi pour devenir l'une des plateformes les plus respectées du secteur.
+      </p>
+    </div>
+
     <h2>Notre Équipe</h2>
-    <p>
-      Notre équipe est composée de professionnels passionnés par le commerce en ligne et dédiés à l'amélioration continue de notre plateforme.
-      Nous travaillons sans relâche pour garantir que chaque utilisateur ait une expérience positive et enrichissante.
-    </p>
+    <div class="section">
+      <img src="@/assets/equipe.jpg" alt="Notre Équipe" class="section-image"/>
+      <p>
+        Notre équipe est composée de professionnels passionnés par le commerce en ligne et dédiés à l'amélioration continue de notre plateforme.
+        Nous travaillons sans relâche pour garantir que chaque utilisateur ait une expérience positive et enrichissante.
+      </p>
+    </div>
+
     <h2>Nos Valeurs</h2>
-    <ul>
-      <li><strong>Intégrité :</strong> Nous agissons avec honnêteté et éthique dans toutes nos interactions.</li>
-      <li><strong>Innovation :</strong> Nous cherchons constamment à innover pour améliorer notre plateforme.</li>
-      <li><strong>Client d'abord :</strong> La satisfaction de nos utilisateurs est notre priorité absolue.</li>
-    </ul>
+    <div class="section">
+      <img src="@/assets/valeurs.png" alt="Nos Valeurs" class="section-image"/>
+      <ul>
+        <li><strong>Intégrité :</strong> Nous agissons avec honnêteté et éthique dans toutes nos interactions.</li>
+        <li><strong>Innovation :</strong> Nous cherchons constamment à innover pour améliorer notre plateforme.</li>
+        <li><strong>Client d'abord :</strong> La satisfaction de nos utilisateurs est notre priorité absolue.</li>
+      </ul>
+    </div>
+
     <h2>Nos Services</h2>
-    <p>
-      Chez RIZCARDEAU, nous offrons une variété de services pour répondre à vos besoins :
-    </p>
-    <ul>
-      <li><strong>Enchères en ligne :</strong> Participez à des enchères en temps réel avec des milliers d'autres utilisateurs.</li>
-      <li><strong>Ventes aux enchères :</strong> Vendez vos articles à un large public et obtenez les meilleurs prix.</li>
-      <li><strong>Support client :</strong> Bénéficiez d'un support client dédié pour toutes vos questions et préoccupations.</li>
-    </ul>
+    <div class="section reverse">
+      <img src="@/assets/services.webp" alt="Nos Services" class="section-image"/>
+      <ul>
+        <li><strong>Enchères en ligne :</strong> Participez à des enchères en temps réel avec des milliers d'autres utilisateurs.</li>
+        <li><strong>Ventes aux enchères :</strong> Vendez vos articles à un large public et obtenez les meilleurs prix.</li>
+        <li><strong>Support client :</strong> Bénéficiez d'un support client dédié pour toutes vos questions et préoccupations.</li>
+      </ul>
+    </div>
+
     <h2>Contactez-nous</h2>
-    <p>
-      Vous avez des questions ou des commentaires ? N'hésitez pas à nous contacter via les moyens suivants :
-    </p>
-    <ul>
-      <li><strong>Email :</strong> <a href="mailto:samuel.mottier@eduvaud.ch">samuel.mottier@eduvaud.ch</a></li>
-      <li><strong>Téléphone :</strong> +41 79 862 33 48</li>
-      <li><strong>Adresse :</strong> Recordon 1bis, 1001 Lausanne, Suisse</li>
-    </ul>
+    <div class="section">
+      <img src="@/assets/contact.jpg" alt="Contactez-nous" class="section-image"/>
+      <ul>
+        <li><strong>Email :</strong> <a href="mailto:samuel.mottier@eduvaud.ch">samuel.mottier@eduvaud.ch</a></li>
+        <li><strong>Téléphone :</strong> +41 79 862 33 48</li>
+        <li><strong>Adresse :</strong> Recordon 1bis, 1001 Lausanne, Suisse</li>
+      </ul>
+    </div>
 
     <div class="map-container">
       <iframe
@@ -73,7 +91,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 40px;
   box-sizing: border-box;
 }
 
@@ -81,12 +99,14 @@ export default {
   text-align: center;
   margin-bottom: 20px;
   color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .about-view p, .about-view ul {
   margin-bottom: 20px;
   line-height: 1.6;
-  color: #fff;
+  color: #333; /* Couleur du texte plus foncée pour plus de contraste */
+  text-align: justify;
 }
 
 .about-view ul {
@@ -106,10 +126,40 @@ export default {
   text-decoration: underline;
 }
 
+/* Section styles */
+.section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 1000px;
+  background-color: #ffffff; /* Fond blanc pour plus de contraste */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.section.reverse {
+  flex-direction: row-reverse;
+}
+
+.section-image {
+  width: 40%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-right: 20px;
+}
 
 .map-container {
   width: 100%;
   height: 400px;
   overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-top: 30px;
 }
 </style>
