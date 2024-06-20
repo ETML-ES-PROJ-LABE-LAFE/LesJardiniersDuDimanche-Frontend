@@ -138,7 +138,7 @@ export default {
     height: 30px;
     border-radius: 50%;
     border: 2px solid white;
-    margin-right: 10px; /* Espace entre l'icône et le solde */
+    margin-right: 10px;
   }
 
   .wallet-balance {

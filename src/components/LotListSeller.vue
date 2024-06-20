@@ -86,7 +86,6 @@ export default {
       this.currentPage = page;
     },
     async cloturerLot(articleNumber) {
-      console.log("Tentative de clôture du lot avec le numéro d'article:", articleNumber);
       try {
         const response = await LotService.cloturerLot(articleNumber);
         console.log("Réponse de l'API pour la clôture du lot:", response);
