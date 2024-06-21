@@ -9,6 +9,10 @@
           <strong>Vendeur : </strong>
           <span>{{ lot.user.name }}</span>
         </div>
+        <div class="lot-info-card">
+          <strong>Numéro d'article : </strong>
+          <span>{{ lot.articleNumber }}</span>
+        </div>
         <div class="lot-info">
           <div class="lot-info-card">
             <strong>Catégorie : </strong>

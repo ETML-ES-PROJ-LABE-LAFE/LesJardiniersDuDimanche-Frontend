@@ -98,6 +98,7 @@ export default {
       return {
         'state-label': true,
         'state-en-cours': stateName === 'En Cours',
+        'state-termine': stateName === 'Terminé'
       }
     }
   }
@@ -178,5 +179,9 @@ button:hover {
 
 .state-en-cours {
   background-color: green;
+}
+
+.state-termine {
+  background-color: red;
 }
 </style>
